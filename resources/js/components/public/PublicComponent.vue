@@ -3,40 +3,37 @@
 		<b-card-group deck>
 			<b-card
 				header="VIP"
-				bg-variant="danger"	
-				:title="vip">
+				v-bind:bg-variant="vip_mark">
 				<b-card-text>
 					{{ vip }}
 				</b-card-text>
 			</b-card>
 			<b-card
-				header="Kelas I">
+				header="Kelas I"
+				v-bind:bg-variant="kelas1_mark">
 				<b-card-text>
 					{{ kelas1}}
 				</b-card-text>
 			</b-card>
 			<b-card
-				header="Kelas II">
+				header="Kelas II"
+				v-bind:bg-variant="kelas2_mark">
 				<b-card-text>
 					{{ kelas2 }}
 				</b-card-text>
 			</b-card>
 			<b-card
-				header="Kelas III">
+				header="Kelas III"
+				v-bind:bg-variant="kelas3_mark">
 				<b-card-text>
 					{{ kelas3 }}
 				</b-card-text>
 			</b-card>
 			<b-card
-				header="ICU">
+				header="ICU"
+				v-bind:bg-variant="icu_mark">
 				<b-card-text>
 					{{ icu }}
-				</b-card-text>
-			</b-card>
-			<b-card
-				header="Tanpa Kelas">
-				<b-card-text>
-					{{ vip }}
 				</b-card-text>
 			</b-card>
 		</b-card-group>
@@ -47,13 +44,60 @@
 <script>
 export default {
 	mounted() {
+		// vip
+		const Callback = () => {
 		this.$store.dispatch("fetch", {
-			form: { kelas: 'VIP' },
+			params: { kelas: 'VIP' },
 			endpoint: 'availablerooms'
 		})
 		.then(resp => {
-			data = resp.data.res
+			this.vip = resp.data.res.jumlah_kamar_open
+			this.vip_mark = parseInt(this.vip) > 0 ? 'primary' : 'danger'
 		})
+
+		// kelas 1
+		this.$store.dispatch("fetch", {
+			params: { kelas: 'Kelas I' },
+			endpoint: 'availablerooms'
+		})
+		.then(resp => {
+			this.kelas1 = resp.data.res.jumlah_kamar_open
+			this.kelas1_mark = parseInt(this.kelas1) > 0 ? 'primary' : 'danger'
+		})
+
+		// kelas 2
+		this.$store.dispatch("fetch", {
+			params: { kelas: 'Kelas II' },
+			endpoint: 'availablerooms'
+		})
+		.then(resp => {
+			this.kelas2 = resp.data.res.jumlah_kamar_open
+			this.kelas2_mark = parseInt(this.kelas2) > 0 ? 'primary' : 'danger'
+		})
+
+		// kelas 3
+		this.$store.dispatch("fetch", {
+			params: { kelas: 'Kelas III' },
+			endpoint: 'availablerooms'
+		})
+		.then(resp => {
+			this.kelas3 = resp.data.res.jumlah_kamar_open
+			this.kelas3_mark = parseInt(this.kelas3) > 0 ? 'primary' : 'danger'
+		})
+
+		// icu
+		this.$store.dispatch("fetch", {
+			params: { kelas: '' },
+			endpoint: 'availableicurooms'
+		})
+		.then(resp => {
+			this.icu = resp.data.res
+			this.icu_mark = parseInt(this.icu) > 0 ? 'primary' : 'danger'
+		}) 
+		}
+
+		Callback()
+		setInterval(Callback, 30000, this)
 	},
 	data: function() {
 		return { 
@@ -62,7 +106,11 @@ export default {
 			kelas2:'0',
 			kelas3:'0',
 			icu:'0',
-			vip_0:false	
+			vip_mark:'primary',
+			kelas1_mark:'primary',
+			kelas2_mark:'primary',
+			kelas3_mark:'primary',	
+			icu_mark:'primary',	
 		}
 	}
 }

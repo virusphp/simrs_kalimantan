@@ -131,9 +131,14 @@ class KamarRuanganController extends Controller
 			->orderBy('kamarruangan_m.kelaspelayanan_id')
 			->get();
 
+		$available_kamar_sum = 0;
+		foreach($available_kamar as $available) {
+			$available_kamar_sum += $available->jumlah_kamar_open;
+		}
+
 		return response()->json([
 			'status' => 'Success',
-			'res' => $available_kamar,
+			'res' => $available_kamar_sum,
 		])->setStatusCode(200, "Good");
 	}
 }
