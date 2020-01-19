@@ -88,7 +88,7 @@ export default new Vuex.Store({
 		},
 		fetch({commit}, data){
 			return new Promise((resolve, reject) => {
-				axios.get('/api/' + data.endpoint, data.form)
+				axios.get('/api/' + data.endpoint, { params: data.params })
 				.then(response => {
 					resolve(response)
 				})

@@ -113,7 +113,7 @@ class KamarRuanganController extends Controller
 			})
 			->orderBy('kamarruangan_m.kelaspelayanan_id')
 			//->dump();
-			->get();
+			->first();
 
 		return response()->json([
 			'status' => 'Success',

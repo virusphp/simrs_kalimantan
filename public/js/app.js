@@ -88710,7 +88710,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     fetch: function fetch(_ref6, data) {
       var commit = _ref6.commit;
       return new Promise(function (resolve, reject) {
-        axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/' + data.endpoint, data.form).then(function (response) {
+        axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/' + data.endpoint, {
+          params: data.params
+        }).then(function (response) {
           resolve(response);
         });
       });
