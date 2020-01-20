@@ -50,6 +50,11 @@
 										<button type="submit" class="btn btn-primary">
 											Login
 										</button>
+										<div v-if="hasPasswordRequest">
+											<router-link to="/register">
+												Register
+											</router-link>
+										</div>
 
 										<div v-if="hasPasswordRequest">
 											<router-link to="/password_request">

@@ -1,6 +1,6 @@
 <template>
 	<div class="container">
-		<b-card-group deck>
+		<b-card-group columns>
 			<b-card
 				header="VIP"
 				v-bind:bg-variant="vip_mark">

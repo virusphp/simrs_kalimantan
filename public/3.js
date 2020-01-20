@@ -114,7 +114,7 @@ __webpack_require__.r(__webpack_exports__);
     };
 
     Callback();
-    setInterval(Callback, 10000, this);
+    setInterval(Callback, 30000, this);
   },
   data: function data() {
     return {
@@ -155,7 +155,7 @@ var render = function() {
     [
       _c(
         "b-card-group",
-        { attrs: { deck: "" } },
+        { attrs: { columns: "" } },
         [
           _c(
             "b-card",
