@@ -58,6 +58,8 @@ __webpack_require__.r(__webpack_exports__);
 
     // vip
     var Callback = function Callback() {
+      console.log("**** fetch data" + new Date());
+
       _this.$store.dispatch("fetch", {
         params: {
           kelas: 'VIP'
@@ -114,7 +116,7 @@ __webpack_require__.r(__webpack_exports__);
     };
 
     Callback();
-    setInterval(Callback, 30000, this);
+    setInterval(Callback, 30000);
   },
   data: function data() {
     return {
@@ -155,7 +157,7 @@ var render = function() {
     [
       _c(
         "b-card-group",
-        { attrs: { columns: "" } },
+        { attrs: { deck: "" } },
         [
           _c(
             "b-card",

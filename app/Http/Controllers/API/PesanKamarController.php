@@ -10,9 +10,11 @@ use App\Pasien;
 use App\Instalasi;
 use App\KamarRuangan;
 //use App\KelasRuangan;
+use App\MapAppUserToPasien;
 use App\KelasPelayanan;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class PesanKamarController extends Controller
 {
@@ -89,6 +91,27 @@ class PesanKamarController extends Controller
 	
 			try {
 				$bookingKamar->save();
+				
+				// mapping
+				$doesntexists = MapAppUserToPasien::where([ 
+					['app_users_id', '=', Auth::id()],
+					['pasien_id', '=', $pasien_id]
+				])->doesntExist();
+
+				$dataauth = $request->decoded_jwt;
+				if ($doesntexists) {
+					$mapping = new MapAppUserToPasien();
+					$mapping->app_users_id = $dataauth->data->id;
+					$mapping->pasien_id = $pasien_id;
+					$mapping->status = 'AKTIF';
+					$mapping->save();
+				}	
+
+				/*MapAppUserToPasien::updateOrInsert([
+					'app_user_id' => Auth::id(),
+					'pasien_id' => $pasien_id
+				]);*/
+
 				return response()->json([
 					'status' => 'Success',
 					'no_booking' => $bookingkamar_no,

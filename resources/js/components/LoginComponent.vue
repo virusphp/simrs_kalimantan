@@ -74,6 +74,9 @@
 
 <script>
 export default {
+	mounted() {
+		this.$store.dispatch("remove_interval")
+	},
 	data: function() {
 		return {
 			email:'',

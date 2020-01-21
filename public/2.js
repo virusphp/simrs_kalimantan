@@ -109,6 +109,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     console.log('Component mounted.');
     this.emailExists = false;
+    this.$store.dispatch("remove_interval");
   },
   components: {
     vSelect: vue_select__WEBPACK_IMPORTED_MODULE_0___default.a

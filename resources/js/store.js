@@ -9,7 +9,8 @@ export default new Vuex.Store({
 		status: '',
 		token: localStorage.getItem('token') || '',
 		user: {},
-		isLogin: false,	
+		isLogin: false,
+		intervalId:0
 	},
 	mutations: {
 		auth_request(state) {
@@ -29,12 +30,19 @@ export default new Vuex.Store({
 			state.status = ''
 			state.token = ''
 			state.isLogin = false
+		},
+		add_interval_id(state, payload) {
+			state.intervalId = payload
+		},
+		remove_interval_id(state) {
+			clearInterval(state.intervalId)
 		}
 	},
 	actions: {
 		login({commit}, user){
 			return new Promise((resolve, reject) => {
 				commit("auth_request")
+				commit("add_interval_id")
 				axios.post('/api/login', user)
 					.then(response => {
 						const token = response.data.token
@@ -93,6 +101,10 @@ export default new Vuex.Store({
 					resolve(response)
 				})
 			})
+		},
+		remove_interval({commit}) {
+			console.log('************** Remove Interval ID')	
+			commit('remove_interval_id')
 		}
 	},
 	getters: {

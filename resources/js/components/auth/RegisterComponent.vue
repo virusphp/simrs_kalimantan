@@ -99,6 +99,7 @@
         mounted() {
             console.log('Component mounted.')
 			this.emailExists = false
+			this.$store.dispatch("remove_interval")
         },
 		components: {
 			vSelect

@@ -1,6 +1,6 @@
 <template>
 	<div class="container">
-		<b-card-group columns>
+		<b-card-group deck>
 			<b-card
 				header="VIP"
 				v-bind:bg-variant="vip_mark">
@@ -46,58 +46,59 @@ export default {
 	mounted() {
 		// vip
 		const Callback = () => {
-		this.$store.dispatch("fetch", {
-			params: { kelas: 'VIP' },
-			endpoint: 'availablerooms'
-		})
-		.then(resp => {
-			this.vip = resp.data.res.jumlah_kamar_open
-			this.vip_mark = parseInt(this.vip) > 0 ? 'primary' : 'danger'
-		})
+			console.log("**** fetch data" + new Date())
+			this.$store.dispatch("fetch", {
+				params: { kelas: 'VIP' },
+				endpoint: 'availablerooms'
+			})
+			.then(resp => {
+				this.vip = resp.data.res.jumlah_kamar_open
+				this.vip_mark = parseInt(this.vip) > 0 ? 'primary' : 'danger'
+			})
 
-		// kelas 1
-		this.$store.dispatch("fetch", {
-			params: { kelas: 'Kelas I' },
-			endpoint: 'availablerooms'
-		})
-		.then(resp => {
-			this.kelas1 = resp.data.res.jumlah_kamar_open
-			this.kelas1_mark = parseInt(this.kelas1) > 0 ? 'primary' : 'danger'
-		})
+			// kelas 1
+			this.$store.dispatch("fetch", {
+				params: { kelas: 'Kelas I' },
+				endpoint: 'availablerooms'
+			})
+			.then(resp => {
+				this.kelas1 = resp.data.res.jumlah_kamar_open
+				this.kelas1_mark = parseInt(this.kelas1) > 0 ? 'primary' : 'danger'
+			})
 
-		// kelas 2
-		this.$store.dispatch("fetch", {
-			params: { kelas: 'Kelas II' },
-			endpoint: 'availablerooms'
-		})
-		.then(resp => {
-			this.kelas2 = resp.data.res.jumlah_kamar_open
-			this.kelas2_mark = parseInt(this.kelas2) > 0 ? 'primary' : 'danger'
-		})
+			// kelas 2
+			this.$store.dispatch("fetch", {
+				params: { kelas: 'Kelas II' },
+				endpoint: 'availablerooms'
+			})
+			.then(resp => {
+				this.kelas2 = resp.data.res.jumlah_kamar_open
+				this.kelas2_mark = parseInt(this.kelas2) > 0 ? 'primary' : 'danger'
+			})
 
-		// kelas 3
-		this.$store.dispatch("fetch", {
-			params: { kelas: 'Kelas III' },
-			endpoint: 'availablerooms'
-		})
-		.then(resp => {
-			this.kelas3 = resp.data.res.jumlah_kamar_open
-			this.kelas3_mark = parseInt(this.kelas3) > 0 ? 'primary' : 'danger'
-		})
+			// kelas 3
+			this.$store.dispatch("fetch", {
+				params: { kelas: 'Kelas III' },
+				endpoint: 'availablerooms'
+			})
+			.then(resp => {
+				this.kelas3 = resp.data.res.jumlah_kamar_open
+				this.kelas3_mark = parseInt(this.kelas3) > 0 ? 'primary' : 'danger'
+			})
 
-		// icu
-		this.$store.dispatch("fetch", {
-			params: { kelas: '' },
-			endpoint: 'availableicurooms'
-		})
-		.then(resp => {
-			this.icu = resp.data.res
-			this.icu_mark = parseInt(this.icu) > 0 ? 'primary' : 'danger'
-		}) 
+			// icu
+			this.$store.dispatch("fetch", {
+				params: { kelas: '' },
+				endpoint: 'availableicurooms'
+			})
+			.then(resp => {
+				this.icu = resp.data.res
+				this.icu_mark = parseInt(this.icu) > 0 ? 'primary' : 'danger'
+			}) 
 		}
 
 		Callback()
-		setInterval(Callback, 30000, this)
+		setInterval(Callback, 30000)
 	},
 	data: function() {
 		return { 

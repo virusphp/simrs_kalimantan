@@ -210,7 +210,7 @@ export default {
 				} else {
 					this.$bvModal.show('modal-error-1')
 					
-					setTimeout(function(){
+					setTimeout(() => {
 						this.$router.push('/pesankamar')
 					}, 1000)
 				}

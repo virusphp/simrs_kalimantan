@@ -289,7 +289,7 @@ __webpack_require__.r(__webpack_exports__);
           _this4.$bvModal.show('modal-error-1');
 
           setTimeout(function () {
-            this.$router.push('/pesankamar');
+            _this4.$router.push('/pesankamar');
           }, 1000);
         }
       });
@@ -313,6 +313,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _DataPasien_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DataPasien.vue */ "./resources/js/components/pasien/DataPasien.vue");
 /* harmony import */ var _FormBookingKamar_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FormBookingKamar.vue */ "./resources/js/components/pasien/FormBookingKamar.vue");
+//
+//
+//
 //
 //
 //
@@ -393,17 +396,24 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var no_rekam_medik = this.no_rekam_medik;
+      this.$bvModal.show('modal-loading-search');
       this.$store.dispatch("access_api", {
         form: {
           'no_rekam_medik': no_rekam_medik
         },
         endpoint: "rmpasien"
       }).then(function (resp) {
-        // console.log(resp)
-        _this.showPasien = true; // this.showRekamMedis= false;
+        _this.$bvModal.hide('modal-loading-search');
 
-        _this.dataPasienDetail = resp.data.res;
-        _this.pasienId = resp.data.res.pasien_id;
+        if (resp.data.status == 'Success') {
+          // console.log(resp)
+          _this.showPasien = true; // this.showRekamMedis= false;
+
+          _this.dataPasienDetail = resp.data.res;
+          _this.pasienId = resp.data.res.pasien_id;
+        } else {
+          _this.$bvModal.msgBoxOk('No Rekam Medis: ' + no_rekam_medik + ' tidak ditemukan');
+        }
       })["catch"](function (err) {
         console.log(err);
       });
@@ -691,148 +701,160 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-md-12" }, [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-body" }, [
-            _c(
-              "form",
-              {
-                on: {
-                  submit: function($event) {
-                    $event.preventDefault()
-                    return _vm.getPasien($event)
+  return _c(
+    "div",
+    { staticClass: "container" },
+    [
+      _c(
+        "b-modal",
+        { attrs: { id: "modal-loading-search", title: "Sedang Proses" } },
+        [_vm._v("\n\t\tTunggu, sedang proses pencarian...\n\t")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "row justify-content-center" }, [
+        _c("div", { staticClass: "col-md-12" }, [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "card-body" }, [
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.getPasien($event)
+                    }
                   }
-                }
-              },
-              [
-                _vm.showRekamMedis
-                  ? _c("div", { staticClass: "form-group row" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "col-md-4 col-form-label text-md-right",
-                          attrs: { for: "no_rekam_medik" }
-                        },
-                        [_vm._v("No Rekam Medis")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-5" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.no_rekam_medik,
-                              expression: "no_rekam_medik"
-                            }
-                          ],
-                          class: [
-                            _vm.formControl,
-                            { "is-invalid": _vm.no_rekam_medikIsInvalid }
-                          ],
-                          attrs: {
-                            id: "no_rekam_medik",
-                            name: "no_rekam_medik",
-                            required: "",
-                            autofocus: "",
-                            placeholder: "masukkan nomor rekam medis"
-                          },
-                          domProps: { value: _vm.no_rekam_medik },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.no_rekam_medik = $event.target.value
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
+                },
+                [
+                  _vm.showRekamMedis
+                    ? _c("div", { staticClass: "form-group row" }, [
                         _c(
-                          "span",
+                          "label",
                           {
-                            staticClass: "invalid-feedback",
-                            attrs: { role: "alert" }
+                            staticClass:
+                              "col-md-4 col-form-label text-md-right",
+                            attrs: { for: "no_rekam_medik" }
                           },
-                          [_c("strong", [_vm._v(_vm._s(_vm.message))])]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _vm._m(0)
-                    ])
-                  : _vm._e()
-              ]
-            ),
-            _vm._v(" "),
-            _vm.showPasien
-              ? _c("div", { staticClass: "form-group row max-auto" }, [
-                  _c(
-                    "label",
-                    {
-                      staticClass: "col-md-6 col-form-label text-md-right",
-                      attrs: { for: "no_rekam_medik" }
-                    },
-                    [_vm._v("Apakah benar data pasien berikut?")]
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-6 float-right" }, [
+                          [_vm._v("No Rekam Medis")]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-5" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.no_rekam_medik,
+                                expression: "no_rekam_medik"
+                              }
+                            ],
+                            class: [
+                              _vm.formControl,
+                              { "is-invalid": _vm.no_rekam_medikIsInvalid }
+                            ],
+                            attrs: {
+                              id: "no_rekam_medik",
+                              name: "no_rekam_medik",
+                              required: "",
+                              autofocus: "",
+                              placeholder: "masukkan nomor rekam medis"
+                            },
+                            domProps: { value: _vm.no_rekam_medik },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.no_rekam_medik = $event.target.value
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            {
+                              staticClass: "invalid-feedback",
+                              attrs: { role: "alert" }
+                            },
+                            [_c("strong", [_vm._v(_vm._s(_vm.message))])]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _vm._m(0)
+                      ])
+                    : _vm._e()
+                ]
+              ),
+              _vm._v(" "),
+              _vm.showPasien
+                ? _c("div", { staticClass: "form-group row max-auto" }, [
                     _c(
-                      "button",
+                      "label",
                       {
-                        staticClass: "btn btn-primary",
-                        on: { click: _vm.continueRegister }
+                        staticClass: "col-md-6 col-form-label text-md-right",
+                        attrs: { for: "no_rekam_medik" }
                       },
-                      [_vm._v("Lanjut")]
+                      [_vm._v("Apakah benar data pasien berikut?")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-6 float-right" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          on: { click: _vm.continueRegister }
+                        },
+                        [_vm._v("Lanjut")]
+                      )
+                    ])
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.showPasien
+                ? _c("div", { staticClass: "form-group row" }, [
+                    _c(
+                      "div",
+                      { staticClass: "col-md-12 col-lg-6 mx-auto" },
+                      [
+                        _c("data-pasien", {
+                          attrs: {
+                            rdata: { dataPasienDetail: _vm.dataPasienDetail }
+                          }
+                        })
+                      ],
+                      1
                     )
                   ])
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.showPasien
-              ? _c("div", { staticClass: "form-group row" }, [
-                  _c(
-                    "div",
-                    { staticClass: "col-md-12 col-lg-6 mx-auto" },
-                    [
-                      _c("data-pasien", {
-                        attrs: {
-                          rdata: { dataPasienDetail: _vm.dataPasienDetail }
-                        }
-                      })
-                    ],
-                    1
-                  )
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.showFormBookingKamar
-              ? _c("div", { staticClass: "form-group row" }, [
-                  _c(
-                    "div",
-                    { staticClass: "col-md-12 col-lg-6 mx-auto" },
-                    [
-                      _c("form-booking-kamar", {
-                        attrs: {
-                          norm: _vm.no_rekam_medik,
-                          dataPasien: {
-                            dataPasienDetail: _vm.dataPasienDetail
-                          },
-                          rdata: { no_rekam_medik: _vm.no_rekam_medik },
-                          pasienid: _vm.pasienId
-                        }
-                      })
-                    ],
-                    1
-                  )
-                ])
-              : _vm._e()
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.showFormBookingKamar
+                ? _c("div", { staticClass: "form-group row" }, [
+                    _c(
+                      "div",
+                      { staticClass: "col-md-12 col-lg-6 mx-auto" },
+                      [
+                        _c("form-booking-kamar", {
+                          attrs: {
+                            norm: _vm.no_rekam_medik,
+                            dataPasien: {
+                              dataPasienDetail: _vm.dataPasienDetail
+                            },
+                            rdata: { no_rekam_medik: _vm.no_rekam_medik },
+                            pasienid: _vm.pasienId
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  ])
+                : _vm._e()
+            ])
           ])
         ])
       ])
-    ])
-  ])
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {

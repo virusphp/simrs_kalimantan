@@ -2,6 +2,9 @@
 
 <template>
 	<div class="container">
+		<b-modal id="modal-loading-search" title="Sedang Proses">
+			Tunggu, sedang proses pencarian...
+		</b-modal>
 		<div class="row justify-content-center">
 			<div class="col-md-12">
 				<div class="card">
@@ -78,15 +81,21 @@ export default {
 	methods: {
 		getPasien: function() {
 			let no_rekam_medik = this.no_rekam_medik
+			this.$bvModal.show('modal-loading-search')
 			this.$store.dispatch("access_api", {
 				form: { 'no_rekam_medik' : no_rekam_medik },
 				endpoint: "rmpasien"})
 				.then(resp => {
-					// console.log(resp)
-					this.showPasien = true
-					// this.showRekamMedis= false;
-					this.dataPasienDetail = resp.data.res
-					this.pasienId = resp.data.res.pasien_id
+					this.$bvModal.hide('modal-loading-search')
+					if (resp.data.status == 'Success') {
+						// console.log(resp)
+						this.showPasien = true
+						// this.showRekamMedis= false;
+						this.dataPasienDetail = resp.data.res
+						this.pasienId = resp.data.res.pasien_id
+					} else {
+						this.$bvModal.msgBoxOk('No Rekam Medis: ' + no_rekam_medik  + ' tidak ditemukan')
+					}
 				})
 				.catch(err => { console.log(err) })
 		},

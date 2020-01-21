@@ -88578,10 +88578,6 @@ var Register = function Register() {
   return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./components/auth/RegisterComponent.vue */ "./resources/js/components/auth/RegisterComponent.vue"));
 };
 
-var RegisterPasien = function RegisterPasien() {
-  return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./components/pasien/RegistrasiPasienComponent.vue */ "./resources/js/components/pasien/RegistrasiPasienComponent.vue"));
-};
-
 var PesanKamar = function PesanKamar() {
   return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./components/pasien/PesanKamar.vue */ "./resources/js/components/pasien/PesanKamar.vue"));
 };
@@ -88632,7 +88628,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     status: '',
     token: localStorage.getItem('token') || '',
     user: {},
-    isLogin: false
+    isLogin: false,
+    intervalId: 0
   },
   mutations: {
     auth_request: function auth_request(state) {
@@ -88651,6 +88648,12 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       state.status = '';
       state.token = '';
       state.isLogin = false;
+    },
+    add_interval_id: function add_interval_id(state, payload) {
+      state.intervalId = payload;
+    },
+    remove_interval_id: function remove_interval_id(state) {
+      clearInterval(state.intervalId);
     }
   },
   actions: {
@@ -88658,6 +88661,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       var commit = _ref.commit;
       return new Promise(function (resolve, reject) {
         commit("auth_request");
+        commit("add_interval_id");
         axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/login', user).then(function (response) {
           var token = response.data.token;
           axios__WEBPACK_IMPORTED_MODULE_2___default.a.defaults.headers.common['Authorization'] = 'Bearer ' + token;
@@ -88716,6 +88720,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
           resolve(response);
         });
       });
+    },
+    remove_interval: function remove_interval(_ref7) {
+      var commit = _ref7.commit;
+      console.log('************** Remove Interval ID');
+      commit('remove_interval_id');
     }
   },
   getters: {}
