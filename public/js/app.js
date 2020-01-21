@@ -88661,7 +88661,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       var commit = _ref.commit;
       return new Promise(function (resolve, reject) {
         commit("auth_request");
-        commit("add_interval_id");
+        commit("remove_interval_id");
         axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/login', user).then(function (response) {
           var token = response.data.token;
           axios__WEBPACK_IMPORTED_MODULE_2___default.a.defaults.headers.common['Authorization'] = 'Bearer ' + token;
@@ -88725,6 +88725,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       var commit = _ref7.commit;
       console.log('************** Remove Interval ID');
       commit('remove_interval_id');
+    },
+    set_interval_id: function set_interval_id(_ref8, intvid) {
+      var commit = _ref8.commit;
+      console.log('***** ADD INTV ID *****');
+      commit('add_interval_id', intvid);
     }
   },
   getters: {}

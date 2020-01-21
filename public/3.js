@@ -116,7 +116,8 @@ __webpack_require__.r(__webpack_exports__);
     };
 
     Callback();
-    setInterval(Callback, 30000);
+    var intvid = setInterval(Callback, 30000);
+    this.$store.dispatch("set_interval_id", intvid);
   },
   data: function data() {
     return {

@@ -98,7 +98,8 @@ export default {
 		}
 
 		Callback()
-		setInterval(Callback, 30000)
+		let intvid = setInterval(Callback, 30000)
+		this.$store.dispatch("set_interval_id", intvid)
 	},
 	data: function() {
 		return { 

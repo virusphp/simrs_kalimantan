@@ -42,7 +42,7 @@ export default new Vuex.Store({
 		login({commit}, user){
 			return new Promise((resolve, reject) => {
 				commit("auth_request")
-				commit("add_interval_id")
+				commit("remove_interval_id")
 				axios.post('/api/login', user)
 					.then(response => {
 						const token = response.data.token
@@ -105,6 +105,10 @@ export default new Vuex.Store({
 		remove_interval({commit}) {
 			console.log('************** Remove Interval ID')	
 			commit('remove_interval_id')
+		},
+		set_interval_id({commit}, intvid) {
+			console.log('***** ADD INTV ID *****')	
+			commit('add_interval_id', intvid);
 		}
 	},
 	getters: {
