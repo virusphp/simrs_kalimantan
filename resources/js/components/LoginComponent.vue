@@ -1,4 +1,78 @@
 <template>
+    <section class="section section-shaped section-lg my-0">
+		<b-modal id="modal-error" title="Error Login" >
+			Email atau Password salah
+		</b-modal>
+        <div class="shape shape-style-1 bg-gradient-default">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        
+        <div class="container pt-0">
+            <div class="row justify-content-center">
+                <div class="col-lg-5">
+                    <card type="secondary" shadow
+                          header-classes="bg-white pb-5"
+                          body-classes="px-lg-5 py-lg-5"
+                          class="border-0">
+                        <template>
+                            <form role="form">
+                            <div class="text-center text-muted mb-4">
+                                <small>Masuk</small>
+                            </div>
+                                <base-input alternative
+                                            class="mb-3"
+                                            placeholder="Email"
+                                            addon-left-icon="ni ni-email-83" v-model="email">
+                                </base-input>
+                                <base-input alternative
+                                            type="password"
+                                            placeholder="Password"
+                                            addon-left-icon="ni ni-lock-circle-open" v-model="password">
+                                </base-input>
+                                <!-- <base-checkbox>
+                                    Remember me
+                                </base-checkbox> -->
+                                <div class="text-center">
+                                    <base-button type="primary" class="my-4" @click.prevent="LoginSubmit">Sign In</base-button>
+                                </div>
+                            </form>
+                        </template>
+                    </card>
+                    <div class="row mt-3">
+                        <div class="col-6">
+                            <a href="#" class="text-light">
+                                <small><router-link to="/">Home</router-link></small>
+                            </a>
+                        </div>
+                        <div class="col-6 text-right">
+                            <a href="#" class="text-light">
+                                <small><router-link to="/register">Daftar</router-link></small>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</template>
+
+<!--
+<template>
 	<div class="container">
 		<b-modal id="modal-error" title="Error Login" >
 			Email atau Password salah
@@ -14,10 +88,11 @@
 									<label for="email" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
 
 									<div class="col-md-6">
-										<input v-model="email" id="email" type="email" v-bind:class="[formControl, { 'is-invalid' : emailIsInvalid }]" name="email" required autocomplete="email" autofocus>
+										<base-input v-model="email" id="email" type="email" v-bind:class="[formControl, { 'is-invalid' : emailIsInvalid }]" name="email" required autocomplete="email" autofocus>
 											<span class="invalid-feedback" role="alert">
 												<strong>{{ message }}</strong>
 											</span>
+										</base-input>	
 									</div>
 								</div>
 
@@ -70,7 +145,7 @@
 			</div>
 			</div>
 </template>
-
+-->
 
 <script>
 export default {
@@ -97,6 +172,9 @@ export default {
 			this.$store.dispatch("login", {email, password})
 			.then(response => { 				
 				if (response.data.result == "Success" ) {
+					this.$store.dispatch("save_information", {
+						nama: response.data.nama
+					})
 					this.$router.push('/pesankamar')  
 				
 				} else {
@@ -107,17 +185,6 @@ export default {
 					alert('Please check connections')
 					console.log(error) 
 			})
-			/*this.$http.post('/api/login', {
-				email : this.email,
-				password: this.password
-			}).then(response => {
-				const token = response.data.token
-				localStorage.setItem('token', token)
-				this.$http.defaults.headers.common['Authorization'] = token
-				this.$store.dispatch("login", response.token)
-				this.$route.push('/');
-				[>console.log(this.$store.state.token)<]
-			})*/
 		}
 	}
 }

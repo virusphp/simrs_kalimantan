@@ -267,4 +267,22 @@ class PesanKamarController extends Controller
 		return response()->json($kelasruangan)->setStatusCode(200, "Good");
 	}
 
+	public function nomorbooking(Request $request) {
+		$nobooking = [];
+
+		$decoded_jwt = $request->decoded_jwt;
+		$user_id = $decoded_jwt->data->id;
+
+		// get pasien from user id
+		$mapping = MapAppUserToPasien::where('app_users_id', $user_id)->get();
+		$pasien = [];
+		foreach($mapping as $map) {
+			$pasien[] = $map->pasien_id;
+		}
+
+		print_r($pasien);
+
+		return response()->json($nobooking)->setStatusCode(200, "Good");
+	}
+
 }

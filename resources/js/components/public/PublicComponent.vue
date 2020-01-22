@@ -1,9 +1,10 @@
 <template>
-	<div class="container">
+<div class="container">
+	<div class="pt-4">
 		<b-card-group deck>
 			<b-card
 				header="VIP"
-				v-bind:bg-variant="vip_mark">
+				bg-variant="">
 				<b-card-text>
 					{{ vip }}
 				</b-card-text>
@@ -38,6 +39,7 @@
 			</b-card>
 		</b-card-group>
 	</div>
+</div>	
 </template>
 
 
@@ -53,7 +55,7 @@ export default {
 			})
 			.then(resp => {
 				this.vip = resp.data.res.jumlah_kamar_open
-				this.vip_mark = parseInt(this.vip) > 0 ? 'primary' : 'danger'
+				this.vip_mark = parseInt(this.vip) > 0 ? this.default : 'danger'
 			})
 
 			// kelas 1
@@ -63,7 +65,7 @@ export default {
 			})
 			.then(resp => {
 				this.kelas1 = resp.data.res.jumlah_kamar_open
-				this.kelas1_mark = parseInt(this.kelas1) > 0 ? 'primary' : 'danger'
+				this.kelas1_mark = parseInt(this.kelas1) > 0 ? this.default : 'danger'
 			})
 
 			// kelas 2
@@ -73,7 +75,7 @@ export default {
 			})
 			.then(resp => {
 				this.kelas2 = resp.data.res.jumlah_kamar_open
-				this.kelas2_mark = parseInt(this.kelas2) > 0 ? 'primary' : 'danger'
+				this.kelas2_mark = parseInt(this.kelas2) > 0 ? this.default : 'danger'
 			})
 
 			// kelas 3
@@ -83,7 +85,7 @@ export default {
 			})
 			.then(resp => {
 				this.kelas3 = resp.data.res.jumlah_kamar_open
-				this.kelas3_mark = parseInt(this.kelas3) > 0 ? 'primary' : 'danger'
+				this.kelas3_mark = parseInt(this.kelas3) > 0 ? this.default : 'danger'
 			})
 
 			// icu
@@ -93,7 +95,7 @@ export default {
 			})
 			.then(resp => {
 				this.icu = resp.data.res
-				this.icu_mark = parseInt(this.icu) > 0 ? 'primary' : 'danger'
+				this.icu_mark = parseInt(this.icu) > 0 ? this.default : 'danger'
 			}) 
 		}
 
@@ -108,11 +110,12 @@ export default {
 			kelas2:'0',
 			kelas3:'0',
 			icu:'0',
-			vip_mark:'primary',
-			kelas1_mark:'primary',
-			kelas2_mark:'primary',
-			kelas3_mark:'primary',	
-			icu_mark:'primary',	
+			vip_mark:'',
+			kelas1_mark:'',
+			kelas2_mark:'',
+			kelas3_mark:'',	
+			icu_mark:'',
+			default:'',
 		}
 	}
 }

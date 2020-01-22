@@ -1,4 +1,5 @@
 <template>
+	<card shadow>
 		<div>
 			<!-- <b-button @click="$bvToast.show('pesan-penyimpanan')">klik toast</b-button>	
 			<b-toast id="pesan-penyimpanan" title="Informasi Penyimpanan" static auto-hide>
@@ -49,12 +50,16 @@
 					<div class="col-sm-6">
 						<b-button variant="primary" @click="previewPilihan">Pesan Kamar</b-button>
 					</div>
+					<div class="col-sm-6">
+						<b-button variant="link" @click="confirmCancel">Batal</b-button>
+					</div>
 				</div>
 			</form>
 			<div v-if="previewAll">
 				<div></div>
 			</div>
-		</div>	
+		</div>
+	</card>	
 </template>
 
 <script>
@@ -197,8 +202,8 @@ export default {
 					// this.$bvToast.show('pesan-penyimpanan');
 					// alert('Kamar telah berhasil di pesan')
 					this.dismissCountDown = 5	
-					this.$bvModal.msgBoxOk("Anda berhasil memesan kamar dengan nomor booking:  <b>" + 
-							resp.data.no_booking + "</b>")
+					this.$bvModal.msgBoxOk("Anda berhasil memesan kamar dengan nomor booking: " + 
+							resp.data.no_booking )
 							.then(value => {
 								this.$router.push('/pesankamar')
 							})
@@ -219,6 +224,10 @@ export default {
 
 		countDownChanged(dismissCountDown) {
 			this.dismissCountDown = this.dismissSecs
+		},
+
+		confirmCancel() {
+			this.$bvModal.msgBoxConfirm("Anda ingin membatalkan pesanan ?")
 		}
 	}
 }

@@ -63,7 +63,7 @@ class AppUserController extends Controller
 			$password = $request->password;
 			
 			try {
-				$user = AppUsers::select('id', 'email', 'password')->where('email', '=', $email)->first();
+				$user = AppUsers::select('id', 'email', 'password', 'nama')->where('email', '=', $email)->first();
 
 				if ($user != null) {
 					if (\Hash::check($password, $user->password)) {
@@ -97,7 +97,8 @@ class AppUserController extends Controller
 							'result' => 'Success',	
 							'token' => $jwt,
 							'refresh_token' => $refresh_token,
-							'token_expiry' => $token_expiry
+							'token_expiry' => $token_expiry,
+							'nama' => $user->nama
 						])->setStatusCode(200, "Success")
 						->cookie('refresh_token', $refresh_token, $token_expiry, "", "", 1);
 					}

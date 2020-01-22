@@ -10,7 +10,8 @@ export default new Vuex.Store({
 		token: localStorage.getItem('token') || '',
 		user: {},
 		isLogin: false,
-		intervalId:0
+		intervalId:0,
+		nama:''
 	},
 	mutations: {
 		auth_request(state) {
@@ -36,6 +37,9 @@ export default new Vuex.Store({
 		},
 		remove_interval_id(state) {
 			clearInterval(state.intervalId)
+		},
+		save_info(state, payload) {
+			state.nama = payload.nama
 		}
 	},
 	actions: {
@@ -109,8 +113,17 @@ export default new Vuex.Store({
 		set_interval_id({commit}, intvid) {
 			console.log('***** ADD INTV ID *****')	
 			commit('add_interval_id', intvid);
+		},
+		save_information({commit}, data) {
+			commit("save_info", data)
+		},
+		logout({commit}) {
+			commit('auth_logout')
 		}
 	},
 	getters: {
+		getStatus: state => {
+			return state.isLogin
+		}
 	}
 })
