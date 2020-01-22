@@ -522,6 +522,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -1112,32 +1115,42 @@ var render = function() {
             "div",
             { staticClass: "pt-4" },
             [
-              _c(
-                "b-card-group",
-                { attrs: { column: "" } },
-                [
-                  _vm.no_booking.length
-                    ? _vm._l(_vm.no_booking, function(nobooking) {
-                        return _vm.no_booking.length
-                          ? _c(
-                              "b-card",
-                              {
-                                key: _vm.no_booking,
-                                attrs: { header: "No Boking" }
-                              },
-                              [_c("b-card-text")],
-                              1
-                            )
-                          : _vm._e()
-                      })
-                    : _c("div", { staticClass: "d-block text-center" }, [
-                        _c("h3", [_vm._v("Belum ada Kamar yang dipesan")])
-                      ])
-                ],
-                2
-              )
+              _vm.no_booking.length
+                ? [
+                    _c("div", { staticClass: "row" }, [
+                      _c(
+                        "div",
+                        { staticClass: "col-12" },
+                        _vm._l(_vm.no_booking, function(nobooking) {
+                          return _vm.no_booking.length
+                            ? _c(
+                                "b-card",
+                                {
+                                  key: _vm.no_booking.bookingkamar_no,
+                                  attrs: { header: "No Boking" }
+                                },
+                                [
+                                  _c("b-card-text", [
+                                    _vm._v(
+                                      "\n\t\t\t\t\t\t\t\t" +
+                                        _vm._s(nobooking.bookingkamar_no) +
+                                        "\n\t\t\t\t\t\t\t\t"
+                                    )
+                                  ])
+                                ],
+                                1
+                              )
+                            : _vm._e()
+                        }),
+                        1
+                      )
+                    ])
+                  ]
+                : _c("div", { staticClass: "d-block text-center" }, [
+                    _c("h3", [_vm._v("Belum ada Kamar yang dipesan")])
+                  ])
             ],
-            1
+            2
           )
         ]),
         _vm._v(" "),
@@ -1218,23 +1231,6 @@ var render = function() {
                         ),
                         _vm._v(" "),
                         _c("hr"),
-                        _vm._v(" "),
-                        !_vm.showPasien
-                          ? _c(
-                              "base-button",
-                              {
-                                staticClass: "my-4",
-                                attrs: { block: "", type: "danger" },
-                                on: {
-                                  click: function($event) {
-                                    $event.preventDefault()
-                                    return _vm.daftarPasien($event)
-                                  }
-                                }
-                              },
-                              [_vm._v("Daftarkan Pasien Baru")]
-                            )
-                          : _vm._e(),
                         _vm._v(" "),
                         !_vm.showPasien
                           ? _c(

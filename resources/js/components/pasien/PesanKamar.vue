@@ -6,16 +6,19 @@
 		<div class="mt-4">
 		<b-modal id="modal-pesan-kamar">
 			<div class="pt-4">
-			<b-card-group column>
 				<template v-if="no_booking.length">
-					<b-card v-for="nobooking in no_booking" v-if="no_booking.length" :key="no_booking"
-						header="No Boking">
-						<b-card-text>
-						</b-card-text>
-					</b-card>
+					<div class="row">
+						<div class="col-12">
+							<b-card v-for="nobooking in no_booking" v-if="no_booking.length" :key="no_booking.bookingkamar_no"
+								header="No Boking">
+								<b-card-text>
+								{{ nobooking.bookingkamar_no }}
+								</b-card-text>
+							</b-card>
+						</div>
+					</div>
 				</template>	
 				<div class="d-block text-center" v-else><h3>Belum ada Kamar yang dipesan</h3></div>
-			</b-card-group>	
 			</div>
 		</b-modal>
 		<b-modal id="modal-loading-search" title="Sedang Proses">
@@ -36,7 +39,7 @@
                             </base-input>
 							<base-button block type="primary" class="my-4" @click.prevent="getPasien">Cari Pasien</base-button>
 							<hr />
-							<base-button v-if="!showPasien" block type="danger" class="my-4" @click.prevent="daftarPasien">Daftarkan Pasien Baru</base-button>
+							<!-- <base-button v-if="!showPasien" block type="danger" class="my-4" @click.prevent="daftarPasien">Daftarkan Pasien Baru</base-button> -->
 							<base-button v-if="!showPasien" block type="success" class="my-4" @click="daftarBookingKamar">Daftar Pesan Kamar</base-button>
 							<modal :show.sync="modals.daftarpesankamar">
 								<h6 slot="header" class="modal-title" id="modal-title-default">Daftar Pesan Kamar</h6>
