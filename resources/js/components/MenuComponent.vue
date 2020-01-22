@@ -1,10 +1,10 @@
 <template>
 <div style="position: relative">
 <base-nav type="danger" effect="dark" expand>
-	<a class="navbar-brand">{{ appname }}</a>
+	<a class="navbar-brand appcss" style="color:white;"><router-link to="/">{{ appname }}</router-link></a>
 	<div class="row" slot="content-header" slot-scope="{closeMenu}">
 		<div class="col-6 collapse-brand-">			
-			<a href="#"></a>
+			<a href="#">{{ appname  }}</a>
 		</div>
 		<div class="col-6 collapse-close">
 			<close-button @click="closeMenu"></close-button>
@@ -12,10 +12,10 @@
 	</div> <!-- row -->
 	<ul class="navbar-nav ml-lg-auto">
 		<li class="nav-item" v-if="notLogin">
-			<a class="nav-link nav-link-icon"><router-link to="/login">Login</router-link></a>
+			<a class="nav-link nav-link-icon appcss"><router-link to="/login">Login</router-link></a>
 		</li>
 		<li class="nav-item" v-if="notLogin">
-			<a class="nav-link nav-link-icon"><router-link to="/register">Daftar</router-link></a>
+			<a class="nav-link nav-link-icon appcss"><router-link to="/register">Daftar</router-link></a>
 		</li>
 		<base-dropdown tag="li" :title="nama" v-if="status">
 			<a class="dropdown-item">Logout</a>
@@ -144,9 +144,7 @@ export default {
 	}
 }
 </script>
-
 <style>
-a, a:hover {
-	color:#FFFFFF !important
-}
+
 </style>
+

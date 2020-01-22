@@ -5,7 +5,8 @@
 		
 		<div class="mt-4">
 		<b-modal id="modal-pesan-kamar">
-			<b-card-group deck>
+			<div class="pt-4">
+			<b-card-group column>
 				<template v-if="no_booking.length">
 					<b-card v-for="nobooking in no_booking" v-if="no_booking.length" :key="no_booking"
 						header="No Boking">
@@ -15,6 +16,7 @@
 				</template>	
 				<div class="d-block text-center" v-else><h3>Belum ada Kamar yang dipesan</h3></div>
 			</b-card-group>	
+			</div>
 		</b-modal>
 		<b-modal id="modal-loading-search" title="Sedang Proses">
 			Tunggu, sedang proses pencarian...
@@ -33,6 +35,7 @@
                                addon-left-icon="ni ni-archive-2" v-model="no_rekam_medik" @keyup.return="getPasien">
                             </base-input>
 							<base-button block type="primary" class="my-4" @click.prevent="getPasien">Cari Pasien</base-button>
+							<hr />
 							<base-button v-if="!showPasien" block type="danger" class="my-4" @click.prevent="daftarPasien">Daftarkan Pasien Baru</base-button>
 							<base-button v-if="!showPasien" block type="success" class="my-4" @click="daftarBookingKamar">Daftar Pesan Kamar</base-button>
 							<modal :show.sync="modals.daftarpesankamar">
@@ -82,8 +85,6 @@ export default {
 		if (this.$store.state.isLogin == false) {
 			this.$router.push('/login')
 		}
-		this.daftarBookingKamarGet();
-		console.log(this.no_booking.length)
 	},
 	data: function() {
 		return {
@@ -149,7 +150,8 @@ export default {
 				endpoint:'nomorbooking'
 			})
 			.then(resp => {
-				let no_booking = resp.data				
+				this.no_booking = resp.data
+				this.$bvModal.show('modal-pesan-kamar')
 			})
 		},
 		daftarBookingKamar: function(){

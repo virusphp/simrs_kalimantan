@@ -279,10 +279,15 @@ class PesanKamarController extends Controller
 		foreach($mapping as $map) {
 			$pasien[] = $map->pasien_id;
 		}
-
-		print_r($pasien);
-
-		return response()->json($nobooking)->setStatusCode(200, "Good");
+		
+		// get booking number
+		$pesankamar = BookingKamar::select('bookingkamar_no', 'create_time')
+				->orderBy('create_time', 'DESC')
+				->whereIn('pasien_id', $pasien)
+				->limit(4)
+				->get();
+		
+		return response()->json($pesankamar)->setStatusCode(200, "Good");
 	}
 
 }

@@ -519,6 +519,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -527,9 +530,6 @@ __webpack_require__.r(__webpack_exports__);
     if (this.$store.state.isLogin == false) {
       this.$router.push('/login');
     }
-
-    this.daftarBookingKamarGet();
-    console.log(this.no_booking.length);
   },
   data: function data() {
     return {
@@ -593,12 +593,16 @@ __webpack_require__.r(__webpack_exports__);
       this.$router.push('/registerpasien');
     },
     daftarBookingKamarGet: function daftarBookingKamarGet() {
+      var _this2 = this;
+
       // fecthing data booking
       this.$store.dispatch('fetch', {
         params: {},
         endpoint: 'nomorbooking'
       }).then(function (resp) {
-        var no_booking = resp.data;
+        _this2.no_booking = resp.data;
+
+        _this2.$bvModal.show('modal-pesan-kamar');
       });
     },
     daftarBookingKamar: function daftarBookingKamar() {
@@ -1103,37 +1107,39 @@ var render = function() {
       "div",
       { staticClass: "mt-4" },
       [
-        _c(
-          "b-modal",
-          { attrs: { id: "modal-pesan-kamar" } },
-          [
-            _c(
-              "b-card-group",
-              { attrs: { deck: "" } },
-              [
-                _vm.no_booking.length
-                  ? _vm._l(_vm.no_booking, function(nobooking) {
-                      return _vm.no_booking.length
-                        ? _c(
-                            "b-card",
-                            {
-                              key: _vm.no_booking,
-                              attrs: { header: "No Boking" }
-                            },
-                            [_c("b-card-text")],
-                            1
-                          )
-                        : _vm._e()
-                    })
-                  : _c("div", { staticClass: "d-block text-center" }, [
-                      _c("h3", [_vm._v("Belum ada Kamar yang dipesan")])
-                    ])
-              ],
-              2
-            )
-          ],
-          1
-        ),
+        _c("b-modal", { attrs: { id: "modal-pesan-kamar" } }, [
+          _c(
+            "div",
+            { staticClass: "pt-4" },
+            [
+              _c(
+                "b-card-group",
+                { attrs: { column: "" } },
+                [
+                  _vm.no_booking.length
+                    ? _vm._l(_vm.no_booking, function(nobooking) {
+                        return _vm.no_booking.length
+                          ? _c(
+                              "b-card",
+                              {
+                                key: _vm.no_booking,
+                                attrs: { header: "No Boking" }
+                              },
+                              [_c("b-card-text")],
+                              1
+                            )
+                          : _vm._e()
+                      })
+                    : _c("div", { staticClass: "d-block text-center" }, [
+                        _c("h3", [_vm._v("Belum ada Kamar yang dipesan")])
+                      ])
+                ],
+                2
+              )
+            ],
+            1
+          )
+        ]),
         _vm._v(" "),
         _c(
           "b-modal",
@@ -1210,6 +1216,8 @@ var render = function() {
                           },
                           [_vm._v("Cari Pasien")]
                         ),
+                        _vm._v(" "),
+                        _c("hr"),
                         _vm._v(" "),
                         !_vm.showPasien
                           ? _c(
