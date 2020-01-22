@@ -9,7 +9,15 @@
 				<template v-if="no_booking.length">
 					<div class="row">
 						<div class="col-12">
-							<b-card v-for="nobooking in no_booking" v-if="no_booking.length" :key="no_booking.bookingkamar_no"
+							
+                            <div class="btn-wrapper text-center">
+                                <base-button type="neutral">
+                                </base-button>
+
+                                <base-button type="neutral">
+                                </base-button>
+                            </div>
+							<b-card class="pb-3" v-for="nobooking in no_booking" v-if="no_booking.length" :key="no_booking.bookingkamar_no"
 								header="No Boking">
 								<b-card-text>
 								{{ nobooking.bookingkamar_no }}
@@ -31,26 +39,19 @@
 					body-classes="px-lg-5 py-lg-5"
 					class="border-0">
 					<template>
-						<form role="form">
-							<base-input alternative
-                               class="mb-3"
-                               placeholder="No Rekam Medis"
-                               addon-left-icon="ni ni-archive-2" v-model="no_rekam_medik" @keyup.return="getPasien">
-                            </base-input>
-							<base-button block type="primary" class="my-4" @click.prevent="getPasien">Cari Pasien</base-button>
-							<hr />
-							<!-- <base-button v-if="!showPasien" block type="danger" class="my-4" @click.prevent="daftarPasien">Daftarkan Pasien Baru</base-button> -->
-							<base-button v-if="!showPasien" block type="success" class="my-4" @click="daftarBookingKamar">Daftar Pesan Kamar</base-button>
-							<modal :show.sync="modals.daftarpesankamar">
-								<h6 slot="header" class="modal-title" id="modal-title-default">Daftar Pesan Kamar</h6>
-								<p>
-									aaaaaaa
-								</p>
-								<template slot="footer">
-									<base-button type="danger" class="ml-auto" @click.prevent="">Tutup</base-button>
-								</template>
-							</modal>
-						</form>
+						<template v-if="showRekamMedis">
+							<form role="form">
+								<base-input alternative
+								   class="mb-3"
+								   placeholder="No Rekam Medis"
+								   addon-left-icon="ni ni-archive-2" v-model="no_rekam_medik" @keyup.return="getPasien">
+								</base-input>
+								<base-button block type="primary" class="my-4" @click.prevent="getPasien">Cari Pasien</base-button>
+								<hr />
+								<!-- <base-button v-if="!showPasien" block type="danger" class="my-4" @click.prevent="daftarPasien">Daftarkan Pasien Baru</base-button> -->
+								<base-button v-if="!showPasien" block type="success" class="my-4" @click="daftarBookingKamar">Daftar Pesan Kamar</base-button>
+							</form>
+						</template>
 
 						<div class="form-group row max-auto" v-if="showPasien">
 							<label for="no_rekam_medik" class="col-md-6 col-form-label text-md-right">Apakah benar data pasien berikut?</label>
@@ -148,6 +149,7 @@ export default {
 
 		daftarBookingKamarGet: function() {
 			// fecthing data booking
+			this.$bvModal.msgBoxOk("Sedang Proses, mohon tunggu...");
 			this.$store.dispatch('fetch', { 
 				params:{},
 				endpoint:'nomorbooking'
@@ -159,7 +161,6 @@ export default {
 		},
 		daftarBookingKamar: function(){
 			this.daftarBookingKamarGet()
-			this.$bvModal.show('modal-pesan-kamar')
 		}
 	}
 }

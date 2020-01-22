@@ -525,6 +525,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -599,6 +600,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       // fecthing data booking
+      this.$bvModal.msgBoxOk("Sedang Proses, mohon tunggu...");
       this.$store.dispatch('fetch', {
         params: {},
         endpoint: 'nomorbooking'
@@ -610,7 +612,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     daftarBookingKamar: function daftarBookingKamar() {
       this.daftarBookingKamarGet();
-      this.$bvModal.show('modal-pesan-kamar');
     }
   }
 });
@@ -1121,28 +1122,42 @@ var render = function() {
                       _c(
                         "div",
                         { staticClass: "col-12" },
-                        _vm._l(_vm.no_booking, function(nobooking) {
-                          return _vm.no_booking.length
-                            ? _c(
-                                "b-card",
-                                {
-                                  key: _vm.no_booking.bookingkamar_no,
-                                  attrs: { header: "No Boking" }
-                                },
-                                [
-                                  _c("b-card-text", [
-                                    _vm._v(
-                                      "\n\t\t\t\t\t\t\t\t" +
-                                        _vm._s(nobooking.bookingkamar_no) +
-                                        "\n\t\t\t\t\t\t\t\t"
-                                    )
-                                  ])
-                                ],
-                                1
-                              )
-                            : _vm._e()
-                        }),
-                        1
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "btn-wrapper text-center" },
+                            [
+                              _c("base-button", { attrs: { type: "neutral" } }),
+                              _vm._v(" "),
+                              _c("base-button", { attrs: { type: "neutral" } })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _vm._l(_vm.no_booking, function(nobooking) {
+                            return _vm.no_booking.length
+                              ? _c(
+                                  "b-card",
+                                  {
+                                    key: _vm.no_booking.bookingkamar_no,
+                                    staticClass: "pb-3",
+                                    attrs: { header: "No Boking" }
+                                  },
+                                  [
+                                    _c("b-card-text", [
+                                      _vm._v(
+                                        "\n\t\t\t\t\t\t\t\t" +
+                                          _vm._s(nobooking.bookingkamar_no) +
+                                          "\n\t\t\t\t\t\t\t\t"
+                                      )
+                                    ])
+                                  ],
+                                  1
+                                )
+                              : _vm._e()
+                          })
+                        ],
+                        2
                       )
                     ])
                   ]
@@ -1178,132 +1193,78 @@ var render = function() {
                 },
                 [
                   [
-                    _c(
-                      "form",
-                      { attrs: { role: "form" } },
-                      [
-                        _c("base-input", {
-                          staticClass: "mb-3",
-                          attrs: {
-                            alternative: "",
-                            placeholder: "No Rekam Medis",
-                            "addon-left-icon": "ni ni-archive-2"
-                          },
-                          on: {
-                            keyup: function($event) {
-                              if (
-                                !$event.type.indexOf("key") &&
-                                _vm._k(
-                                  $event.keyCode,
-                                  "return",
-                                  undefined,
-                                  $event.key,
-                                  undefined
-                                )
-                              ) {
-                                return null
-                              }
-                              return _vm.getPasien($event)
-                            }
-                          },
-                          model: {
-                            value: _vm.no_rekam_medik,
-                            callback: function($$v) {
-                              _vm.no_rekam_medik = $$v
-                            },
-                            expression: "no_rekam_medik"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "base-button",
-                          {
-                            staticClass: "my-4",
-                            attrs: { block: "", type: "primary" },
-                            on: {
-                              click: function($event) {
-                                $event.preventDefault()
-                                return _vm.getPasien($event)
-                              }
-                            }
-                          },
-                          [_vm._v("Cari Pasien")]
-                        ),
-                        _vm._v(" "),
-                        _c("hr"),
-                        _vm._v(" "),
-                        !_vm.showPasien
-                          ? _c(
-                              "base-button",
-                              {
-                                staticClass: "my-4",
-                                attrs: { block: "", type: "success" },
-                                on: { click: _vm.daftarBookingKamar }
-                              },
-                              [_vm._v("Daftar Pesan Kamar")]
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _c(
-                          "modal",
-                          {
-                            attrs: { show: _vm.modals.daftarpesankamar },
-                            on: {
-                              "update:show": function($event) {
-                                return _vm.$set(
-                                  _vm.modals,
-                                  "daftarpesankamar",
-                                  $event
-                                )
-                              }
-                            }
-                          },
-                          [
-                            _c(
-                              "h6",
-                              {
-                                staticClass: "modal-title",
+                    _vm.showRekamMedis
+                      ? [
+                          _c(
+                            "form",
+                            { attrs: { role: "form" } },
+                            [
+                              _c("base-input", {
+                                staticClass: "mb-3",
                                 attrs: {
-                                  slot: "header",
-                                  id: "modal-title-default"
+                                  alternative: "",
+                                  placeholder: "No Rekam Medis",
+                                  "addon-left-icon": "ni ni-archive-2"
                                 },
-                                slot: "header"
-                              },
-                              [_vm._v("Daftar Pesan Kamar")]
-                            ),
-                            _vm._v(" "),
-                            _c("p", [
-                              _vm._v(
-                                "\n\t\t\t\t\t\t\t\t\taaaaaaa\n\t\t\t\t\t\t\t\t"
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "template",
-                              { slot: "footer" },
-                              [
-                                _c(
-                                  "base-button",
-                                  {
-                                    staticClass: "ml-auto",
-                                    attrs: { type: "danger" },
-                                    on: {
-                                      click: function($event) {
-                                        $event.preventDefault()
-                                      }
+                                on: {
+                                  keyup: function($event) {
+                                    if (
+                                      !$event.type.indexOf("key") &&
+                                      _vm._k(
+                                        $event.keyCode,
+                                        "return",
+                                        undefined,
+                                        $event.key,
+                                        undefined
+                                      )
+                                    ) {
+                                      return null
                                     }
+                                    return _vm.getPasien($event)
+                                  }
+                                },
+                                model: {
+                                  value: _vm.no_rekam_medik,
+                                  callback: function($$v) {
+                                    _vm.no_rekam_medik = $$v
                                   },
-                                  [_vm._v("Tutup")]
-                                )
-                              ],
-                              1
-                            )
-                          ],
-                          2
-                        )
-                      ],
-                      1
-                    ),
+                                  expression: "no_rekam_medik"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "base-button",
+                                {
+                                  staticClass: "my-4",
+                                  attrs: { block: "", type: "primary" },
+                                  on: {
+                                    click: function($event) {
+                                      $event.preventDefault()
+                                      return _vm.getPasien($event)
+                                    }
+                                  }
+                                },
+                                [_vm._v("Cari Pasien")]
+                              ),
+                              _vm._v(" "),
+                              _c("hr"),
+                              _vm._v(" "),
+                              !_vm.showPasien
+                                ? _c(
+                                    "base-button",
+                                    {
+                                      staticClass: "my-4",
+                                      attrs: { block: "", type: "success" },
+                                      on: { click: _vm.daftarBookingKamar }
+                                    },
+                                    [_vm._v("Daftar Pesan Kamar")]
+                                  )
+                                : _vm._e()
+                            ],
+                            1
+                          )
+                        ]
+                      : _vm._e(),
                     _vm._v(" "),
                     _vm.showPasien
                       ? _c("div", { staticClass: "form-group row max-auto" }, [
