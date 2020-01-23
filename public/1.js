@@ -242,6 +242,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
@@ -426,7 +429,18 @@ __webpack_require__.r(__webpack_exports__);
       this.dismissCountDown = this.dismissSecs;
     },
     confirmCancel: function confirmCancel() {
-      this.$bvModal.msgBoxConfirm("Anda ingin membatalkan pesanan ?");
+      var _this5 = this;
+
+      this.$bvModal.msgBoxConfirm("Anda ingin membatalkan pesanan ?").then(function (value) {
+        console.log(value);
+
+        if (value == true) {
+          console.log('Direct to pesankamar');
+          console.log(_this5.$router);
+
+          _this5.$router.push('/pesankamar');
+        }
+      });
     }
   }
 });
@@ -878,9 +892,9 @@ var render = function() {
           },
           [
             _vm._v(
-              "\n\t\t\t\tAnda berhasil memesan kamar dengan nomor booking: " +
+              "\n\t\t\t\t\tAnda berhasil memesan kamar dengan nomor booking: " +
                 _vm._s(_vm.no_booking) +
-                "\t\n\t\t"
+                "\t\n\t\t\t"
             )
           ]
         ),
@@ -888,21 +902,21 @@ var render = function() {
         _c(
           "b-modal",
           { attrs: { id: "modal-loading", title: "Sedang Proses" } },
-          [_vm._v("\n\t\t\t\tTunggu, sedang proses penyimpanan\t\n\t\t")]
+          [_vm._v("\n\t\t\t\t\tTunggu, sedang proses penyimpanan\t\n\t\t\t")]
         ),
         _vm._v(" "),
         _c("b-modal", { attrs: { id: "modal-success", title: "Konfirmasi" } }, [
           _vm._v(
-            "\n\t\t\t\tAnda berhasil memesan kamar dengan nomor booking: "
+            "\n\t\t\t\t\tAnda berhasil memesan kamar dengan nomor booking: "
           ),
           _c("b", [_vm._v(_vm._s(_vm.no_booking))])
         ]),
         _vm._v(" "),
         _c("b-modal", { attrs: { id: "modal-error-2", title: "Konfirmasi" } }, [
           _vm._v(
-            "\n\t\t\t\tAnda berhasil memesan kamar dengan nomor booking: " +
+            "\n\t\t\t\t\tAnda berhasil memesan kamar dengan nomor booking: " +
               _vm._s(_vm.no_booking) +
-              "\t\n\t\t"
+              "\t\n\t\t\t"
           )
         ]),
         _vm._v(" "),
@@ -912,7 +926,7 @@ var render = function() {
             attrs: { id: "modal-1", title: "Konfirmasi" },
             on: { ok: _vm.handleSubmitPesanKamar }
           },
-          [_vm._v("\n\t\t\tAnda ingin meneruskan Pesan Kamar?\t\n\t\t")]
+          [_vm._v("\n\t\t\t\tAnda ingin meneruskan Pesan Kamar?\t\n\t\t\t")]
         ),
         _vm._v(" "),
         _c(
@@ -923,13 +937,17 @@ var render = function() {
           },
           [
             _vm._v(
-              "\n\t\t\tRuangan, Kamar dan Kelas Pelayanan tidak boleh kosong\t\n\t\t"
+              "\n\t\t\t\tRuangan, Kamar dan Kelas Pelayanan tidak boleh kosong\t\n\t\t\t"
             )
           ]
         ),
         _vm._v(" "),
         _vm.inputPilihan
           ? _c("form", [
+              _c("div", { staticClass: "text-center text-muted mb-4" }, [
+                _c("strong", [_vm._v("Pilih Ruangan dan Kamar")])
+              ]),
+              _vm._v(" "),
               _c("div", { staticClass: "form-group row" }, [
                 _c(
                   "label",

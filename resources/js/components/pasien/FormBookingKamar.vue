@@ -27,6 +27,9 @@
 				Ruangan, Kamar dan Kelas Pelayanan tidak boleh kosong	
 			</b-modal>
 			<form v-if="inputPilihan">
+                <div class="text-center text-muted mb-4">
+					<strong>Pilih Ruangan dan Kamar</strong>
+                </div>
 				<div class="form-group row">
 					<label for="" class="col-sm-4 col-form-label">Ruangan</label>
 					<div class="col-sm-6">
@@ -228,6 +231,14 @@ export default {
 
 		confirmCancel() {
 			this.$bvModal.msgBoxConfirm("Anda ingin membatalkan pesanan ?")
+			.then(value=> {
+				console.log(value)
+				if (value == true) {
+					console.log('Direct to pesankamar')
+					console.log(this.$router)
+					this.$router.push('/pesankamar')
+				}
+			})
 		}
 	}
 }

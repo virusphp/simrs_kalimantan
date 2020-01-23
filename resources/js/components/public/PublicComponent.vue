@@ -1,40 +1,42 @@
 <template>
 <div class="container">
 	<div class="pt-4">
-		<b-card-group deck>
+		<!-- <div><small>Update terakhir: {{ last_update  }}</small></div> -->
+		<b-card-group deck id="infoavailablerooms">
 			<b-card
 				header="VIP"
-				bg-variant="">
+				bg-variant=""
+				border-variant="danger">
 				<b-card-text>
-					{{ vip }}
+					<span>{{ vip }}</span><br>
 				</b-card-text>
 			</b-card>
 			<b-card
 				header="Kelas I"
 				v-bind:bg-variant="kelas1_mark">
 				<b-card-text>
-					{{ kelas1}}
+					<span>{{ kelas1}}</span>
 				</b-card-text>
 			</b-card>
 			<b-card
 				header="Kelas II"
 				v-bind:bg-variant="kelas2_mark">
 				<b-card-text>
-					{{ kelas2 }}
+					<span>{{ kelas2 }}</span>
 				</b-card-text>
 			</b-card>
 			<b-card
 				header="Kelas III"
 				v-bind:bg-variant="kelas3_mark">
 				<b-card-text>
-					{{ kelas3 }}
+					<span>{{ kelas3 }}</span>
 				</b-card-text>
 			</b-card>
 			<b-card
 				header="ICU"
 				v-bind:bg-variant="icu_mark">
 				<b-card-text>
-					{{ icu }}
+					<span>{{ icu }}</span>
 				</b-card-text>
 			</b-card>
 		</b-card-group>
@@ -97,6 +99,9 @@ export default {
 				this.icu = resp.data.res
 				this.icu_mark = parseInt(this.icu) > 0 ? this.default : 'danger'
 			}) 
+
+			let n = new Date()
+			this.last_update = new Date();
 		}
 
 		Callback()
@@ -116,7 +121,22 @@ export default {
 			kelas3_mark:'',	
 			icu_mark:'',
 			default:'',
+			last_update:'',
 		}
 	}
 }
 </script>
+
+<style>
+div#infoavailablerooms.card-deck > div.card , div.card-header{
+	background: #f04806;
+	color: #FFFFFF;
+	text-align: center;
+}
+div#infoavailablerooms.card-deck > div.card > div.card-body > p.card-text > span {
+	color:#FFFFFF;
+	font-size:2em;
+	text-align: center;
+	font-weight: bold;
+}
+</style>
