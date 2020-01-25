@@ -17,7 +17,11 @@
 		<li class="nav-item" v-if="notLogin">
 			<a class="nav-link nav-link-icon appcss"><router-link to="/register">Daftar</router-link></a>
 		</li>
+		<li class="nav-item" v-if="status">
+			<a class="nav-link nav-link-icon appcss"><router-link to="/pesankamar">Pesan Kamar</router-link></a>
+		</li>
 		<base-dropdown tag="li" :title="nama" v-if="status">
+			<a class="dropdown-item"></a>
 			<a class="dropdown-item">Logout</a>
 		</base-dropdown>
 	</ul>

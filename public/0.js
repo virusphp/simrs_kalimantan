@@ -380,6 +380,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -832,10 +836,27 @@ var render = function() {
                 : _vm._e(),
               _vm._v(" "),
               _vm.status
+                ? _c("li", { staticClass: "nav-item" }, [
+                    _c(
+                      "a",
+                      { staticClass: "nav-link nav-link-icon appcss" },
+                      [
+                        _c("router-link", { attrs: { to: "/pesankamar" } }, [
+                          _vm._v("Pesan Kamar")
+                        ])
+                      ],
+                      1
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.status
                 ? _c(
                     "base-dropdown",
                     { attrs: { tag: "li", title: _vm.nama } },
                     [
+                      _c("a", { staticClass: "dropdown-item" }),
+                      _vm._v(" "),
                       _c("a", { staticClass: "dropdown-item" }, [
                         _vm._v("Logout")
                       ])

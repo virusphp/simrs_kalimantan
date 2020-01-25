@@ -1272,6 +1272,23 @@ var render = function() {
                                     "base-button",
                                     {
                                       staticClass: "my-4",
+                                      attrs: { block: "", type: "danger" },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.daftarPasien($event)
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Daftarkan Pasien Baru")]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              !_vm.showPasien
+                                ? _c(
+                                    "base-button",
+                                    {
+                                      staticClass: "my-4",
                                       attrs: { block: "", type: "success" },
                                       on: { click: _vm.daftarBookingKamar }
                                     },
