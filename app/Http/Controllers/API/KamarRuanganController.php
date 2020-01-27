@@ -107,7 +107,8 @@ class KamarRuanganController extends Controller
 			->leftJoin('kelaspelayanan_m', 'kelaspelayanan_m.kelaspelayanan_id', '=', 'kamarruangan_m.kelaspelayanan_id')
 			->groupBy('kamarruangan_m.kelaspelayanan_id', 'kelaspelayanan_nama')
 			->where(function($query) use ($request){
-				$query->whereIn('keterangan_kamar', ['TERSEDIA', 'OPEN'])
+					$query->whereIn('keterangan_kamar', ['TERSEDIA', 'OPEN'])
+					->where('kamarruangan_aktif', 'true')
 					->where('kamarruangan_m.kamarruangan_nokamar', 'not like', '%ICU%')
 					->where('kelaspelayanan_nama', '=', $request->input('kelas'));
 			})
@@ -127,6 +128,7 @@ class KamarRuanganController extends Controller
 			->leftJoin('kelaspelayanan_m', 'kelaspelayanan_m.kelaspelayanan_id', '=', 'kamarruangan_m.kelaspelayanan_id')
 			->groupBy('kamarruangan_m.kelaspelayanan_id', 'kelaspelayanan_nama')
 			->whereIn('keterangan_kamar', ['TERSEDIA', 'OPEN'])
+			->where('kamarruangan_aktif', 'true')
 			->where('kamarruangan_nokamar', 'like', '%ICU%')
 			->orderBy('kamarruangan_m.kelaspelayanan_id')
 			->get();

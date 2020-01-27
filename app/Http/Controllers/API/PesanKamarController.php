@@ -250,7 +250,8 @@ class PesanKamarController extends Controller
 		$kamarruangan = KamarRuangan::select(DB::Raw("kamarruangan_id, CONCAT(kamarruangan_nokamar, '- Bed ', kamarruangan_nobed, '(', keterangan_kamar,  ')'  ) kamarruangan_nokamar "))
 				->where([
 						['kamarruangan_aktif', 'true'],
-						['ruangan_id', $request->ruangan_id]
+						['ruangan_id', $request->ruangan_id],
+						['keterangan_kamar', 'TERSEDIA'],
 				])->orderBy('kamarruangan_nokamar')->get();
 		return response()->json($kamarruangan)->setStatusCode(200, "Good");
 	}

@@ -73,7 +73,15 @@ class AppUserController extends Controller
 							'user_email' => $user->email
 						];
 
-						$token_expiry = $time + 5*60; // 60 detik = 1 menit 
+						$user = [
+							'id' => $user->id,
+							'email' => $user->email,
+							'nama' => $user->nama
+						];
+
+						$user = (Object) $user;
+
+						$token_expiry = $time + 15*60; // 60 detik = 1 menit 
 						$payload = [
 							'data' => $user,
 							'iat' => $time,
@@ -98,7 +106,8 @@ class AppUserController extends Controller
 							'token' => $jwt,
 							'refresh_token' => $refresh_token,
 							'token_expiry' => $token_expiry,
-							'nama' => $user->nama
+							'nama' => $user->nama,
+							'expired_at' => date('Y-m-d H:i:s', $time),
 						])->setStatusCode(200, "Success")
 						->cookie('refresh_token', $refresh_token, $token_expiry, "", "", 1);
 					}
@@ -132,5 +141,60 @@ class AppUserController extends Controller
 		} else {
 			return response()->json(['message' => 'Email tersedia', 'email_exists' => false]);
 		}
+	}
+
+	public function reloadToken(Request $request) {
+		if ( $request->cookie('refresh_token') != $request->refresh_token ) {
+			return response()->json(['message' => '', 'status' => 'Failed', 'cookie' => $request->cookie('refresh_token')]);
+		}
+
+		$token = $request->token;
+		
+		$decoded_jwt = $request->decoded_jwt;
+
+		// print_r($decoded_jwt);
+
+		$time = time();
+
+		$user = (Object) [
+			'id' => $decoded_jwt->data->id,
+			'email' => $decoded_jwt->data->email,
+			'nama' => $decoded_jwt->data->nama
+		];
+
+		$data = [
+			'user_id' => $decoded_jwt->data->id,  
+			'user_email' => $decoded_jwt->data->email,
+		];
+
+		$token_expiry = $time + 15*60; // 60 detik = 1 menit 
+		$payload = [
+			'data' => $user,
+			'iat' => $time,
+			'nbf' => $time,
+			'exp' => $token_expiry,
+			'iss' => "rsudpapua",
+			"aud" => "rsudpapua"
+		];
+		$key = "generated_keys";
+		$jwt = JWT::encode($payload, $key);
+
+		$payload = [
+			'iat' => $time,
+			'email' => $decoded_jwt->data->email
+		];
+	
+		$string = md5($user->id . $time . time());
+		$refresh_token = hash_hmac('sha256', $string, time());
+
+		return response()->json([
+			'result' => 'Success',	
+			'token' => $jwt,
+			'refresh_token' => $refresh_token,
+			'token_expiry' => $token_expiry,
+			'nama' => $user->nama,
+			'expired_at' => date('Y-m-d H:i:s', $time),
+		])->setStatusCode(200, "Success")
+		->cookie('refresh_token', $refresh_token, $token_expiry, "", "", 1);
 	}
 }

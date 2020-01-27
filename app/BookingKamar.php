@@ -9,6 +9,9 @@ class BookingKamar extends Model
     //
     protected $table = 'bookingkamar_t';
 	protected $primaryKey = 'bookingkamar_id';
+	protected $casts = [
+		'create_time' => 'datetime:d M Y'
+	];
 
 	public $timestamps = false;
 

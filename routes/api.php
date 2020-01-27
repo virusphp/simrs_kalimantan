@@ -37,6 +37,7 @@ Route::group(['middleware' => ['apiauth']], function (){
 	Route::post('kamarpelayanan', 'API\PesanKamarController@listkelasruangan');
 	Route::post('pesankamarsubmit', 'API\PesanKamarController@store');
 	Route::get('nomorbooking', 'API\PesanKamarController@nomorbooking');
+	Route::post('reloadToken', 'API\AppUserController@reloadtoken');
 });
 
 Route::get('show', 'API\PasienController@show');
