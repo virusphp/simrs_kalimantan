@@ -419,7 +419,7 @@ __webpack_require__.r(__webpack_exports__);
         if (resp) {
           _this.$store.dispatch('logout');
 
-          _this.$router.push('/');
+          _this.$router.push('/login');
         }
       });
     }
@@ -857,9 +857,14 @@ var render = function() {
                     [
                       _c("a", { staticClass: "dropdown-item" }),
                       _vm._v(" "),
-                      _c("a", { staticClass: "dropdown-item" }, [
-                        _vm._v("Logout")
-                      ])
+                      _c(
+                        "a",
+                        {
+                          staticClass: "dropdown-item",
+                          on: { click: _vm.logout }
+                        },
+                        [_vm._v("Logout")]
+                      )
                     ]
                   )
                 : _vm._e()

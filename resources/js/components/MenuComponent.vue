@@ -22,7 +22,7 @@
 		</li>
 		<base-dropdown tag="li" :title="nama" v-if="status">
 			<a class="dropdown-item"></a>
-			<a class="dropdown-item">Logout</a>
+			<a class="dropdown-item" @click="logout">Logout</a>
 		</base-dropdown>
 	</ul>
 </base-nav>
@@ -140,7 +140,7 @@ export default {
 			.then(resp => {
 				if (resp) {
 					this.$store.dispatch('logout')
-					this.$router.push('/')
+					this.$router.push('/login')
 				}
 			})
 

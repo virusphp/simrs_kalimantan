@@ -95377,6 +95377,9 @@ window.Vue.use(_argon_plugins_argon_kit__WEBPACK_IMPORTED_MODULE_5__["default"])
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   routes: _routes_js__WEBPACK_IMPORTED_MODULE_8__["default"].routes
 });
+router.beforeEach(function (to, from, next) {
+  next();
+});
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -96714,6 +96717,9 @@ var RegisterPasienBaru = function RegisterPasienBaru() {
     components: {
       "default": RegisterPasienBaru
     }
+  }, {
+    path: '/home',
+    redirect: '/pesankamar'
   }]
 });
 
@@ -96745,7 +96751,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     user: {},
     isLogin: false,
     intervalId: 0,
-    nama: ''
+    intervalId2: 0,
+    nama: '',
+    dataReload: [],
+    refresh_token: -1
   },
   mutations: {
     auth_request: function auth_request(state) {
@@ -96764,6 +96773,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       state.status = '';
       state.token = '';
       state.isLogin = false;
+      clearInterval(state.intervalId2);
     },
     add_interval_id: function add_interval_id(state, payload) {
       state.intervalId = payload;
@@ -96773,10 +96783,21 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     save_info: function save_info(state, payload) {
       state.nama = payload.nama;
+    },
+    add_interval_id_reload_token: function add_interval_id_reload_token(state, payload) {
+      state.intervalId2 = payload;
+    },
+    add_data_reload: function add_data_reload(state, payload) {
+      state.dataReload = payload;
+    },
+    add_refresh_token: function add_refresh_token(state, payload) {
+      state.refresh_token = payload;
     }
   },
   actions: {
     login: function login(_ref, user) {
+      var _this = this;
+
       var commit = _ref.commit;
       return new Promise(function (resolve, reject) {
         commit("auth_request");
@@ -96786,6 +96807,21 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
           axios__WEBPACK_IMPORTED_MODULE_2___default.a.defaults.headers.common['Authorization'] = 'Bearer ' + token;
           localStorage.setItem('token', token);
           commit("auth_success", token, user);
+          var menit = 5;
+          var reloadToken = menit * 60 * 1000; // 1 menit
+
+          if (parseInt(_this.state.dataReload.length)) response = _this.state.dataReload.data;
+          console.log(response);
+          commit("add_refresh_token", response.data.refresh_token);
+          setInterval(function () {
+            console.log('Reload Token');
+            axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/reloadToken', response.data).then(function (resp) {
+              var token = response.data.token;
+              axios__WEBPACK_IMPORTED_MODULE_2___default.a.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+              commit("add_data_reload", resp);
+              commit("add_refresh_token", resp.data.refresh_token);
+            });
+          }, reloadToken);
           resolve(response);
         })["catch"](function (error) {
           commit("auth_error");
@@ -96857,6 +96893,18 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     logout: function logout(_ref10) {
       var commit = _ref10.commit;
       commit('auth_logout');
+    },
+    remove_remaining_cookies: function remove_remaining_cookies(_ref11) {
+      var _this2 = this;
+
+      var commit = _ref11.commit;
+      return new Promise(function (resolve, reject) {
+        axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/removecookies', {
+          'refresh_token': _this2.state.referesh_token
+        }).then(function (resp) {
+          console.log("Remove remaining cookies");
+        });
+      });
     }
   },
   getters: {

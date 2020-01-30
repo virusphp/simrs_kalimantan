@@ -12,7 +12,8 @@ class AppUserController extends Controller
 {
     //
     //
-    protected $key = 'generated_keys';
+	 
+	protected $key = 'generated_keys';
 
     public function register(Request $request)
     {
@@ -81,7 +82,8 @@ class AppUserController extends Controller
 
 						$user = (Object) $user;
 
-						$token_expiry = $time + 15*60; // 60 detik = 1 menit 
+						$menit = 15;
+						$token_expiry = $time + $menit*60; // 60 detik = 1 menit 
 						$payload = [
 							'data' => $user,
 							'iat' => $time,
@@ -108,8 +110,9 @@ class AppUserController extends Controller
 							'token_expiry' => $token_expiry,
 							'nama' => $user->nama,
 							'expired_at' => date('Y-m-d H:i:s', $time),
+							'refresh_token' => $refresh_token,
 						])->setStatusCode(200, "Success")
-						->cookie('refresh_token', $refresh_token, $token_expiry, "", "", 1);
+						->cookie($refresh_token, $refresh_token, $token_expiry, "", "", 1);
 					}
 				}else{
 					return response()->json(['result'=> 'Failed', 'message' => 'Password Incorrect'])->setStatusCode(400, "Fail");
@@ -144,8 +147,16 @@ class AppUserController extends Controller
 	}
 
 	public function reloadToken(Request $request) {
-		if ( $request->cookie('refresh_token') != $request->refresh_token ) {
+
+		if ( ! $request->cookie($request->refresh_token) ) {
 			return response()->json(['message' => '', 'status' => 'Failed', 'cookie' => $request->cookie('refresh_token')]);
+		}
+
+		// remove cookie
+		setcookie($request->refresh_token, '', -1);
+		
+		if (! $request->cookie($request->refresh_token)) {
+			print('Cookie expired');
 		}
 
 		$token = $request->token;
@@ -167,7 +178,8 @@ class AppUserController extends Controller
 			'user_email' => $decoded_jwt->data->email,
 		];
 
-		$token_expiry = $time + 15*60; // 60 detik = 1 menit 
+		$menit = 15;
+		$token_expiry = $time + $menit*60; // 60 detik = 1 menit 
 		$payload = [
 			'data' => $user,
 			'iat' => $time,
@@ -194,7 +206,17 @@ class AppUserController extends Controller
 			'token_expiry' => $token_expiry,
 			'nama' => $user->nama,
 			'expired_at' => date('Y-m-d H:i:s', $time),
+			'refresh_token' => $refresh_token,
 		])->setStatusCode(200, "Success")
-		->cookie('refresh_token', $refresh_token, $token_expiry, "", "", 1);
+		->cookie($refresh_token, $refresh_token, $token_expiry, "", "", 1);
+	}
+
+	public function removecookies(Request $request) {
+		try {	
+			setcookie($request->refresh_token, '', -1);
+			return response()->json(['status' => 'Success', 'status_code' => 200])->setStatusCode(200, "Oke");
+		} catch (\Exception $e) {
+			return response()->json(['status' => 'Failed', 'status_code' => 512])->setStatusCode(512, "Failed");
+		}	
 	}
 }

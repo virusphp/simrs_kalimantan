@@ -40,6 +40,10 @@
 					<label for="" class="col-sm-4 col-form-label">Kamar</label>
 					<div class="col-sm-6">
 							<v-select label="kamarruangan_nokamar" :options="kamar_option" :reduce="kamar_option => kamar_option.kamarruangan_id" v-model="kamar" @input="loadPelayanan"></v-select>
+							<span v-if="kamar_option_ln" style="color: red;">
+								<strong>{{ kamar_message }}</strong>
+							</span>
+
 					</div>
 				</div>
 				<div class="form-group row">
@@ -73,7 +77,7 @@ export default {
 	mounted() {
 		console.log(this.ruangan)	
 		// get ruangan
-		ruangan_option:[
+		this.ruangan_option = [
 			{ruangan_id: -1, ruangan_nama: 'Loading...'}
 		]
 		this.$store.dispatch("get_options", {
@@ -82,6 +86,7 @@ export default {
 			.then(resp => {
 				// this.ruangan = resp.data[0].ruangan_id
 				this.ruangan_option = resp.data
+				this.ruangan_valid = 1;
 				this.arrRuangan = []
 				let i = 0
 				for (i in resp.data) {
@@ -124,13 +129,18 @@ export default {
 			no_booking:'',
 			dismissCountDown: 0,
 			showDimissibleAlert: false,
-			dismissSecs: 10,
+			dismissSecs: 100,
 			submitted: false,
+			ruangan_valid: 0,
+			kamar_valid: 0,
+			kelas_valid: 0,
+			kamar_message:'',
+			kamar_option_ln: false,
 		}
 	},
 	methods: {
 		loadKamar(value) {
-			kamar_option:[
+			this.kamar_option = [
 				{kamarruangan_id: -1, kamarruangan_nokamar: 'Loading...'}
 			],
 			// console.log(value)		
@@ -139,13 +149,30 @@ export default {
 				endpoint: 'kamarruangan'} )
 				.then(resp => {
 					// this.kamar = resp.data[0].kamarruangan_id
-					this.kamar_option = resp.data	
+					if (parseInt(resp.data.status_code) == 510) {
+						this.$router.push('/');
+					} else {
+						console.log(resp.data.length)
+						if (parseInt(resp.data.length) > 0) {
+							this.kamar_option = resp.data	
+							this.kamar_valid = 1
+							this.kamar_option_ln = false
+							this.kamar_message = ''
+						} else {
+							this.kamar_valid = 0
+							this.kamar_option = [
+								{kamarruangan_id: -1, kamarruangan_nokamar: 'Tidak ada kamar yang kosong.'}
+							];
+							this.kamar_option_ln = true
+							this.kamar_message = 'Tidak ada kamar yang kosong'
+						}
+					}
 				})
 
 		},
 
 		loadPelayanan(value) {
-			kelaspelayanan_option:[
+			this.kelaspelayanan_option = [
 				{kelaspelayanan_id: -1, kelaspelayanan_nama: 'Loading...'}
 			],
 			
@@ -153,7 +180,11 @@ export default {
 			form:{ kamarruangan_id : value  },
 			endpoint: 'kamarpelayanan' })
 			.then(resp => {
-				this.kelaspelayanan_option = resp.data
+				if (parseInt(resp.data.status_code) == 510) {
+					this.$router.push('/');
+				} else {
+					this.kelaspelayanan_option = resp.data
+				}
 			})
 		},
 
@@ -230,15 +261,23 @@ export default {
 		},
 
 		confirmCancel() {
+			const drouter = this.$router
 			this.$bvModal.msgBoxConfirm("Anda ingin membatalkan pesanan ?")
-			.then(value=> {
-				console.log(value)
+			.then( value => {
+				console.log(this.kamar_valid)
+				
 				if (value == true) {
-					console.log('Direct to pesankamar')
-					console.log(this.$router)
-					this.$router.push('/pesankamar')
+					console.log('Direct to Home')
+					drouter.push('/home')
 				}
 			})
+		}
+	},
+	computed: {
+		disableButton: function() {
+			if ( this.ruangan_valid && this.kamar_valid && this.kelas_valid) {
+				return ""
+			} else return "disabled"
 		}
 	}
 }

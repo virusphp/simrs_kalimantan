@@ -20,7 +20,8 @@
 							<b-card class="pb-3" v-for="nobooking in no_booking" v-if="no_booking.length" :key="no_booking.bookingkamar_no"
 								header="No Boking">
 								<b-card-text>
-								{{ nobooking.bookingkamar_no }}
+									<strong>{{ nobooking.bookingkamar_no }}</strong>
+									<small>{{ nobooking.create_time }}</small>
 								</b-card-text>
 							</b-card>
 						</div>

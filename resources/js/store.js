@@ -11,7 +11,10 @@ export default new Vuex.Store({
 		user: {},
 		isLogin: false,
 		intervalId:0,
-		nama:''
+		intervalId2:0,
+		nama:'',
+		dataReload: [],
+		refresh_token: -1,
 	},
 	mutations: {
 		auth_request(state) {
@@ -31,6 +34,7 @@ export default new Vuex.Store({
 			state.status = ''
 			state.token = ''
 			state.isLogin = false
+			clearInterval(state.intervalId2)
 		},
 		add_interval_id(state, payload) {
 			state.intervalId = payload
@@ -40,6 +44,15 @@ export default new Vuex.Store({
 		},
 		save_info(state, payload) {
 			state.nama = payload.nama
+		},
+		add_interval_id_reload_token(state, payload) {
+			state.intervalId2 = payload
+		},
+		add_data_reload(state, payload) {
+			state.dataReload = payload
+		},
+		add_refresh_token(state, payload) {
+			state.refresh_token = payload
 		}
 	},
 	actions: {
@@ -53,6 +66,27 @@ export default new Vuex.Store({
 						axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
 						localStorage.setItem('token', token)
 						commit("auth_success", token, user)
+						
+						const menit=5
+						const reloadToken = menit*60*1000 // 1 menit
+						
+
+						if (parseInt(this.state.dataReload.length))	
+							response = this.state.dataReload.data
+
+						console.log(response)
+						commit("add_refresh_token", response.data.refresh_token)
+						setInterval(()=>{
+							console.log('Reload Token');
+							axios.post('/api/reloadToken', response.data)
+								.then(resp => {
+									const token = response.data.token
+									axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
+									commit("add_data_reload", resp)
+									commit("add_refresh_token", resp.data.refresh_token)
+								})
+						}, reloadToken)	
+
 						resolve(response)
 					})
 					.catch(error => {
@@ -119,6 +153,16 @@ export default new Vuex.Store({
 		},
 		logout({commit}) {
 			commit('auth_logout')
+		},
+		remove_remaining_cookies({commit}) {
+			return new Promise((resolve, reject) => {
+				axios.post('/api/removecookies', {
+					'refresh_token' : this.state.referesh_token
+				})
+				.then( resp => {
+					console.log("Remove remaining cookies")
+				}) 
+			})
 		}
 	},
 	getters: {

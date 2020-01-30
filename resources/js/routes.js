@@ -34,6 +34,7 @@ export default {
 			components:{
 				default: RegisterPasienBaru
 			}	
-		}
+		},
+		{ path: '/home' , redirect: '/pesankamar'}
 	]
 }

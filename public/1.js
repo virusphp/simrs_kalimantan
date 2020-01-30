@@ -245,6 +245,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
@@ -252,17 +256,17 @@ __webpack_require__.r(__webpack_exports__);
 
     console.log(this.ruangan); // get ruangan
 
-    ruangan_option: [{
+    this.ruangan_option = [{
       ruangan_id: -1,
       ruangan_nama: 'Loading...'
     }];
-
     this.$store.dispatch("get_options", {
       form: {},
       endpoint: 'ruangan'
     }).then(function (resp) {
       // this.ruangan = resp.data[0].ruangan_id
       _this.ruangan_option = resp.data;
+      _this.ruangan_valid = 1;
       _this.arrRuangan = [];
       var i = 0;
 
@@ -310,15 +314,20 @@ __webpack_require__.r(__webpack_exports__);
       no_booking: '',
       dismissCountDown: 0,
       showDimissibleAlert: false,
-      dismissSecs: 10,
-      submitted: false
+      dismissSecs: 100,
+      submitted: false,
+      ruangan_valid: 0,
+      kamar_valid: 0,
+      kelas_valid: 0,
+      kamar_message: '',
+      kamar_option_ln: false
     };
   },
   methods: {
     loadKamar: function loadKamar(value) {
       var _this2 = this;
 
-      kamar_option: [{
+      this.kamar_option = [{
         kamarruangan_id: -1,
         kamarruangan_nokamar: 'Loading...'
       }], // console.log(value)		
@@ -329,13 +338,32 @@ __webpack_require__.r(__webpack_exports__);
         endpoint: 'kamarruangan'
       }).then(function (resp) {
         // this.kamar = resp.data[0].kamarruangan_id
-        _this2.kamar_option = resp.data;
+        if (parseInt(resp.data.status_code) == 510) {
+          _this2.$router.push('/');
+        } else {
+          console.log(resp.data.length);
+
+          if (parseInt(resp.data.length) > 0) {
+            _this2.kamar_option = resp.data;
+            _this2.kamar_valid = 1;
+            _this2.kamar_option_ln = false;
+            _this2.kamar_message = '';
+          } else {
+            _this2.kamar_valid = 0;
+            _this2.kamar_option = [{
+              kamarruangan_id: -1,
+              kamarruangan_nokamar: 'Tidak ada kamar yang kosong.'
+            }];
+            _this2.kamar_option_ln = true;
+            _this2.kamar_message = 'Tidak ada kamar yang kosong';
+          }
+        }
       });
     },
     loadPelayanan: function loadPelayanan(value) {
       var _this3 = this;
 
-      kelaspelayanan_option: [{
+      this.kelaspelayanan_option = [{
         kelaspelayanan_id: -1,
         kelaspelayanan_nama: 'Loading...'
       }], this.$store.dispatch("get_options", {
@@ -344,7 +372,11 @@ __webpack_require__.r(__webpack_exports__);
         },
         endpoint: 'kamarpelayanan'
       }).then(function (resp) {
-        _this3.kelaspelayanan_option = resp.data;
+        if (parseInt(resp.data.status_code) == 510) {
+          _this3.$router.push('/');
+        } else {
+          _this3.kelaspelayanan_option = resp.data;
+        }
       });
     },
     previewPilihan: function previewPilihan() {
@@ -431,16 +463,22 @@ __webpack_require__.r(__webpack_exports__);
     confirmCancel: function confirmCancel() {
       var _this5 = this;
 
+      var drouter = this.$router;
       this.$bvModal.msgBoxConfirm("Anda ingin membatalkan pesanan ?").then(function (value) {
-        console.log(value);
+        console.log(_this5.kamar_valid);
 
         if (value == true) {
-          console.log('Direct to pesankamar');
-          console.log(_this5.$router);
-
-          _this5.$router.push('/pesankamar');
+          console.log('Direct to Home');
+          drouter.push('/home');
         }
       });
+    }
+  },
+  computed: {
+    disableButton: function disableButton() {
+      if (this.ruangan_valid && this.kamar_valid && this.kelas_valid) {
+        return "";
+      } else return "disabled";
     }
   }
 });
@@ -459,6 +497,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _DataPasien_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DataPasien.vue */ "./resources/js/components/pasien/DataPasien.vue");
 /* harmony import */ var _FormBookingKamar_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FormBookingKamar.vue */ "./resources/js/components/pasien/FormBookingKamar.vue");
 /* harmony import */ var _argon_components_Modal_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../argon/components/Modal.vue */ "./resources/js/argon/components/Modal.vue");
+//
 //
 //
 //
@@ -1014,7 +1053,13 @@ var render = function() {
                         },
                         expression: "kamar"
                       }
-                    })
+                    }),
+                    _vm._v(" "),
+                    _vm.kamar_option_ln
+                      ? _c("span", { staticStyle: { color: "red" } }, [
+                          _c("strong", [_vm._v(_vm._s(_vm.kamar_message))])
+                        ])
+                      : _vm._e()
                   ],
                   1
                 )
@@ -1163,11 +1208,15 @@ var render = function() {
                                   },
                                   [
                                     _c("b-card-text", [
-                                      _vm._v(
-                                        "\n\t\t\t\t\t\t\t\t" +
-                                          _vm._s(nobooking.bookingkamar_no) +
-                                          "\n\t\t\t\t\t\t\t\t"
-                                      )
+                                      _c("strong", [
+                                        _vm._v(
+                                          _vm._s(nobooking.bookingkamar_no)
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("small", [
+                                        _vm._v(_vm._s(nobooking.create_time))
+                                      ])
                                     ])
                                   ],
                                   1
@@ -1266,23 +1315,6 @@ var render = function() {
                               ),
                               _vm._v(" "),
                               _c("hr"),
-                              _vm._v(" "),
-                              !_vm.showPasien
-                                ? _c(
-                                    "base-button",
-                                    {
-                                      staticClass: "my-4",
-                                      attrs: { block: "", type: "danger" },
-                                      on: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          return _vm.daftarPasien($event)
-                                        }
-                                      }
-                                    },
-                                    [_vm._v("Daftarkan Pasien Baru")]
-                                  )
-                                : _vm._e(),
                               _vm._v(" "),
                               !_vm.showPasien
                                 ? _c(

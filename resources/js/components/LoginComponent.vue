@@ -151,6 +151,7 @@
 export default {
 	mounted() {
 		this.$store.dispatch("remove_interval")
+		this.$store.dispatch("remove_remaining_cookies")
 	},
 	data: function() {
 		return {
