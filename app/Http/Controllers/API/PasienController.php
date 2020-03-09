@@ -14,7 +14,7 @@ class PasienController extends Controller
     public function show()
     {
 	return \Response::json(\App\Pendaftaran::first());
-    }	
+    }
 
     public function registerpasienbaru(Request $request)
     {
@@ -41,22 +41,55 @@ class PasienController extends Controller
             'warga_negara.required' => 'Pilih Warga negara',
         ]);
 
-        // calculate age
-        $from = new \DateTime($request->tanggal_lahir);
-        $to = new \DateTime('today');
-        $age = $from->diff($to)->y;
-        print($age);
-        // kelompok umur
-        $kelompokumur_id = \App\KelompokUmur::select('kelompokumur_id')
-            ->where([
-                ['kelompokumur_minimal', '>=', $age], 
-                ['kelompokumur_maksimal', '<=', $age],
-                ['kelompokumur_aktif', '=', 'true']
-            ])
-            ->get()[0]->kelompokumur_id;
-        // Kelompok Umur Id
-        print($kelompokumur_id);
-        $profilrs_id = \App\ProfileRumahSakit::first()->profilrs_id;
+        if ($validator->fails()) {
+            return \Response::json($validator->errors());
+         } else {
+
+            // calculate age
+            $from = new \DateTime($request->tanggal_lahir);
+            $to = new \DateTime('today');
+            $age = $from->diff($to)->y;
+            // print($age);
+            // kelompok umur
+            $kelompokumur = \App\KelompokUmur::select('kelompokumur_id')
+                ->where([
+                    ['kelompokumur_minimal', '<=', $age], 
+                    ['kelompokumur_maksimal', '>=', $age],
+                    ['kelompokumur_aktif', '=', 'true']
+                ])->first();
+
+            // Kelompok Umur Id
+            $kelompokumur_id = $kelompokumur->kelompokumur_id;
+
+            // print($kelompokumur_id);
+            $profilrs_id = \App\ProfileRumahSakit::first()->profilrs_id;
+            $no_rekam_medik = $this->noRekamMedik();
+
+            $tgl_rekam_medik = date('Y-m-d');
+
+            $request->merge([
+                'profilrs_id' => $profilrs_id,
+                'kelompokumur_id' => $kelompokumur_id,
+                'no_rekam_medik' => $no_rekam_medik,
+                'tgl_rekam_medik' => $tgl_rekam_medik,
+                'statusrekammedis' => 'AKTIF',
+                'create_loginpemakai_id' => 21,
+
+            ]);
+
+            $pasien = new \App\Pasien;
+            $request = $request->toArray();
+            // print_r($request);
+
+            foreach($request as $key => $val) {
+                $pasien->{$key} = $val;
+            }
+            $pasien->create_time = date('Y-m-d');
+            $pasien->save();
+
+        // print_r((Array)$request);
+        // die();
+        }
     }
 
     public function provinsi() {
@@ -123,10 +156,9 @@ class PasienController extends Controller
 
         $pasien = \App\Pasien::select(DB::raw('CAST(SUBSTR(no_rekam_medik,'.
             (strlen($prefix)+1).','.(strlen($default)).') AS integer) nomaksimal'))
-            ->where([
-                ['ispasienluar', '=', $is_pasienluar],
-                ['no_rekam_medik','like ', $prefix.'%'],
-            ])->orderBy('no_rekam_medik DESC')->first();
+                ->where('ispasienluar', '=', $is_pasienluar)
+                ->where('no_rekam_medik', 'like', $prefix.'%')
+                ->orderBy('no_rekam_medik','DESC')->first();
         
         if (isset($pasien->nomaksimal)) {
             $nomaksimal = $pasien->nomaksimal+1;
@@ -137,7 +169,7 @@ class PasienController extends Controller
             // if ($nomaksimal == $normlama['normlama_min']) {
             //     $nomaksimal = ((int)$normlama['normlama_maks'])+1;
             // } elseif ($nomaksimal >= ((int)$normlama['normlama_min']) && $nomaksimal < ((int)$normlama['normlama_maks']+1)) {
-            //     $nomaksimal = ((int)$normlama['normlama_maks'])+1;
+            //     $nomaksimal = ((int)$normlama['normlama_maks'])+1;?
             // }
 
             $normlama = \App\KonfigSystem::select('normlama_min', 'normlama_maks')->first();

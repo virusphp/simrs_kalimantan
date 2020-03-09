@@ -96674,11 +96674,11 @@ var Menu = function Menu() {
 };
 
 var Login = function Login() {
-  return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ./components/LoginComponent.vue */ "./resources/js/components/LoginComponent.vue"));
+  return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./components/LoginComponent.vue */ "./resources/js/components/LoginComponent.vue"));
 };
 
 var Register = function Register() {
-  return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./components/auth/RegisterComponent.vue */ "./resources/js/components/auth/RegisterComponent.vue"));
+  return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./components/auth/RegisterComponent.vue */ "./resources/js/components/auth/RegisterComponent.vue"));
 };
 
 var PesanKamar = function PesanKamar() {
@@ -96686,11 +96686,11 @@ var PesanKamar = function PesanKamar() {
 };
 
 var Public = function Public() {
-  return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./components/public/PublicComponent.vue */ "./resources/js/components/public/PublicComponent.vue"));
+  return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ./components/public/PublicComponent.vue */ "./resources/js/components/public/PublicComponent.vue"));
 };
 
 var RegisterPasienBaru = function RegisterPasienBaru() {
-  return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./components/pasien/RegisterPasienBaru.vue */ "./resources/js/components/pasien/RegisterPasienBaru.vue"));
+  return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./components/pasien/RegisterPasienBaru.vue */ "./resources/js/components/pasien/RegisterPasienBaru.vue"));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -96934,8 +96934,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/awaludin/Projects/zaid/AppPesanKamar/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/awaludin/Projects/zaid/AppPesanKamar/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/awaludin/LocalDev/@SIMRS/AppPesanKamar/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/awaludin/LocalDev/@SIMRS/AppPesanKamar/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

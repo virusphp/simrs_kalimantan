@@ -39,6 +39,13 @@ Route::group(['middleware' => ['apiauth']], function (){
 	Route::get('nomorbooking', 'API\PesanKamarController@nomorbooking');
 	Route::post('reloadToken', 'API\AppUserController@reloadtoken');
 	Route::post('removecookies', 'API\AppUserController@removecookies');
+	Route::get('years', 'API\PasienController@getyear');
+	Route::get('provinsi', 'API\PasienController@provinsi');
+	Route::get('kabupaten', 'API\PasienController@kabupaten');
+	Route::get('kecamatan', 'API\PasienController@kecamatan');
+	Route::get('kelurahan', 'API\PasienController@kelurahan');
+	Route::get('pekerjaan', 'API\PasienController@pekerjaan');
+	Route::post('registerpasienbaru', 'API\PasienController@registerpasienbaru');
 });
 
 Route::get('show', 'API\PasienController@show');
