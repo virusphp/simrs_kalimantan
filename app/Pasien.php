@@ -12,6 +12,7 @@ class Pasien extends Model
 	protected $casts = [
 		'tanggal_lahir' => 'datetime:d M Y'
 	];
+	public $timestamps = false;
 
     public function dokrekammedis() {
 		return $this->hasMany('App\DokRekamMedis', 'pasien_id', 'pasien_id');

@@ -49,7 +49,7 @@
 								</base-input>
 								<base-button block type="primary" class="my-4" @click.prevent="getPasien">Cari Pasien</base-button>
 								<hr />
-								<!-- <base-button v-if="!showPasien" block type="danger" class="my-4" @click.prevent="daftarPasien">Daftarkan Pasien Baru</base-button> -->
+								<base-button v-if="!showPasien" block type="danger" class="my-4" @click.prevent="daftarPasien">Daftarkan Pasien Baru</base-button>
 								<base-button v-if="!showPasien" block type="success" class="my-4" @click="daftarBookingKamar">Daftar Pesan Kamar</base-button>
 							</form>
 						</template>
