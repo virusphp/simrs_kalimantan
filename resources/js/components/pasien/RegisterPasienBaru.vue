@@ -408,16 +408,16 @@ export default {
 			.then(resp => {
 				this.$bvModal.hide('modal-loading')	
 				if (resp.data.status == 'Success') {
-					this.no_rekam_medis = resp.data.no_rekam_medis
-					console.log(resp.data.no_rekam_medis)	
+					this.no_rekam_medik = resp.data.no_rekam_medik
+					console.log(resp.data.no_rekam_medik)	
 					this.submitted = true
 					// this.$bvToast.show('pesan-penyimpanan');
 					// alert('Kamar telah berhasil di pesan')
 					this.dismissCountDown = 5	
-					this.$bvModal.msgBoxOk("Anda berhasil memesan kamar dengan nomor booking: " + 
-							resp.data.no_rekam_medis )
+					this.$bvModal.msgBoxOk("Anda berhasil mendaftarkan Pasien dengan rekam medis: " + 
+							resp.data.no_rekam_medik )
 							.then(value => {
-								// this.$router.push('/pesankamar')
+								this.$router.push('/pesankamar')
 							})
 
 					// this.$bvModal.show('modal-success')

@@ -84,8 +84,17 @@ class PasienController extends Controller
             foreach($request as $key => $val) {
                 $pasien->{$key} = $val;
             }
-            $pasien->create_time = date('Y-m-d');
-            $pasien->save();
+	    $pasien->create_time = date('Y-m-d');
+
+	    try {
+		$pasien->save();
+		return response()->json([
+			'status' => 'Success',
+			'no_rekam_medik' => $no_rekam_medik,
+		])->setStatusCode(200, "Success");
+	    }catch (Exceptions $ex) {
+
+	    }
 
         // print_r((Array)$request);
         // die();
