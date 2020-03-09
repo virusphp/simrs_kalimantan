@@ -67,24 +67,34 @@ class PasienController extends Controller
 
             $tgl_rekam_medik = date('Y-m-d');
 
-            $request->merge([
+            $data_pasien = [
                 'profilrs_id' => $profilrs_id,
                 'kelompokumur_id' => $kelompokumur_id,
                 'no_rekam_medik' => $no_rekam_medik,
                 'tgl_rekam_medik' => $tgl_rekam_medik,
                 'statusrekammedis' => 'AKTIF',
                 'create_loginpemakai_id' => 21,
-
             ]);
 
             $pasien = new \App\Pasien;
-            $request = $request->toArray();
-            // print_r($request);
 	
-	    die();
-            foreach($request as $key => $val) {
+            foreach($data_pasien as $key => $val) {
                 $pasien->{$key} = $val;
-            }
+	    }
+
+            $pasien->namadepan = $request->namadepan;
+            $pasien->nama_pasien = $request->nama_pasien;
+            $pasien->jeniskelamin = $request->jeniskelamin; 
+            $pasien->alamat_pasien = $request->alamat_pasien; 
+	    $pasien->propinsi_id = $request->propinsi_id;
+	    $pasien->kabupaten_id = $request->kabupaten_id;
+	    $pasien->kecamatan_id = $request->kecamatan_id;
+	    $pasien->kelurahan_id = $request->kelurahan_id;
+	    $pasien->pekerjaan_id = $request->pekerjaan_id;
+	    $pasien->warga_negara = $request->warga_negara;
+            $pasien->agama => $request->agama; 
+            $pasien->tanggal_lahir => $pasien->tanggal_lahir;
+	    
 	    $pasien->create_time = date('Y-m-d');
 
 	    try {
