@@ -74,7 +74,7 @@ class PasienController extends Controller
                 'tgl_rekam_medik' => $tgl_rekam_medik,
                 'statusrekammedis' => 'AKTIF',
                 'create_loginpemakai_id' => 21,
-            ]);
+            ];
 
             $pasien = new \App\Pasien;
 	
@@ -109,6 +109,7 @@ class PasienController extends Controller
 
         // print_r((Array)$request);
         // die();
+
         }
     }
 
