@@ -80,15 +80,14 @@ class PasienController extends Controller
             $pasien = new \App\Pasien;
             $request = $request->toArray();
             // print_r($request);
-
+	
+	    die();
             foreach($request as $key => $val) {
                 $pasien->{$key} = $val;
             }
 	    $pasien->create_time = date('Y-m-d');
 
-	    $pasien->save();
-
-	    /*try {
+	    try {
 		$pasien->save();
 		return response()->json([
 			'status' => 'Success',
@@ -96,7 +95,7 @@ class PasienController extends Controller
 		])->setStatusCode(200, "Success");
 	    }catch (Exceptions $ex) {
 
-	    }*/
+	    }
 
         // print_r((Array)$request);
         // die();
