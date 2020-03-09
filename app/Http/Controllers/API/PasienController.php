@@ -88,10 +88,10 @@ class PasienController extends Controller
 
 	    try {
 		$pasien->save();
-		return response()->json([
+		/*return response()->json([
 			'status' => 'Success',
 			'no_rekam_medik' => $no_rekam_medik,
-		])->setStatusCode(200, "Success");
+		])->setStatusCode(200, "Success");*/
 	    }catch (Exceptions $ex) {
 
 	    }
