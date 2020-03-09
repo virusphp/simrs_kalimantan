@@ -93,7 +93,7 @@ class PasienController extends Controller
 	    $pasien->pekerjaan_id = $request->pekerjaan_id;
 	    $pasien->warga_negara = $request->warga_negara;
             $pasien->agama = $request->agama; 
-            $pasien->tanggal_lahir = $pasien->tanggal_lahir;
+            $pasien->tanggal_lahir = $request->tanggal_lahir;
 	    
 	    $pasien->create_time = date('Y-m-d');
 
