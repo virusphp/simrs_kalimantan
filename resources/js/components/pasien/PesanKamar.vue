@@ -145,7 +145,7 @@ export default {
 		},
 
 		daftarPasien: function() {
-			this.$router.push('/registerpasien')
+			this.$router.push('/registerpoli')
 		},
 
 		daftarBookingKamarGet: function() {

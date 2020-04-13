@@ -10,6 +10,7 @@ const Register = () => import('./components/auth/RegisterComponent.vue')
 const PesanKamar = () => import('./components/pasien/PesanKamar.vue')
 const Public = () => import('./components/public/PublicComponent.vue')
 const RegisterPasienBaru = () => import('./components/pasien/RegisterPasienBaru.vue')
+const RegisterPoli = () => import('./components/poli/RegisterPoli.vue');
 
 export default {
 	routes :[
@@ -33,6 +34,12 @@ export default {
 			path: '/registerpasien',
 			components:{
 				default: RegisterPasienBaru
+			}	
+		},
+		{ 
+			path: '/registerpoli',
+			components:{
+				default: RegisterPoli
 			}	
 		},
 		{ path: '/home' , redirect: '/pesankamar'}

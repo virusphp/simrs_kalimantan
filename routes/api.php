@@ -39,13 +39,18 @@ Route::group(['middleware' => ['apiauth']], function (){
 	Route::get('nomorbooking', 'API\PesanKamarController@nomorbooking');
 	Route::post('reloadToken', 'API\AppUserController@reloadtoken');
 	Route::post('removecookies', 'API\AppUserController@removecookies');
-	Route::get('years', 'API\PasienController@getyear');
-	Route::get('provinsi', 'API\PasienController@provinsi');
-	Route::get('kabupaten', 'API\PasienController@kabupaten');
-	Route::get('kecamatan', 'API\PasienController@kecamatan');
-	Route::get('kelurahan', 'API\PasienController@kelurahan');
-	Route::get('pekerjaan', 'API\PasienController@pekerjaan');
 	Route::post('registerpasienbaru', 'API\PasienController@registerpasienbaru');
 });
+
+Route::get('getdokter', 'API\RumahSakitController@dokter');
+Route::get('poli', 'API\RumahSakitController@poli');
+Route::get('jadwaldokter', 'API\RumahSakitController@jadwaldokter');
+Route::get('years', 'API\PasienController@getyear');
+Route::get('provinsi', 'API\PasienController@provinsi');
+Route::get('kabupaten', 'API\PasienController@kabupaten');
+Route::get('kecamatan', 'API\PasienController@kecamatan');
+Route::get('kelurahan', 'API\PasienController@kelurahan');
+Route::get('pekerjaan', 'API\PasienController@pekerjaan');
+Route::post('buatjanjipoli', 'API\RumahSakitController@buatjanjipoli');
 
 Route::get('show', 'API\PasienController@show');

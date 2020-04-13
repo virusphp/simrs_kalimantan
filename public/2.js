@@ -286,13 +286,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Pendaftaran Pasien');
     this.getYear();
     this.propinsiLists();
-    this.pekerjaanLists();
+    this.pekerjaanLists(); // this.poliLists()
   },
   components: {
     vSelect: vue_select__WEBPACK_IMPORTED_MODULE_0___default.a
@@ -400,7 +410,8 @@ __webpack_require__.r(__webpack_exports__);
       allValid: false,
       no_rekam_medis: '',
       agamaData: false,
-      infoFormulir: true
+      infoFormulir: false,
+      pilihPoli: true
     };
   },
   methods: {
@@ -454,14 +465,15 @@ __webpack_require__.r(__webpack_exports__);
         _this.$bvModal.hide('modal-loading');
 
         if (resp.data.status == 'Success') {
-          _this.no_rekam_medis = resp.data.no_rekam_medis;
-          console.log(resp.data.no_rekam_medis);
+          _this.no_rekam_medik = resp.data.no_rekam_medik;
+          console.log(resp.data.no_rekam_medik);
           _this.submitted = true; // this.$bvToast.show('pesan-penyimpanan');
           // alert('Kamar telah berhasil di pesan')
 
           _this.dismissCountDown = 5;
 
-          _this.$bvModal.msgBoxOk("Anda berhasil memesan kamar dengan nomor booking: " + resp.data.no_rekam_medis).then(function (value) {// this.$router.push('/pesankamar')
+          _this.$bvModal.msgBoxOk("Anda berhasil mendaftarkan Pasien dengan rekam medis: " + resp.data.no_rekam_medik).then(function (value) {
+            _this.$router.push('/pesankamar');
           }); // this.$bvModal.show('modal-success')
           // setTimeout(function(){
           //	this.$router.push('/pesankamar')
@@ -666,6 +678,16 @@ __webpack_require__.r(__webpack_exports__);
     },
     countDownChanged: function countDownChanged(dismissCountDown) {
       this.dismissCountDown = this.dismissSecs;
+    },
+    poliLists: function poliLists() {
+      var _this7 = this;
+
+      this.$store.dispatch('fetch', {
+        endpoint: 'poli',
+        params: {}
+      }).then(function (resp) {
+        _this7.poli = resp.data;
+      });
     }
   }
 });
@@ -836,6 +858,60 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("form", [
+                      _vm.pilihPoli
+                        ? _c("section", [
+                            _c("div", { staticClass: "row" }, [
+                              _c("div", { staticClass: "col-xs-6 px-2 py-2" }, [
+                                _c(
+                                  "button",
+                                  { staticClass: "btn btn-primary" },
+                                  [_vm._v("Poli Gigi")]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-xs-6 px-2 py-2" }, [
+                                _c(
+                                  "button",
+                                  { staticClass: "btn btn-primary" },
+                                  [_vm._v("Poli Gigi")]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-xs-6 px-2 py-2" }, [
+                                _c(
+                                  "button",
+                                  { staticClass: "btn btn-primary" },
+                                  [_vm._v("Poli Gigi")]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-xs-6 px-2 py-2" }, [
+                                _c(
+                                  "button",
+                                  { staticClass: "btn btn-primary" },
+                                  [_vm._v("Poli Gigi")]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-xs-6 px-2 py-2" }, [
+                                _c(
+                                  "button",
+                                  { staticClass: "btn btn-primary" },
+                                  [_vm._v("Poli Gigi")]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-xs-6 px-2 py-2" }, [
+                                _c(
+                                  "button",
+                                  { staticClass: "btn btn-primary" },
+                                  [_vm._v("Poli Gigi")]
+                                )
+                              ])
+                            ])
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
                       _vm.infoFormulir
                         ? _c("small", { staticStyle: { color: "red" } }, [
                             _vm._v("Isi semua data dalam formulir")

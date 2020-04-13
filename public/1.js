@@ -647,7 +647,7 @@ __webpack_require__.r(__webpack_exports__);
       this.showRekamMedis = false;
     },
     daftarPasien: function daftarPasien() {
-      this.$router.push('/registerpasien');
+      this.$router.push('/registerpoli');
     },
     daftarBookingKamarGet: function daftarBookingKamarGet() {
       var _this2 = this;

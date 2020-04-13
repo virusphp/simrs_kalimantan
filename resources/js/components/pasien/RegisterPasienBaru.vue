@@ -37,6 +37,16 @@
                                 <small>Pendaftaran Pasien Baru</small>
                             </div>
                             <form>
+								<section v-if="pilihPoli">
+									<div class="row" >
+										<div class="col-xs-6 px-2 py-2" v-for=""><button class="btn btn-primary">Poli Gigi</button></div>
+										<div class="col-xs-6 px-2 py-2"><button class="btn btn-primary">Poli Gigi</button></div>
+										<div class="col-xs-6 px-2 py-2"><button class="btn btn-primary">Poli Gigi</button></div>
+										<div class="col-xs-6 px-2 py-2"><button class="btn btn-primary">Poli Gigi</button></div>
+										<div class="col-xs-6 px-2 py-2"><button class="btn btn-primary">Poli Gigi</button></div>
+										<div class="col-xs-6 px-2 py-2"><button class="btn btn-primary">Poli Gigi</button></div>
+									</div>
+								</section>
                                 <small style="color: red;" v-if="infoFormulir">Isi semua data dalam formulir</small>
                                 <section v-if="pageOneOpen">
                                     <div class="form-group row">
@@ -282,6 +292,7 @@ export default {
         this.getYear()
         this.propinsiLists()
         this.pekerjaanLists()
+		// this.poliLists()
     },
     components: {
 			vSelect
@@ -355,8 +366,9 @@ export default {
             allValid: false,
             no_rekam_medis:'',
             agamaData: false,
-            infoFormulir:true,
-        }
+            infoFormulir:false,
+			pilihPoli:true,
+		}
     },
     methods: {
         getYear() {
@@ -604,6 +616,15 @@ export default {
         countDownChanged(dismissCountDown) {
 			this.dismissCountDown = this.dismissSecs
 		},
+
+		poliLists() {
+			this.$store.dispatch('fetch', {
+				endpoint:'poli',
+				params:{}
+			}).then(resp => {
+				this.poli = resp.data
+			})
+		}
 
     }
 }

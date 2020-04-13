@@ -64,10 +64,11 @@ export default new Vuex.Store({
 					.then(response => {
 						const token = response.data.token
 						axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
+						axios.defaults.headers.common['Content-Type'] = 'multipart/form-data'
 						localStorage.setItem('token', token)
 						commit("auth_success", token, user)
 						
-						const menit=5
+						const menit=25
 						const reloadToken = menit*60*1000 // 1 menit
 						
 

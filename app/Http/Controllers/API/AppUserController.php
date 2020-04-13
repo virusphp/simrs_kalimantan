@@ -82,7 +82,7 @@ class AppUserController extends Controller
 
 						$user = (Object) $user;
 
-						$menit = 15;
+						$menit = 25;
 						$token_expiry = $time + $menit*60; // 60 detik = 1 menit 
 						$payload = [
 							'data' => $user,
