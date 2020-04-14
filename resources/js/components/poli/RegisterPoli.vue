@@ -1,5 +1,8 @@
 <template>
     <section class="section section-shaped section-lg my-0 py-4">
+        <b-modal id="modal-1" title="Konfirmasi" @ok="submitRegistrationAction" >
+            Anda ingin meneruskan Registrasi Pasien {{ nama_depan }} {{ nama }}?	
+        </b-modal>
         <b-modal id="modal-error" title="Perhatian">
             Isi semua data di dalam formulir	
         </b-modal>
@@ -397,7 +400,8 @@ export default {
             agamaData: false,
             infoFormulir:false,
 			pilihPoli:true,
-			file:''
+			file:'',
+			debugOny: true,
 		}
 	},
 	methods: {
@@ -616,6 +620,8 @@ export default {
         },
 
 		checkValidationPageZero() {
+			if (this.debugOny) return true
+
 			if (this.hari_jam == '' || this.tanggal_pesan == '') {
                 this.$bvModal.show('modal-error')
                 this.tanggalPesanIsInvalid = this.tanggal_pesan == '' ? true : false
@@ -625,6 +631,7 @@ export default {
 		},
 
         checkValidationPageOne() {
+			if(this.debugOny)  return true
 			console.log('check val');
             if (this.nama_depan == '' || this.nama == '' || this.day == '' || this.month == '' || this.year == '' || this.gender == '' || this.agama == '') {
                 this.namaDepanIsInvalid = (this.nama_depan == '')  ? true : false
@@ -642,7 +649,7 @@ export default {
         },
 
         checkValidationPageTwo() {
-
+			if(this.debugOny) return true
             if (this.alamat == '' || this.propinsi == '' || this.kabupaten == '' || this.kecamatan == '' || this.kelurahan == '') {
                 this.alamatIsInvalid = (this.alamat == '')  ? true : false
                 this.propinsiIsInvalid = this.propinsi == '' ? true : false
@@ -658,7 +665,7 @@ export default {
         },
 
         checkValidationPageThree() {
-
+			if (this.debugOny) return true
             if (this.pekerjaan == '' || this.warganegara == '') {
                 this.pekerjaanIsInvalid = (this.pekerjaan == '')  ? true : false
                 this.warganegaraIsInvalid = this.warganegara == '' ? true : false

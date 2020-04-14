@@ -316,6 +316,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
@@ -430,7 +433,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }]), _defineProperty(_ref, "propinsi", ''), _defineProperty(_ref, "kabupaten", ''), _defineProperty(_ref, "kecamatan", ''), _defineProperty(_ref, "kelurahan", ''), _defineProperty(_ref, "propinsiIsInvalid", false), _defineProperty(_ref, "kabupatenIsInvalid", false), _defineProperty(_ref, "kecamatanIsInvalid", false), _defineProperty(_ref, "kelurahanIsInvalid", false), _defineProperty(_ref, "pekerjaanIsInvalid", false), _defineProperty(_ref, "warganegaraIsInvalid", false), _defineProperty(_ref, "pekerjaan_lists", [{
       pekerjaan_id: -1,
       pekerjaan_nama: 'Loading...'
-    }]), _defineProperty(_ref, "warganegara_lists", ['INDONESIA', 'ASING']), _defineProperty(_ref, "agama_lists", ['ISLAM', 'BUDHA', 'HINDU', 'KATOLIK', 'PROTESTAN', 'KONGHUCU']), _defineProperty(_ref, "pekerjaan", ''), _defineProperty(_ref, "warganegara", ''), _defineProperty(_ref, "agama", ''), _defineProperty(_ref, "dismissCountDown", 0), _defineProperty(_ref, "showDimissibleAlert", false), _defineProperty(_ref, "dismissSecs", 100), _defineProperty(_ref, "submitted", false), _defineProperty(_ref, "allValid", false), _defineProperty(_ref, "no_rekam_medis", ''), _defineProperty(_ref, "agamaData", false), _defineProperty(_ref, "infoFormulir", false), _defineProperty(_ref, "pilihPoli", true), _defineProperty(_ref, "file", ''), _ref;
+    }]), _defineProperty(_ref, "warganegara_lists", ['INDONESIA', 'ASING']), _defineProperty(_ref, "agama_lists", ['ISLAM', 'BUDHA', 'HINDU', 'KATOLIK', 'PROTESTAN', 'KONGHUCU']), _defineProperty(_ref, "pekerjaan", ''), _defineProperty(_ref, "warganegara", ''), _defineProperty(_ref, "agama", ''), _defineProperty(_ref, "dismissCountDown", 0), _defineProperty(_ref, "showDimissibleAlert", false), _defineProperty(_ref, "dismissSecs", 100), _defineProperty(_ref, "submitted", false), _defineProperty(_ref, "allValid", false), _defineProperty(_ref, "no_rekam_medis", ''), _defineProperty(_ref, "agamaData", false), _defineProperty(_ref, "infoFormulir", false), _defineProperty(_ref, "pilihPoli", true), _defineProperty(_ref, "file", ''), _defineProperty(_ref, "debugOny", true), _ref;
   },
   methods: {
     handleFileUpload: function handleFileUpload() {
@@ -681,6 +684,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     },
     checkValidationPageZero: function checkValidationPageZero() {
+      if (this.debugOny) return true;
+
       if (this.hari_jam == '' || this.tanggal_pesan == '') {
         this.$bvModal.show('modal-error');
         this.tanggalPesanIsInvalid = this.tanggal_pesan == '' ? true : false;
@@ -690,6 +695,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return true;
     },
     checkValidationPageOne: function checkValidationPageOne() {
+      if (this.debugOny) return true;
       console.log('check val');
 
       if (this.nama_depan == '' || this.nama == '' || this.day == '' || this.month == '' || this.year == '' || this.gender == '' || this.agama == '') {
@@ -706,6 +712,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return true;
     },
     checkValidationPageTwo: function checkValidationPageTwo() {
+      if (this.debugOny) return true;
+
       if (this.alamat == '' || this.propinsi == '' || this.kabupaten == '' || this.kecamatan == '' || this.kelurahan == '') {
         this.alamatIsInvalid = this.alamat == '' ? true : false;
         this.propinsiIsInvalid = this.propinsi == '' ? true : false;
@@ -719,6 +727,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return true;
     },
     checkValidationPageThree: function checkValidationPageThree() {
+      if (this.debugOny) return true;
+
       if (this.pekerjaan == '' || this.warganegara == '') {
         this.pekerjaanIsInvalid = this.pekerjaan == '' ? true : false;
         this.warganegaraIsInvalid = this.warganegara == '' ? true : false;
@@ -898,6 +908,23 @@ var render = function() {
     "section",
     { staticClass: "section section-shaped section-lg my-0 py-4" },
     [
+      _c(
+        "b-modal",
+        {
+          attrs: { id: "modal-1", title: "Konfirmasi" },
+          on: { ok: _vm.submitRegistrationAction }
+        },
+        [
+          _vm._v(
+            "\n            Anda ingin meneruskan Registrasi Pasien " +
+              _vm._s(_vm.nama_depan) +
+              " " +
+              _vm._s(_vm.nama) +
+              "?\t\n        "
+          )
+        ]
+      ),
+      _vm._v(" "),
       _c("b-modal", { attrs: { id: "modal-error", title: "Perhatian" } }, [
         _vm._v("\n            Isi semua data di dalam formulir\t\n        ")
       ]),

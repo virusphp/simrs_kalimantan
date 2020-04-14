@@ -26,4 +26,8 @@ Route::post('/register_user', 'API\AppUserController@register')->name('register_
 /*Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/pesankamar', 'API\PesanKamarController@index')->name('pesankamar');*/
 
+Route::get('/admin', function(){
+	return 'admin page';
+});
 Route::get('/{any}', 'SpaController@index')->where('any', '.*');
+

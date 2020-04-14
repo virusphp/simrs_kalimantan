@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Ruangan;
 
@@ -120,57 +121,55 @@ class RumahSakitController extends Controller
 
             // print($kelompokumur_id);
             $profilrs_id = \App\ProfileRumahSakit::first()->profilrs_id;
-			$no_rekam_medik = $this->noRekamMedik();
 			$no_rekam_medik = '';
 
             $tgl_rekam_medik = date('Y-m-d');
 
             $data_pasien = [
-                'profilrs_id' => $profilrs_id,
                 'kelompokumur_id' => $kelompokumur_id,
-                'no_rekam_medik' => $no_rekam_medik,
-                'tgl_rekam_medik' => $tgl_rekam_medik,
-                'statusrekammedis' => 'AKTIF',
-                'create_loginpemakai_id' => 21,
+                'profilrs_id' => $profilrs_id,
             ];
 
-            $pasien = new \App\Pasien;
+            $daftarpoli = new \App\DaftarPoli;
 	
             foreach($data_pasien as $key => $val) {
-                $pasien->{$key} = $val;
-	    }
+                $daftarpoli->{$key} = $val;
+			}
 
-        $pasien->namadepan = $request->namadepan;
-        $pasien->nama_pasien = $request->nama_pasien;
-        $pasien->jeniskelamin = $request->jeniskelamin; 
-        $pasien->alamat_pasien = $request->alamat_pasien; 
-	    $pasien->propinsi_id = $request->propinsi_id;
-	    $pasien->kabupaten_id = $request->kabupaten_id;
-	    $pasien->kecamatan_id = $request->kecamatan_id;
-	    $pasien->kelurahan_id = $request->kelurahan_id;
-	    $pasien->pekerjaan_id = $request->pekerjaan_id;
-	    $pasien->warga_negara = $request->warga_negara;
-        $pasien->agama = $request->agama; 
-        $pasien->tanggal_lahir = $request->tanggal_lahir;
-	    
-	    $pasien->create_time = date('Y-m-d');
+			$daftarpoli->nama_depan = $request->namadepan;
+			$daftarpoli->nama_pasien = $request->nama_pasien;
+			$daftarpoli->jeniskelamin = $request->jeniskelamin; 
+			$daftarpoli->alamat_pasien = $request->alamat_pasien; 
+			$daftarpoli->propinsi_id = $request->propinsi_id;
+			$daftarpoli->kabupaten_id = $request->kabupaten_id;
+			$daftarpoli->kecamatan_id = $request->kecamatan_id;
+			$daftarpoli->kelurahan_id = $request->kelurahan_id;
+			$daftarpoli->pekerjaan_id = $request->pekerjaan_id;
+			$daftarpoli->warga_negara = $request->warga_negara;
+			$daftarpoli->agama = $request->agama; 
+			$daftarpoli->tanggal_lahir = $request->tanggal_lahir;
 
-	    try {
-			$pasien->save();
-			// TODO
-			// buat janji poli
-			$buatjanjipoli = new \App\BuatJanjiPoli();
-			$buatjanjipoli->pegawai_id = $request->pegawai_id;
-			$buatjanjipoli->ruangan_id = $request->ruangan_id;
+			$daftarpoli->pegawai_id = $request->pegawai_id;
+			$daftarpoli->jadwaldokter_id = $request->jadwaldokter_id;
+			$daftarpoli->ruangan_id = $request->ruangan_id;
+			$daftarpoli->file = $request->file ? $request->file : '';
+			
+			try {
+				$daftarpoli->save();
+				// TODO
+				// buat janji poli
+				$buatjanjipoli = new \App\BuatJanjiPoli();
+				$buatjanjipoli->pegawai_id = $request->pegawai_id;
+				$buatjanjipoli->ruangan_id = $request->ruangan_id;
 
 
-			//return response()->json([
-				//'status' => 'Success',
-				//'no_rekam_medik' => $no_rekam_medik,
-			//])->setStatusCode(200, "Success");
-	    }catch (Exceptions $ex) {
+				//return response()->json([
+					//'status' => 'Success',
+					//'no_rekam_medik' => $no_rekam_medik,
+				//])->setStatusCode(200, "Success");
+			}catch (Exceptions $ex) {
 
-	    }
+			}
 
         // print_r((Array)$request);
 		// die();
@@ -227,6 +226,15 @@ class RumahSakitController extends Controller
         }
         // var_dump($no_rm_baru); die;
         return trim($no_rm_baru);
+    }
+	
+	public static function DigitRM()
+    {
+        // $sql="SELECT jmldigitrm FROM konfigsystem_k LIMIT 1";
+        // $Konfigjmldigitrm = Yii::app()->db->createCommand($sql)->queryRow();
+        // $digitrm = $Konfigjmldigitrm['jmldigitrm'];
+        // return $digitrm;
+        return \App\KonfigSystem::select('jmldigitrm')->first()->jmldigitrm;
     }
 
 

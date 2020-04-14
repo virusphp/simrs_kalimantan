@@ -51,6 +51,6 @@ Route::get('kabupaten', 'API\PasienController@kabupaten');
 Route::get('kecamatan', 'API\PasienController@kecamatan');
 Route::get('kelurahan', 'API\PasienController@kelurahan');
 Route::get('pekerjaan', 'API\PasienController@pekerjaan');
-Route::post('buatjanjipoli', 'API\RumahSakitController@buatjanjipoli');
+Route::post('registerpoli', 'API\RumahSakitController@buatjanjipoli');
 
 Route::get('show', 'API\PasienController@show');
