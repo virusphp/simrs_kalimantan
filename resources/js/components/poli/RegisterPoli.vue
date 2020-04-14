@@ -1,5 +1,11 @@
 <template>
     <section class="section section-shaped section-lg my-0 py-4">
+        <b-modal id="modal-loading" title="Sedang Proses">
+                Tunggu, sedang proses penyimpanan	
+        </b-modal>
+        <b-modal id="modal-success" title="Konfirmasi">
+                Anda berhasil mendaftar Poli, pihak rumah sakit akan menkonfirmasinya terlebih dahulu
+        </b-modal>
         <b-modal id="modal-1" title="Konfirmasi" @ok="submitRegistrationAction" >
             Anda ingin meneruskan Registrasi Pasien {{ nama_depan }} {{ nama }}?	
         </b-modal>
@@ -502,6 +508,28 @@ export default {
 			this.$store.dispatch("submit_action", {
 				form:formData,
 				endpoint:'registerpoli'
+			}).then(resp => {
+				this.$bvModal.hide('modal-loading')	
+				if (resp.data.status == 'Success') {
+					this.submitted = true
+					// this.$bvToast.show('pesan-penyimpanan');
+					// alert('Kamar telah berhasil di pesan')
+					this.$bvModal.msgBoxOk("Anda berhasil mendaftarkan di Poli, pihak rumah sakit akan menkonfirmasinya terlebih dahulu.")
+							.then(value => {
+								this.$router.push('/pesankamar')
+							})
+
+					// this.$bvModal.show('modal-success')
+					// setTimeout(function(){
+					//	this.$router.push('/pesankamar')
+					// }, 1000)
+				} else {
+					/*this.$bvModal.show('modal-error-1')
+					
+					setTimeout(() => {
+						this.$router.push('/pesankamar')
+					}, 1000)*/
+				}
 			})
 		},
 		
@@ -546,11 +574,11 @@ export default {
 					//	this.$router.push('/pesankamar')
 					// }, 1000)
 				} else {
-					this.$bvModal.show('modal-error-1')
+					/*this.$bvModal.show('modal-error-1')
 					
 					setTimeout(() => {
 						this.$router.push('/pesankamar')
-					}, 1000)
+					}, 1000)*/
 				}
 			})
         },

@@ -319,6 +319,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
@@ -536,6 +542,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     },
     submitRegistrationAction: function submitRegistrationAction() {
+      var _this5 = this;
+
       this.$bvModal.show('modal-loading');
       var day = this.day.length < 2 ? '0' + this.day : this.day;
       var formData = new FormData();
@@ -558,10 +566,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$store.dispatch("submit_action", {
         form: formData,
         endpoint: 'registerpoli'
+      }).then(function (resp) {
+        _this5.$bvModal.hide('modal-loading');
+
+        if (resp.data.status == 'Success') {
+          _this5.submitted = true; // this.$bvToast.show('pesan-penyimpanan');
+          // alert('Kamar telah berhasil di pesan')
+
+          _this5.$bvModal.msgBoxOk("Anda berhasil mendaftarkan di Poli, pihak rumah sakit akan menkonfirmasinya terlebih dahulu.").then(function (value) {
+            _this5.$router.push('/pesankamar');
+          }); // this.$bvModal.show('modal-success')
+          // setTimeout(function(){
+          //	this.$router.push('/pesankamar')
+          // }, 1000)
+
+        } else {
+            /*this.$bvModal.show('modal-error-1')
+            
+            setTimeout(() => {
+            	this.$router.push('/pesankamar')
+            }, 1000)*/
+          }
       });
     },
     _submitRegistrationAction: function _submitRegistrationAction() {
-      var _this5 = this;
+      var _this6 = this;
 
       // TODO
       this.$bvModal.show('modal-loading');
@@ -583,30 +612,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         },
         endpoint: 'registerpasienbaru'
       }).then(function (resp) {
-        _this5.$bvModal.hide('modal-loading');
+        _this6.$bvModal.hide('modal-loading');
 
         if (resp.data.status == 'Success') {
-          _this5.no_rekam_medik = resp.data.no_rekam_medik;
+          _this6.no_rekam_medik = resp.data.no_rekam_medik;
           console.log(resp.data.no_rekam_medik);
-          _this5.submitted = true; // this.$bvToast.show('pesan-penyimpanan');
+          _this6.submitted = true; // this.$bvToast.show('pesan-penyimpanan');
           // alert('Kamar telah berhasil di pesan')
 
-          _this5.dismissCountDown = 5;
+          _this6.dismissCountDown = 5;
 
-          _this5.$bvModal.msgBoxOk("Anda berhasil mendaftarkan Pasien dengan rekam medis: " + resp.data.no_rekam_medik).then(function (value) {
-            _this5.$router.push('/pesankamar');
+          _this6.$bvModal.msgBoxOk("Anda berhasil mendaftarkan Pasien dengan rekam medis: " + resp.data.no_rekam_medik).then(function (value) {
+            _this6.$router.push('/pesankamar');
           }); // this.$bvModal.show('modal-success')
           // setTimeout(function(){
           //	this.$router.push('/pesankamar')
           // }, 1000)
 
         } else {
-          _this5.$bvModal.show('modal-error-1');
-
-          setTimeout(function () {
-            _this5.$router.push('/pesankamar');
-          }, 1000);
-        }
+            /*this.$bvModal.show('modal-error-1')
+            
+            setTimeout(() => {
+            	this.$router.push('/pesankamar')
+            }, 1000)*/
+          }
       });
     },
     nextPage: function nextPage(page) {
@@ -739,10 +768,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return true;
     },
     propinsiLists: function propinsiLists() {
-      var _this6 = this;
+      var _this7 = this;
 
       window.axios.get('/api/provinsi', {}).then(function (response) {
-        _this6.propinsi_lists = response.data;
+        _this7.propinsi_lists = response.data;
       });
     },
     refresh_state: function refresh_state() {
@@ -757,7 +786,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }];
     },
     loadKabupaten: function loadKabupaten(value) {
-      var _this7 = this;
+      var _this8 = this;
 
       console.log('Load Kabupaten', value);
       this.refresh_state();
@@ -771,11 +800,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           propinsi_id: value.propinsi_id
         }
       }).then(function (response) {
-        _this7.kabupaten_lists = response.data;
+        _this8.kabupaten_lists = response.data;
       });
     },
     loadKecamatan: function loadKecamatan(value) {
-      var _this8 = this;
+      var _this9 = this;
 
       console.log('Load Kecamatan', value);
       this.kelurahan_lists = [{
@@ -792,11 +821,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           kabupaten_id: value.kabupaten_id
         }
       }).then(function (response) {
-        _this8.kecamatan_lists = response.data;
+        _this9.kecamatan_lists = response.data;
       });
     },
     loadKelurahan: function loadKelurahan(value) {
-      var _this9 = this;
+      var _this10 = this;
 
       console.log('Load Kelurahan', value);
       this.kelurahan_lists = [{
@@ -809,30 +838,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           kecamatan_id: value.kecamatan_id
         }
       }).then(function (response) {
-        _this9.kelurahan_lists = response.data;
+        _this10.kelurahan_lists = response.data;
       });
     },
     pekerjaanLists: function pekerjaanLists() {
-      var _this10 = this;
+      var _this11 = this;
 
       this.$store.dispatch('fetch', {
         endpoint: 'pekerjaan',
         params: {}
       }).then(function (resp) {
-        _this10.pekerjaan_lists = resp.data;
+        _this11.pekerjaan_lists = resp.data;
       });
     },
     countDownChanged: function countDownChanged(dismissCountDown) {
       this.dismissCountDown = this.dismissSecs;
     },
     poliLists: function poliLists() {
-      var _this11 = this;
+      var _this12 = this;
 
       this.$store.dispatch('fetch', {
         endpoint: 'poli',
         params: {}
       }).then(function (resp) {
-        _this11.poli = resp.data;
+        _this12.poli = resp.data;
       });
     }
   }
@@ -908,6 +937,22 @@ var render = function() {
     "section",
     { staticClass: "section section-shaped section-lg my-0 py-4" },
     [
+      _c(
+        "b-modal",
+        { attrs: { id: "modal-loading", title: "Sedang Proses" } },
+        [
+          _vm._v(
+            "\n                Tunggu, sedang proses penyimpanan\t\n        "
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c("b-modal", { attrs: { id: "modal-success", title: "Konfirmasi" } }, [
+        _vm._v(
+          "\n                Anda berhasil mendaftar Poli, pihak rumah sakit akan menkonfirmasinya terlebih dahulu\n        "
+        )
+      ]),
+      _vm._v(" "),
       _c(
         "b-modal",
         {

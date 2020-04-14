@@ -158,15 +158,16 @@ class RumahSakitController extends Controller
 				$daftarpoli->save();
 				// TODO
 				// buat janji poli
-				$buatjanjipoli = new \App\BuatJanjiPoli();
-				$buatjanjipoli->pegawai_id = $request->pegawai_id;
-				$buatjanjipoli->ruangan_id = $request->ruangan_id;
+				//$buatjanjipoli = new \App\BuatJanjiPoli();
+				//$buatjanjipoli->pegawai_id = $request->pegawai_id;
+				//$buatjanjipoli->ruangan_id = $request->ruangan_id;
 
 
-				//return response()->json([
-					//'status' => 'Success',
-					//'no_rekam_medik' => $no_rekam_medik,
-				//])->setStatusCode(200, "Success");
+				return response()->json([
+					'status' => 'Success',
+					'no_rekam_medik' => '',
+				])->setStatusCode(200, "Success");
+				
 			}catch (Exceptions $ex) {
 
 			}
