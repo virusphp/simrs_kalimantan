@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[3],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/poli/RegisterPoli.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/poli/RegisterPoli.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pasien/RegisterPasienBaru.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pasien/RegisterPasienBaru.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -11,35 +11,6 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-select */ "./node_modules/vue-select/dist/vue-select.js");
 /* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_select__WEBPACK_IMPORTED_MODULE_0__);
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -328,42 +299,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
-    console.log('Mounted');
-    this.getPoliLists(); // this.getPropinsiLists()
-
+    console.log('Pendaftaran Pasien');
     this.getYear();
     this.propinsiLists();
-    this.pekerjaanLists();
+    this.pekerjaanLists(); // this.poliLists()
   },
   components: {
     vSelect: vue_select__WEBPACK_IMPORTED_MODULE_0___default.a
   },
   data: function data() {
-    var _ref;
-
-    return _ref = {
-      pilihPoli: true,
-      nama_poli: '',
-      nama_poli_lists: [{
-        ruangan_id: -1,
-        ruangan_nama: 'Loading ....'
-      }],
-      nama_dokter_lists: [{
-        pegawai_id: -1,
-        nama_pegawai: 'Pilih Dokter'
-      }],
-      polibuka_lists: [{
-        jadwalbukapoli_id: -1,
-        buka: 'Pilih Jadwal'
-      }],
-      propinsi_lists: [{
-        propinsi_id: -1,
-        propinsi_nama: 'Loading...'
-      }],
-      namaPoliIsInvalid: false,
-      nama_dokter: '',
-      hari_jam: '',
-      tanggal_pesan: '',
+    return {
       nama: '',
       nama_depan: '',
       day: '',
@@ -378,12 +323,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       alamatIsInvalid: false,
       disableSubmit: false,
       formControl: 'form-control',
-      pageOneOpen: false,
+      pageOneOpen: true,
       pageTwoOpen: false,
       pageThreeOpen: false,
       summaryPage: false,
       submitRegistration: false,
-      tanggalPesanIsInvalid: false,
       gender_type: ['Laki-laki', 'Perempuan'],
       days: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'],
       months: [{
@@ -423,28 +367,54 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         value: '12',
         label: 'Desember'
       }],
-      years: []
-    }, _defineProperty(_ref, "propinsi_lists", [{
-      propinsi_id: -1,
-      propinsi_nama: 'Loading...'
-    }]), _defineProperty(_ref, "kabupaten_lists", [{
-      kabupaten_id: -1,
-      kabupaten_nama: 'Loading...'
-    }]), _defineProperty(_ref, "kecamatan_lists", [{
-      kecamatan_id: -1,
-      kecamatan_nama: 'Loading...'
-    }]), _defineProperty(_ref, "kelurahan_lists", [{
-      kelurahan_id: -1,
-      kelurahan_nama: 'Loading...'
-    }]), _defineProperty(_ref, "propinsi", ''), _defineProperty(_ref, "kabupaten", ''), _defineProperty(_ref, "kecamatan", ''), _defineProperty(_ref, "kelurahan", ''), _defineProperty(_ref, "propinsiIsInvalid", false), _defineProperty(_ref, "kabupatenIsInvalid", false), _defineProperty(_ref, "kecamatanIsInvalid", false), _defineProperty(_ref, "kelurahanIsInvalid", false), _defineProperty(_ref, "pekerjaanIsInvalid", false), _defineProperty(_ref, "warganegaraIsInvalid", false), _defineProperty(_ref, "pekerjaan_lists", [{
-      pekerjaan_id: -1,
-      pekerjaan_nama: 'Loading...'
-    }]), _defineProperty(_ref, "warganegara_lists", ['INDONESIA', 'ASING']), _defineProperty(_ref, "agama_lists", ['ISLAM', 'BUDHA', 'HINDU', 'KATOLIK', 'PROTESTAN', 'KONGHUCU']), _defineProperty(_ref, "pekerjaan", ''), _defineProperty(_ref, "warganegara", ''), _defineProperty(_ref, "agama", ''), _defineProperty(_ref, "dismissCountDown", 0), _defineProperty(_ref, "showDimissibleAlert", false), _defineProperty(_ref, "dismissSecs", 100), _defineProperty(_ref, "submitted", false), _defineProperty(_ref, "allValid", false), _defineProperty(_ref, "no_rekam_medis", ''), _defineProperty(_ref, "agamaData", false), _defineProperty(_ref, "infoFormulir", false), _defineProperty(_ref, "pilihPoli", true), _defineProperty(_ref, "file", ''), _defineProperty(_ref, "debugOny", true), _ref;
+      years: [],
+      propinsi_lists: [{
+        propinsi_id: -1,
+        propinsi_nama: 'Loading...'
+      }],
+      kabupaten_lists: [{
+        kabupaten_id: -1,
+        kabupaten_nama: 'Loading...'
+      }],
+      kecamatan_lists: [{
+        kecamatan_id: -1,
+        kecamatan_nama: 'Loading...'
+      }],
+      kelurahan_lists: [{
+        kelurahan_id: -1,
+        kelurahan_nama: 'Loading...'
+      }],
+      propinsi: '',
+      kabupaten: '',
+      kecamatan: '',
+      kelurahan: '',
+      propinsiIsInvalid: false,
+      kabupatenIsInvalid: false,
+      kecamatanIsInvalid: false,
+      kelurahanIsInvalid: false,
+      pekerjaanIsInvalid: false,
+      warganegaraIsInvalid: false,
+      pekerjaan_lists: [{
+        pekerjaan_id: -1,
+        pekerjaan_nama: 'Loading...'
+      }],
+      warganegara_lists: ['INDONESIA', 'ASING'],
+      agama_lists: ['ISLAM', 'BUDHA', 'HINDU', 'KATOLIK', 'PROTESTAN', 'KONGHUCU'],
+      pekerjaan: '',
+      warganegara: '',
+      agama: '',
+      dismissCountDown: 0,
+      showDimissibleAlert: false,
+      dismissSecs: 100,
+      submitted: false,
+      allValid: false,
+      no_rekam_medis: '',
+      agamaData: false,
+      infoFormulir: false,
+      pilihPoli: true
+    };
   },
   methods: {
-    handleFileUpload: function handleFileUpload() {
-      this.file = this.$refs.file.files[0];
-    },
     getYear: function getYear() {
       var d = new Date();
       var cy = d.getFullYear();
@@ -455,78 +425,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           year: i
         });
       }
-    },
-    getPoliLists: function getPoliLists() {
-      var _this = this;
-
-      this.nama_dokter_lists = [{
-        pegawai_id: -1,
-        nama_pegawai: 'Loading...'
-      }];
-      this.polibuka_lists = [{
-        jadwaldokter_id: -1,
-        buka: "Loading..."
-      }];
-      this.nama_dokter = '';
-      this.hari_jam = '';
-      this.$store.dispatch('fetch', {
-        endpoint: 'poli',
-        params: {}
-      }).then(function (resp) {
-        _this.nama_poli_lists = resp.data;
-        _this.nama_dokter_lists = [{
-          pegawai_id: -1,
-          nama_pegawai: 'Loading...'
-        }];
-        _this.nama_dokter = '';
-        _this.hari_jam = '';
-      });
-    },
-    getDokter: function getDokter(ruangan) {
-      var _this2 = this;
-
-      this.nama_dokter_lists = [{
-        pegawai_id: -1,
-        nama_pegawai: 'Loading...'
-      }];
-      this.polibuka_lists = [{
-        jadwaldokter_id: -1,
-        buka: "Loading..."
-      }];
-      this.hari_jam = '';
-      this.nama_dokter = '';
-      this.$store.dispatch('fetch', {
-        endpoint: 'getdokter',
-        params: {
-          'ruangan_id': ruangan.ruangan_id
-        }
-      }).then(function (resp) {
-        _this2.nama_dokter_lists = resp.data;
-        _this2.hari_jam = '';
-      });
-    },
-    getJadwalPoli: function getJadwalPoli(pegawai) {
-      var _this3 = this;
-
-      this.polibuka_lists = [{
-        jadwalbukapoli_id: -1,
-        buka: 'Loading...'
-      }], this.$store.dispatch('fetch', {
-        endpoint: 'jadwaldokter',
-        params: {
-          'pegawai_id': pegawai.pegawai_id,
-          'ruangan_id': this.nama_poli.ruangan_id
-        }
-      }).then(function (resp) {
-        _this3.polibuka_lists = resp.data;
-      });
-    },
-    getPropinsiLists: function getPropinsiLists() {
-      var _this4 = this;
-
-      window.axios.get('/api/provinsi', {}).then(function (response) {
-        _this4.propinsi_lists = response.data;
-      });
     },
     confirmSubmitRegistration: function confirmSubmitRegistration() {
       console.log('all valid', this.allValid);
@@ -542,55 +440,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     },
     submitRegistrationAction: function submitRegistrationAction() {
-      var _this5 = this;
-
-      this.$bvModal.show('modal-loading');
-      var day = this.day.length < 2 ? '0' + this.day : this.day;
-      var formData = new FormData();
-      formData.append('pegawai_id', this.nama_dokter.pegawai_id);
-      formData.append('ruangan_id', this.nama_poli.ruangan_id);
-      formData.append('jadwaldokter_id', this.hari_jam.jadwaldokter_id);
-      formData.append('file', this.file);
-      formData.append('namadepan', this.nama_depan);
-      formData.append('nama_pasien', this.nama);
-      formData.append('tanggal_lahir', this.year.label + '-' + this.month.value + '-' + day);
-      formData.append('jeniskelamin', this.gender);
-      formData.append('alamat_pasien', this.alamat);
-      formData.append('propinsi_id', this.propinsi.propinsi_id);
-      formData.append('kabupaten_id', this.kabupaten.kabupaten_id);
-      formData.append('kecamatan_id', this.kecamatan.kecamatan_id);
-      formData.append('kelurahan_id', this.kelurahan.kelurahan_id);
-      formData.append('pekerjaan_id', this.pekerjaan.pekerjaan_id);
-      formData.append('warga_negara', this.warganegara);
-      formData.append('agama', this.agama);
-      this.$store.dispatch("submit_action", {
-        form: formData,
-        endpoint: 'registerpoli'
-      }).then(function (resp) {
-        _this5.$bvModal.hide('modal-loading');
-
-        if (resp.data.status == 'Success') {
-          _this5.submitted = true; // this.$bvToast.show('pesan-penyimpanan');
-          // alert('Kamar telah berhasil di pesan')
-
-          _this5.$bvModal.msgBoxOk("Anda berhasil mendaftarkan di Poli, pihak rumah sakit akan menkonfirmasinya terlebih dahulu.").then(function (value) {
-            _this5.$router.push('/pesankamar');
-          }); // this.$bvModal.show('modal-success')
-          // setTimeout(function(){
-          //	this.$router.push('/pesankamar')
-          // }, 1000)
-
-        } else {
-            /*this.$bvModal.show('modal-error-1')
-            
-            setTimeout(() => {
-            	this.$router.push('/pesankamar')
-            }, 1000)*/
-          }
-      });
-    },
-    _submitRegistrationAction: function _submitRegistrationAction() {
-      var _this6 = this;
+      var _this = this;
 
       // TODO
       this.$bvModal.show('modal-loading');
@@ -612,42 +462,40 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         },
         endpoint: 'registerpasienbaru'
       }).then(function (resp) {
-        _this6.$bvModal.hide('modal-loading');
+        _this.$bvModal.hide('modal-loading');
 
         if (resp.data.status == 'Success') {
-          _this6.no_rekam_medik = resp.data.no_rekam_medik;
+          _this.no_rekam_medik = resp.data.no_rekam_medik;
           console.log(resp.data.no_rekam_medik);
-          _this6.submitted = true; // this.$bvToast.show('pesan-penyimpanan');
+          _this.submitted = true; // this.$bvToast.show('pesan-penyimpanan');
           // alert('Kamar telah berhasil di pesan')
 
-          _this6.dismissCountDown = 5;
+          _this.dismissCountDown = 5;
 
-          _this6.$bvModal.msgBoxOk("Anda berhasil mendaftarkan Pasien dengan rekam medis: " + resp.data.no_rekam_medik).then(function (value) {
-            _this6.$router.push('/pesankamar');
+          _this.$bvModal.msgBoxOk("Anda berhasil mendaftarkan Pasien dengan rekam medis: " + resp.data.no_rekam_medik).then(function (value) {
+            _this.$router.push('/pesankamar');
           }); // this.$bvModal.show('modal-success')
           // setTimeout(function(){
           //	this.$router.push('/pesankamar')
           // }, 1000)
 
         } else {
-            /*this.$bvModal.show('modal-error-1')
-            
-            setTimeout(() => {
-            	this.$router.push('/pesankamar')
-            }, 1000)*/
-          }
+          _this.$bvModal.show('modal-error-1');
+
+          setTimeout(function () {
+            _this.$router.push('/pesankamar');
+          }, 1000);
+        }
       });
+    },
+    regiterPasien: function regiterPasien() {//  TODO
     },
     nextPage: function nextPage(page) {
       switch (page) {
         case 1:
-          if (this.checkValidationPageZero()) {
-            this.pilihPoli = false;
-            this.pageTwoOpen = false;
-            this.pageOneOpen = true;
-            this.allValid = false;
-          }
-
+          this.pageTwoOpen = false;
+          this.pageOneOpen = true;
+          this.allValid = false;
           break;
 
         case 2:
@@ -683,11 +531,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     prevPage: function prevPage(page) {
       switch (page) {
-        case 0:
-          this.pilihPoli = true;
-          this.pageOneOpen = false;
-          break;
-
         case 1:
           this.pageTwoOpen = false;
           this.pageOneOpen = true;
@@ -712,21 +555,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           this.infoFormulir = false;
       }
     },
-    checkValidationPageZero: function checkValidationPageZero() {
-      if (this.debugOny) return true;
-
-      if (this.hari_jam == '' || this.tanggal_pesan == '') {
-        this.$bvModal.show('modal-error');
-        this.tanggalPesanIsInvalid = this.tanggal_pesan == '' ? true : false;
-        return false;
-      }
-
-      return true;
-    },
     checkValidationPageOne: function checkValidationPageOne() {
-      if (this.debugOny) return true;
-      console.log('check val');
-
       if (this.nama_depan == '' || this.nama == '' || this.day == '' || this.month == '' || this.year == '' || this.gender == '' || this.agama == '') {
         this.namaDepanIsInvalid = this.nama_depan == '' ? true : false;
         this.namaIsInvalid = this.nama == '' ? true : false;
@@ -741,8 +570,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return true;
     },
     checkValidationPageTwo: function checkValidationPageTwo() {
-      if (this.debugOny) return true;
-
       if (this.alamat == '' || this.propinsi == '' || this.kabupaten == '' || this.kecamatan == '' || this.kelurahan == '') {
         this.alamatIsInvalid = this.alamat == '' ? true : false;
         this.propinsiIsInvalid = this.propinsi == '' ? true : false;
@@ -756,8 +583,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return true;
     },
     checkValidationPageThree: function checkValidationPageThree() {
-      if (this.debugOny) return true;
-
       if (this.pekerjaan == '' || this.warganegara == '') {
         this.pekerjaanIsInvalid = this.pekerjaan == '' ? true : false;
         this.warganegaraIsInvalid = this.warganegara == '' ? true : false;
@@ -768,10 +593,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return true;
     },
     propinsiLists: function propinsiLists() {
-      var _this7 = this;
+      var _this2 = this;
 
       window.axios.get('/api/provinsi', {}).then(function (response) {
-        _this7.propinsi_lists = response.data;
+        _this2.propinsi_lists = response.data;
       });
     },
     refresh_state: function refresh_state() {
@@ -786,7 +611,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }];
     },
     loadKabupaten: function loadKabupaten(value) {
-      var _this8 = this;
+      var _this3 = this;
 
       console.log('Load Kabupaten', value);
       this.refresh_state();
@@ -800,11 +625,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           propinsi_id: value.propinsi_id
         }
       }).then(function (response) {
-        _this8.kabupaten_lists = response.data;
+        _this3.kabupaten_lists = response.data;
       });
     },
     loadKecamatan: function loadKecamatan(value) {
-      var _this9 = this;
+      var _this4 = this;
 
       console.log('Load Kecamatan', value);
       this.kelurahan_lists = [{
@@ -821,11 +646,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           kabupaten_id: value.kabupaten_id
         }
       }).then(function (response) {
-        _this9.kecamatan_lists = response.data;
+        _this4.kecamatan_lists = response.data;
       });
     },
     loadKelurahan: function loadKelurahan(value) {
-      var _this10 = this;
+      var _this5 = this;
 
       console.log('Load Kelurahan', value);
       this.kelurahan_lists = [{
@@ -838,30 +663,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           kecamatan_id: value.kecamatan_id
         }
       }).then(function (response) {
-        _this10.kelurahan_lists = response.data;
+        _this5.kelurahan_lists = response.data;
       });
     },
     pekerjaanLists: function pekerjaanLists() {
-      var _this11 = this;
+      var _this6 = this;
 
       this.$store.dispatch('fetch', {
         endpoint: 'pekerjaan',
         params: {}
       }).then(function (resp) {
-        _this11.pekerjaan_lists = resp.data;
+        _this6.pekerjaan_lists = resp.data;
       });
     },
     countDownChanged: function countDownChanged(dismissCountDown) {
       this.dismissCountDown = this.dismissSecs;
     },
     poliLists: function poliLists() {
-      var _this12 = this;
+      var _this7 = this;
 
       this.$store.dispatch('fetch', {
         endpoint: 'poli',
         params: {}
       }).then(function (resp) {
-        _this12.poli = resp.data;
+        _this7.poli = resp.data;
       });
     }
   }
@@ -869,10 +694,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/poli/RegisterPoli.vue?vue&type=style&index=0&lang=css&":
-/*!***********************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/poli/RegisterPoli.vue?vue&type=style&index=0&lang=css& ***!
-  \***********************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pasien/RegisterPasienBaru.vue?vue&type=style&index=0&lang=css&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pasien/RegisterPasienBaru.vue?vue&type=style&index=0&lang=css& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -888,15 +713,15 @@ exports.push([module.i, "\n.white-box .vs__search::-webkit-input-placeholder {\n
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/poli/RegisterPoli.vue?vue&type=style&index=0&lang=css&":
-/*!***************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/poli/RegisterPoli.vue?vue&type=style&index=0&lang=css& ***!
-  \***************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pasien/RegisterPasienBaru.vue?vue&type=style&index=0&lang=css&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pasien/RegisterPasienBaru.vue?vue&type=style&index=0&lang=css& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./RegisterPoli.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/poli/RegisterPoli.vue?vue&type=style&index=0&lang=css&");
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./RegisterPasienBaru.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pasien/RegisterPasienBaru.vue?vue&type=style&index=0&lang=css&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -918,10 +743,10 @@ if(false) {}
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/poli/RegisterPoli.vue?vue&type=template&id=7c3374d7&":
-/*!********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/poli/RegisterPoli.vue?vue&type=template&id=7c3374d7& ***!
-  \********************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pasien/RegisterPasienBaru.vue?vue&type=template&id=3e4f6cb9&":
+/*!****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pasien/RegisterPasienBaru.vue?vue&type=template&id=3e4f6cb9& ***!
+  \****************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -938,6 +763,30 @@ var render = function() {
     { staticClass: "section section-shaped section-lg my-0 py-4" },
     [
       _c(
+        "b-alert",
+        {
+          attrs: {
+            variant: "success",
+            show: _vm.dismissCountDown,
+            dismissible: ""
+          },
+          on: {
+            dismissed: function($event) {
+              _vm.dismissCountDown = 0
+            },
+            "dimiss-count-down": _vm.countDownChanged
+          }
+        },
+        [
+          _vm._v(
+            "\n\t\t\t\t\tAnda berhasil mendaftarkan pasien dengan nomor rekam medis: " +
+              _vm._s(_vm.no_rekam_medis) +
+              "\t\n        "
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
         "b-modal",
         { attrs: { id: "modal-loading", title: "Sedang Proses" } },
         [
@@ -949,7 +798,16 @@ var render = function() {
       _vm._v(" "),
       _c("b-modal", { attrs: { id: "modal-success", title: "Konfirmasi" } }, [
         _vm._v(
-          "\n                Anda berhasil mendaftar Poli, pihak rumah sakit akan menkonfirmasinya terlebih dahulu\n        "
+          "\n                Anda berhasil mendaftarkan pasien dengan nomor rekam_medis: "
+        ),
+        _c("b", [_vm._v(_vm._s(_vm.no_rekam_medis))])
+      ]),
+      _vm._v(" "),
+      _c("b-modal", { attrs: { id: "modal-error-2", title: "Konfirmasi" } }, [
+        _vm._v(
+          "\n                Anda berhasil mendaftarkan pasien dengan nomor rekam_medis: " +
+            _vm._s(_vm.no_rekam_medis) +
+            "\t\n        "
         )
       ]),
       _vm._v(" "),
@@ -996,198 +854,67 @@ var render = function() {
                 [
                   [
                     _c("div", { staticClass: "text-center text-muted mb-4" }, [
-                      _c("small", [_vm._v("Pendaftaran Poli")])
+                      _c("small", [_vm._v("Pendaftaran Pasien Baru")])
                     ]),
                     _vm._v(" "),
-                    _c("form", { attrs: { enctype: "multipart/form-data" } }, [
+                    _c("form", [
                       _vm.pilihPoli
                         ? _c("section", [
-                            _c("div", { staticClass: "form-group row" }, [
-                              _c(
-                                "label",
-                                {
-                                  staticClass: "col-md-12 col-form-label",
-                                  attrs: { for: "Poli" }
-                                },
-                                [_vm._v("Poli")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                { staticClass: "col-md-12" },
-                                [
-                                  _c("v-select", {
-                                    class: ["white-box mb-3"],
-                                    attrs: {
-                                      options: _vm.nama_poli_lists,
-                                      label: "ruangan_nama",
-                                      autofocus: ""
-                                    },
-                                    on: { input: _vm.getDokter },
-                                    model: {
-                                      value: _vm.nama_poli,
-                                      callback: function($$v) {
-                                        _vm.nama_poli = $$v
-                                      },
-                                      expression: "nama_poli"
-                                    }
-                                  })
-                                ],
-                                1
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "form-group row" }, [
-                              _c(
-                                "label",
-                                {
-                                  staticClass: "col-md-12 col-form-label",
-                                  attrs: { for: "Poli" }
-                                },
-                                [_vm._v("Dokter")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                { staticClass: "col-md-12" },
-                                [
-                                  _c("v-select", {
-                                    class: ["white-box mb-3"],
-                                    attrs: {
-                                      options: _vm.nama_dokter_lists,
-                                      label: "nama_pegawai",
-                                      autofocus: ""
-                                    },
-                                    on: { input: _vm.getJadwalPoli },
-                                    model: {
-                                      value: _vm.nama_dokter,
-                                      callback: function($$v) {
-                                        _vm.nama_dokter = $$v
-                                      },
-                                      expression: "nama_dokter"
-                                    }
-                                  })
-                                ],
-                                1
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "form-group row" }, [
-                              _c(
-                                "label",
-                                {
-                                  staticClass: "col-md-12 col-form-label",
-                                  attrs: { for: "hari_jam" }
-                                },
-                                [_vm._v("Pilih Hari dan Jam")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                { staticClass: "col-md-12" },
-                                [
-                                  _c("v-select", {
-                                    class: ["white-box mb-3"],
-                                    attrs: {
-                                      options: _vm.polibuka_lists,
-                                      label: "buka",
-                                      autofocus: ""
-                                    },
-                                    model: {
-                                      value: _vm.hari_jam,
-                                      callback: function($$v) {
-                                        _vm.hari_jam = $$v
-                                      },
-                                      expression: "hari_jam"
-                                    }
-                                  })
-                                ],
-                                1
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "form-group row" }, [
-                              _c(
-                                "label",
-                                {
-                                  staticClass: "col-md-12 col-form-label",
-                                  attrs: { for: "tanggal_pesan" }
-                                },
-                                [_vm._v("Tanggal")]
-                              ),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "col-md-12" }, [
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.tanggal_pesan,
-                                      expression: "tanggal_pesan"
-                                    }
-                                  ],
-                                  class: [
-                                    _vm.formControl,
-                                    { "is-invalid": _vm.tanggalPesanIsInvalid }
-                                  ],
-                                  attrs: { type: "date" },
-                                  domProps: { value: _vm.tanggal_pesan },
-                                  on: {
-                                    input: function($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.tanggal_pesan = $event.target.value
-                                    }
-                                  }
-                                })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "form-group row" }, [
-                              _c(
-                                "label",
-                                {
-                                  staticClass: "col-md-12 col-form-label",
-                                  attrs: { for: "hari_jam" }
-                                },
-                                [_vm._v("Upload Foto/Scan Rujukan BPJS")]
-                              ),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "col-md-12" }, [
-                                _c("input", {
-                                  ref: "file",
-                                  attrs: { type: "file", id: "file" },
-                                  on: {
-                                    change: function($event) {
-                                      return _vm.handleFileUpload()
-                                    }
-                                  }
-                                })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "div",
-                              { staticClass: "text-right" },
-                              [
+                            _c("div", { staticClass: "row" }, [
+                              _c("div", { staticClass: "col-xs-6 px-2 py-2" }, [
                                 _c(
-                                  "base-button",
-                                  {
-                                    staticClass: "my-4",
-                                    attrs: { type: "primary" },
-                                    on: {
-                                      click: function($event) {
-                                        $event.preventDefault()
-                                        return _vm.nextPage(1)
-                                      }
-                                    }
-                                  },
-                                  [_vm._v("Lanjut >")]
+                                  "button",
+                                  { staticClass: "btn btn-primary" },
+                                  [_vm._v("Poli Gigi")]
                                 )
-                              ],
-                              1
-                            )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-xs-6 px-2 py-2" }, [
+                                _c(
+                                  "button",
+                                  { staticClass: "btn btn-primary" },
+                                  [_vm._v("Poli Gigi")]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-xs-6 px-2 py-2" }, [
+                                _c(
+                                  "button",
+                                  { staticClass: "btn btn-primary" },
+                                  [_vm._v("Poli Gigi")]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-xs-6 px-2 py-2" }, [
+                                _c(
+                                  "button",
+                                  { staticClass: "btn btn-primary" },
+                                  [_vm._v("Poli Gigi")]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-xs-6 px-2 py-2" }, [
+                                _c(
+                                  "button",
+                                  { staticClass: "btn btn-primary" },
+                                  [_vm._v("Poli Gigi")]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-xs-6 px-2 py-2" }, [
+                                _c(
+                                  "button",
+                                  { staticClass: "btn btn-primary" },
+                                  [_vm._v("Poli Gigi")]
+                                )
+                              ])
+                            ])
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.infoFormulir
+                        ? _c("small", { staticStyle: { color: "red" } }, [
+                            _vm._v("Isi semua data dalam formulir")
                           ])
                         : _vm._e(),
                       _vm._v(" "),
@@ -1489,51 +1216,27 @@ var render = function() {
                               )
                             ]),
                             _vm._v(" "),
-                            _c("div", { staticClass: "row" }, [
-                              _c(
-                                "div",
-                                { staticClass: "col-6" },
-                                [
-                                  _c(
-                                    "base-button",
-                                    {
-                                      staticClass: "my-4",
-                                      attrs: { type: "danger" },
-                                      on: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          return _vm.prevPage(0)
-                                        }
+                            _c(
+                              "div",
+                              { staticClass: "text-right" },
+                              [
+                                _c(
+                                  "base-button",
+                                  {
+                                    staticClass: "my-4",
+                                    attrs: { type: "primary" },
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        return _vm.nextPage(2)
                                       }
-                                    },
-                                    [_vm._v("< Kembali")]
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                { staticClass: "col-6 text-right" },
-                                [
-                                  _c(
-                                    "base-button",
-                                    {
-                                      staticClass: "my-4 text-right",
-                                      attrs: { type: "primary" },
-                                      on: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          return _vm.nextPage(2)
-                                        }
-                                      }
-                                    },
-                                    [_vm._v("Lanjut >")]
-                                  )
-                                ],
-                                1
-                              )
-                            ])
+                                    }
+                                  },
+                                  [_vm._v("Lanjut >")]
+                                )
+                              ],
+                              1
+                            )
                           ])
                         : _vm._e(),
                       _vm._v(" "),
@@ -1980,43 +1683,13 @@ var render = function() {
                               _c("div", { staticClass: "col-sm-12" }, [
                                 _c("p", [
                                   _vm._v(
-                                    'Tolong Periksa Kembali data yang diisikan di dalam formulir, apabila telah yakin dapat melanjutkan\n\t\t\t\t\t\t\t\t\t\t\tdengan menekan tombol "Submit" di bawah ini\n\t\t\t\t\t\t\t\t\t\t'
+                                    'Tolong Periksa Kembali data yang diisikan di dalam formulir, apabila telah yakin dapat melanjutkan\n                                                dengan menekan tombol "Submit" di bawah ini\n                                            '
                                   )
                                 ])
                               ])
                             ]),
                             _vm._v(" "),
                             _c("div", { staticClass: "row" }, [
-                              _c("div", { staticClass: "col-5" }, [
-                                _vm._v("Poli")
-                              ]),
-                              _c("div", { staticClass: "col-7" }, [
-                                _vm._v(_vm._s(_vm.nama_poli.ruangan_nama))
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "col-5" }, [
-                                _vm._v("Dokter")
-                              ]),
-                              _c("div", { staticClass: "col-7" }, [
-                                _vm._v(_vm._s(_vm.nama_dokter.nama_pegawai))
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "col-5" }, [
-                                _vm._v("Jadwal Buka")
-                              ]),
-                              _c("div", { staticClass: "col-7" }, [
-                                _vm._v(_vm._s(_vm.hari_jam.buka))
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "col-5" }, [
-                                _vm._v("Pesan Tanggal")
-                              ]),
-                              _c("div", { staticClass: "col-7" }, [
-                                _vm._v(_vm._s(_vm.tanggal_pesan))
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "col-12" }, [_c("hr")]),
-                              _vm._v(" "),
                               _c("div", { staticClass: "col-5" }, [
                                 _vm._v("Nama")
                               ]),
@@ -2177,18 +1850,18 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/poli/RegisterPoli.vue":
-/*!*******************************************************!*\
-  !*** ./resources/js/components/poli/RegisterPoli.vue ***!
-  \*******************************************************/
+/***/ "./resources/js/components/pasien/RegisterPasienBaru.vue":
+/*!***************************************************************!*\
+  !*** ./resources/js/components/pasien/RegisterPasienBaru.vue ***!
+  \***************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _RegisterPoli_vue_vue_type_template_id_7c3374d7___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RegisterPoli.vue?vue&type=template&id=7c3374d7& */ "./resources/js/components/poli/RegisterPoli.vue?vue&type=template&id=7c3374d7&");
-/* harmony import */ var _RegisterPoli_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RegisterPoli.vue?vue&type=script&lang=js& */ "./resources/js/components/poli/RegisterPoli.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _RegisterPoli_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./RegisterPoli.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/poli/RegisterPoli.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _RegisterPasienBaru_vue_vue_type_template_id_3e4f6cb9___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RegisterPasienBaru.vue?vue&type=template&id=3e4f6cb9& */ "./resources/js/components/pasien/RegisterPasienBaru.vue?vue&type=template&id=3e4f6cb9&");
+/* harmony import */ var _RegisterPasienBaru_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RegisterPasienBaru.vue?vue&type=script&lang=js& */ "./resources/js/components/pasien/RegisterPasienBaru.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _RegisterPasienBaru_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./RegisterPasienBaru.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/pasien/RegisterPasienBaru.vue?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -2199,9 +1872,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _RegisterPoli_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _RegisterPoli_vue_vue_type_template_id_7c3374d7___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _RegisterPoli_vue_vue_type_template_id_7c3374d7___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _RegisterPasienBaru_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _RegisterPasienBaru_vue_vue_type_template_id_3e4f6cb9___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _RegisterPasienBaru_vue_vue_type_template_id_3e4f6cb9___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -2211,54 +1884,54 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/poli/RegisterPoli.vue"
+component.options.__file = "resources/js/components/pasien/RegisterPasienBaru.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/poli/RegisterPoli.vue?vue&type=script&lang=js&":
-/*!********************************************************************************!*\
-  !*** ./resources/js/components/poli/RegisterPoli.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************/
+/***/ "./resources/js/components/pasien/RegisterPasienBaru.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/pasien/RegisterPasienBaru.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RegisterPoli_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./RegisterPoli.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/poli/RegisterPoli.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RegisterPoli_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RegisterPasienBaru_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./RegisterPasienBaru.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pasien/RegisterPasienBaru.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RegisterPasienBaru_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/poli/RegisterPoli.vue?vue&type=style&index=0&lang=css&":
-/*!****************************************************************************************!*\
-  !*** ./resources/js/components/poli/RegisterPoli.vue?vue&type=style&index=0&lang=css& ***!
-  \****************************************************************************************/
+/***/ "./resources/js/components/pasien/RegisterPasienBaru.vue?vue&type=style&index=0&lang=css&":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/components/pasien/RegisterPasienBaru.vue?vue&type=style&index=0&lang=css& ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_RegisterPoli_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./RegisterPoli.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/poli/RegisterPoli.vue?vue&type=style&index=0&lang=css&");
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_RegisterPoli_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_RegisterPoli_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_RegisterPoli_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_RegisterPoli_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_RegisterPoli_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_RegisterPasienBaru_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./RegisterPasienBaru.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pasien/RegisterPasienBaru.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_RegisterPasienBaru_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_RegisterPasienBaru_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_RegisterPasienBaru_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_RegisterPasienBaru_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_RegisterPasienBaru_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
-/***/ "./resources/js/components/poli/RegisterPoli.vue?vue&type=template&id=7c3374d7&":
-/*!**************************************************************************************!*\
-  !*** ./resources/js/components/poli/RegisterPoli.vue?vue&type=template&id=7c3374d7& ***!
-  \**************************************************************************************/
+/***/ "./resources/js/components/pasien/RegisterPasienBaru.vue?vue&type=template&id=3e4f6cb9&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/components/pasien/RegisterPasienBaru.vue?vue&type=template&id=3e4f6cb9& ***!
+  \**********************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RegisterPoli_vue_vue_type_template_id_7c3374d7___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./RegisterPoli.vue?vue&type=template&id=7c3374d7& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/poli/RegisterPoli.vue?vue&type=template&id=7c3374d7&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RegisterPoli_vue_vue_type_template_id_7c3374d7___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RegisterPasienBaru_vue_vue_type_template_id_3e4f6cb9___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./RegisterPasienBaru.vue?vue&type=template&id=3e4f6cb9& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pasien/RegisterPasienBaru.vue?vue&type=template&id=3e4f6cb9&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RegisterPasienBaru_vue_vue_type_template_id_3e4f6cb9___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RegisterPoli_vue_vue_type_template_id_7c3374d7___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RegisterPasienBaru_vue_vue_type_template_id_3e4f6cb9___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

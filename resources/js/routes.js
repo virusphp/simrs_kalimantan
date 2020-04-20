@@ -11,6 +11,7 @@ const PesanKamar = () => import('./components/pasien/PesanKamar.vue')
 const Public = () => import('./components/public/PublicComponent.vue')
 const RegisterPasienBaru = () => import('./components/pasien/RegisterPasienBaru.vue')
 const RegisterPoli = () => import('./components/poli/RegisterPoli.vue');
+const AdminRs = () => import('./components/admin/AdminRs.vue');
 
 export default {
 	routes :[
@@ -42,6 +43,13 @@ export default {
 				default: RegisterPoli
 			}	
 		},
-		{ path: '/home' , redirect: '/pesankamar'}
+		{ path: '/home' , redirect: '/pesankamar'},
+		{ 
+			path: '/adminrs',
+			components: {
+				default: AdminRs,
+				// menu: Menu
+			}
+		}
 	]
 }

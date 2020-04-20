@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use App\Ruangan;
 
 class RumahSakitController extends Controller
@@ -34,6 +35,12 @@ class RumahSakitController extends Controller
 			->join('pegawai_m', 'pegawai_m.pegawai_id','=','jadwaldokter_m.pegawai_id')
 			->join('gelarbelakang_m', 'gelarbelakang_m.gelarbelakang_id','=','pegawai_m.gelarbelakang_id')
 			->where('ruangan_id', $request->ruangan_id)->distinct()->get());
+	}
+
+	public function _dokter(Request $request) {
+		return \Response::json(
+			\App\DokterView::select()
+		);
 	}
 
 	public function jadwaldokter(Request $request) {
@@ -152,7 +159,13 @@ class RumahSakitController extends Controller
 			$daftarpoli->pegawai_id = $request->pegawai_id;
 			$daftarpoli->jadwaldokter_id = $request->jadwaldokter_id;
 			$daftarpoli->ruangan_id = $request->ruangan_id;
-			$daftarpoli->file = $request->file ? $request->file : '';
+			$num = rand(0, 1000);
+			$genfile = $num . date('YmdHis') . $request->file('file');
+			$path = $request->file('file')->store($genfile);
+			
+			$daftarpoli->file = $request->file ? $path : '';
+
+
 			
 			try {
 				$daftarpoli->save();
@@ -237,6 +250,50 @@ class RumahSakitController extends Controller
         // return $digitrm;
         return \App\KonfigSystem::select('jmldigitrm')->first()->jmldigitrm;
     }
+	
+	public function getDaftarPoli() {
+		return \Response::json(\App\DaftarPoli::where('is_confirmed', '=', '0')->
+			with('ruangan', 'pegawai', 'jadwaldokter')->get());
+	}
 
+	public function confirmDaftarPoli(Request $request) {
+		$daftarpoli = \App\DaftarPoli::find($request->id_daftar_poli);
+		$no_rekam_medik = $this->noRekamMedik();
+		$tgl_rekam_medik = date('Y-m-d');
+		
+		$pasien = new \App\Pasien;
+
+		$pasien->namadepan = $daftarpoli->nama_depan;
+		$pasien->nama_pasien = $daftarpoli->nama_pasien;
+		$pasien->jeniskelamin = $daftarpoli->jeniskelamin; 
+		$pasien->alamat_pasien = $daftarpoli->alamat_pasien; 
+		$pasien->propinsi_id = $daftarpoli->propinsi_id;
+		$pasien->kabupaten_id = $daftarpoli->kabupaten_id;
+		$pasien->kecamatan_id = $daftarpoli->kecamatan_id;
+		$pasien->kelurahan_id = $daftarpoli->kelurahan_id;
+		$pasien->pekerjaan_id = $daftarpoli->pekerjaan_id;
+		$pasien->warga_negara = $daftarpoli->warga_negara;
+		$pasien->agama = $daftarpoli->agama; 
+		$pasien->tanggal_lahir = $daftarpoli->tanggal_lahir;
+		$pasien->profilrs_id = $daftarpoli->profilrs_id;
+		$pasien->kelompokumur_id = $daftarpoli->kelompokumur_id;
+		$pasien->no_rekam_medik = $no_rekam_medik;
+		$pasien->tgl_rekam_medik = $tgl_rekam_medik;
+		$pasien->statusrekammedis = 'AKTIF';		
+		$pasien->create_loginpemakai_id = 21;
+	
+		$pasien->create_time = date('Y-m-d');
+
+	    try {
+		$pasien->save();
+		return response()->json([
+			'status' => 'Success',
+			'no_rekam_medik' => $no_rekam_medik,
+		])->setStatusCode(200, "Success");
+	    }catch (Exceptions $ex) {
+
+	    }
+
+	}
 
 }
