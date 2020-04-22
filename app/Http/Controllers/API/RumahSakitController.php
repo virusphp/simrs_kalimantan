@@ -162,10 +162,12 @@ class RumahSakitController extends Controller
 			$daftarpoli->jadwaldokter_id = $request->jadwaldokter_id;
 			$daftarpoli->ruangan_id = $request->ruangan_id;
 			$num = rand(0, 1000);
-			$genfile = $num . date('YmdHis') . $request->file('file');
-			$path = $request->file('file')->store($genfile);
-			
-			$daftarpoli->file = $request->file ? $path : '';
+			if ($request->file('file') != null) {
+				$genfile = $num . date('YmdHis') . $request->file('file');
+				$path = $request->file('file')->store($genfile);
+			}
+
+			$daftarpoli->file = $request->file('file') != null ? $path : '';
 
 
 			
