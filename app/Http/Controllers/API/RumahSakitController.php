@@ -29,18 +29,20 @@ class RumahSakitController extends Controller
 
 	public function dokter(Request $request) {
 		return \Response::json(
+			\App\DokterView::select(
+				DB::raw("dokter_v.pegawai_id, concat(dokter_v.gelardepan,' ', dokter_v.nama_pegawai ,  ', ', gelarbelakang_nama) as nama_pegawai"))
+			->orderBy('nama_pegawai')
+			->where('ruangan_id', $request->ruangan_id)->distinct()->get());
+	}
+
+	public function __dokter(Request $request) {
+		return \Response::json(
 			\App\JadwalDokter::select(
 				DB::raw("jadwaldokter_m.pegawai_id, concat(gelardepan,' ', nama_pegawai ,  ', ', gelarbelakang_nama) as nama_pegawai"))
 			->orderBy('nama_pegawai')
 			->join('pegawai_m', 'pegawai_m.pegawai_id','=','jadwaldokter_m.pegawai_id')
 			->join('gelarbelakang_m', 'gelarbelakang_m.gelarbelakang_id','=','pegawai_m.gelarbelakang_id')
 			->where('ruangan_id', $request->ruangan_id)->distinct()->get());
-	}
-
-	public function _dokter(Request $request) {
-		return \Response::json(
-			\App\DokterView::select()
-		);
 	}
 
 	public function jadwaldokter(Request $request) {
