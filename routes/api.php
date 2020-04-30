@@ -26,6 +26,7 @@ Route::get('availableicurooms', 'API\KamarRuanganController@getAvailableICURooms
 
 Route::post('register', 'API\AppUserController@register');
 Route::post('login', 'API\AppUserController@login');
+Route::post('loginadmin', 'API\AppUserController@loginadmin');
 Route::post('authenticated', 'API\AppUserController@authenticated');
 Route::post('checkvalidemail', 'API\AppUserController@checkValidEmail');
 
@@ -40,19 +41,19 @@ Route::group(['middleware' => ['apiauth']], function (){
 	Route::post('reloadToken', 'API\AppUserController@reloadtoken');
 	Route::post('removecookies', 'API\AppUserController@removecookies');
 	Route::post('registerpasienbaru', 'API\PasienController@registerpasienbaru');
+    Route::get('getdokter', 'API\RumahSakitController@dokter');
+    Route::get('poli', 'API\RumahSakitController@poli');
+    Route::get('jadwaldokter', 'API\RumahSakitController@jadwaldokter');
+    Route::get('years', 'API\PasienController@getyear');
+    Route::get('provinsi', 'API\PasienController@provinsi');
+    Route::get('kabupaten', 'API\PasienController@kabupaten');
+    Route::get('kecamatan', 'API\PasienController@kecamatan');
+    Route::get('kelurahan', 'API\PasienController@kelurahan');
+    Route::get('pekerjaan', 'API\PasienController@pekerjaan');
+    Route::post('registerpoli', 'API\RumahSakitController@buatjanjipoli');
+    Route::get('listdaftarpoli', 'API\RumahSakitController@getDaftarPoli');
+    Route::post('addAsPasien', 'API\RumahSakitController@confirmDaftarPoli');
 });
 
-Route::get('getdokter', 'API\RumahSakitController@dokter');
-Route::get('poli', 'API\RumahSakitController@poli');
-Route::get('jadwaldokter', 'API\RumahSakitController@jadwaldokter');
-Route::get('years', 'API\PasienController@getyear');
-Route::get('provinsi', 'API\PasienController@provinsi');
-Route::get('kabupaten', 'API\PasienController@kabupaten');
-Route::get('kecamatan', 'API\PasienController@kecamatan');
-Route::get('kelurahan', 'API\PasienController@kelurahan');
-Route::get('pekerjaan', 'API\PasienController@pekerjaan');
-Route::post('registerpoli', 'API\RumahSakitController@buatjanjipoli');
-Route::get('listdaftarpoli', 'API\RumahSakitController@getDaftarPoli');
-Route::post('addAsPasien', 'API\RumahSakitController@confirmDaftarPoli');
 
 Route::get('show', 'API\PasienController@show');

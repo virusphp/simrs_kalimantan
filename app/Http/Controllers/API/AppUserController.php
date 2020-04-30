@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User as AppUsers;
+use App\AppAdminRs;
 use Illuminate\Support\Facades\Validator;
 use \Firebase\JWT\JWT;
 
@@ -218,5 +219,81 @@ class AppUserController extends Controller
 		} catch (\Exception $e) {
 			return response()->json(['status' => 'Failed', 'status_code' => 512])->setStatusCode(512, "Failed");
 		}	
-	}
+    }
+
+    public function loginadmin(Request $request) 
+	{
+		
+		$validator = Validator::make($request->all(), [
+			'email' => 'required',
+			'password' => 'required|max:255',
+		]);
+		
+		if ($validator->fails()) {
+			return \Response::json($validator->errors());
+		} else {
+
+			$email = $request->email;
+			$password = $request->password;
+            
+            try {
+				$user = AppAdminRs::select('id', 'email_admin', 'password', 'nama')->where('email_admin', '=', $email)->first();
+				if ($user != null) {
+					if (\Hash::check($password, $user->password)) {
+						$time = time();
+						$data = [
+							'user_id' => $user->id,  
+							'user_email' => $user->email_admin
+						];
+
+						$user = [
+							'id' => $user->id,
+							'email_admin' => $user->email_admin,
+							'nama' => $user->nama
+						];
+
+						$user = (Object) $user;
+
+						$menit = 25;
+						$token_expiry = $time + $menit*60; // 60 detik = 1 menit 
+						$payload = [
+							'data' => $user,
+							'iat' => $time,
+							'nbf' => $time,
+							'exp' => $token_expiry,
+							'iss' => "rsudpapua",
+							"aud" => "rsudpapua"
+						];
+						$key = "generated_keys";
+						$jwt = JWT::encode($payload, $key);
+
+
+                        $payload = [
+							'iat' => $time,
+							'email' => $user->email_admin
+						];
+					
+						$string = md5($user->id . $time . time());
+						$refresh_token = hash_hmac('sha256', $string, time());
+                        
+                        return response()->json([
+							'result' => 'Success',	
+							'token' => $jwt,
+							'refresh_token' => $refresh_token,
+							'token_expiry' => $token_expiry,
+							'nama' => $user->nama,
+							'expired_at' => date('Y-m-d H:i:s', $time),
+							'refresh_token' => $refresh_token,
+						])->setStatusCode(200, "Success")
+						->cookie($refresh_token, $refresh_token, $token_expiry, "", "", 1);
+					}
+				}else{
+					return response()->json(['result'=> 'Failed', 'message' => 'Password Incorrect'])->setStatusCode(400, "Fail");
+				}
+			} catch (\Exception $e)  {
+				return response()->json(['result' => 'Failed', 'message' => 'Cannot connect to database', 'error' => $e->getMessage()])
+					->setStatusCode(501, "Database Fail");
+			}	
+		}
+    }
 }

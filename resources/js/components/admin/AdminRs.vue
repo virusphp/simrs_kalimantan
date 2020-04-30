@@ -46,6 +46,9 @@
 <script>
 export default {
 	mounted() {
+		if (this.$store.state.isAdminLogin == false) {
+			this.$router.push('/')
+		}
 		console.log('admin mounted')
 		this.loadDataDaftarPoli()
 	},

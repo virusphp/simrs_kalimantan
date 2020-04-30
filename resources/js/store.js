@@ -10,6 +10,7 @@ export default new Vuex.Store({
 		token: localStorage.getItem('token') || '',
 		user: {},
 		isLogin: false,
+		isAdminLogin: false,
 		intervalId:0,
 		intervalId2:0,
 		nama:'',
@@ -53,7 +54,13 @@ export default new Vuex.Store({
 		},
 		add_refresh_token(state, payload) {
 			state.refresh_token = payload
-		}
+		},
+		auth_admin_success(state, token, user) {
+			state.admin_status = 'success'
+			state.token = token,
+			state.adminuser = user
+			state.isAdminLogin = true
+		},
 	},
 	actions: {
 		login({commit}, user){
@@ -164,7 +171,48 @@ export default new Vuex.Store({
 					console.log("Remove remaining cookies")
 				}) 
 			})
-		}
+		},
+		loginadmin({commit}, user){
+			return new Promise((resolve, reject) => {
+				commit("auth_request")
+				commit("remove_interval_id")
+				axios.post('/api/loginadmin', user)
+					.then(response => {
+						const token = response.data.token
+						axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
+						// axios.defaults.headers.common['Content-Type'] = 'multipart/form-data'
+						localStorage.setItem('admintoken', token)
+						commit("auth_admin_success", token, user)
+						
+						const menit=25
+						const reloadToken = menit*60*1000 // 1 menit
+						
+
+						/*if (parseInt(this.state.dataReload.length))	
+							response = this.state.dataReload.data
+
+						console.log(response)
+						commit("add_refresh_token", response.data.refresh_token)
+						setInterval(()=>{
+							console.log('Reload Token');
+							axios.post('/api/reloadToken', response.data)
+								.then(resp => {
+									const token = response.data.token
+									axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
+									commit("add_data_reload", resp)
+									commit("add_refresh_token", resp.data.refresh_token)
+								})
+						}, reloadToken)	*/
+
+						resolve(response)
+					})
+					.catch(error => {
+						commit("auth_error")
+						localStorage.removeItem('token')
+						reject(error)
+					})
+				})		
+		},
 	},
 	getters: {
 		getStatus: state => {

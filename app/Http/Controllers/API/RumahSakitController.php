@@ -289,15 +289,56 @@ class RumahSakitController extends Controller
 		$pasien->create_time = date('Y-m-d');
 
 	    try {
-		$pasien->save();
-		return response()->json([
-			'status' => 'Success',
-			'no_rekam_medik' => $no_rekam_medik,
-		])->setStatusCode(200, "Success");
-	    }catch (Exceptions $ex) {
+            $pasien->save();
 
+            // add to pendaftaran
+            //$this->pasienadmisi($pasien);
+            $this->pendaftaran($pasien, $daftarpoli);
+            return response()->json([
+                'status' => 'Success',
+                'no_rekam_medik' => $no_rekam_medik,
+            ])->setStatusCode(200, "Success");
+	    }catch (Exceptions $ex) {
+            return response()->json(['message' => $ex->getMessage()]);
 	    }
 
-	}
+    }
+
+    private function pendaftaran($pasien, $daftar_poli) 
+    {
+        $pendaftaran = new \App\Pendaftaran();
+        $from = new \DateTime($pasien->tanggal_lahir);
+        $to = new \DateTime('today');
+        $year = $from->diff($to)->y;
+        $month = $from->diff($to)->m;
+        $day = $from->diff($to)->m;
+
+        // $no_pendaftaran = $this->no_pendaftaran();
+        $no_pendaftaran = '000000000000000';
+
+        $pendaftaran->pasien_id = $pasien->id;
+        $pendaftaran->kelompokumur_id = $pasien->kelompokumur_id;
+        $pendaftaran->tgl_pendaftaran = $pasien->tgl_rekam_medik;
+        $pendaftaran->ruangan_id = $daftar_poli->ruangan_id;
+        $pendaftaran->create_loginpemakai_id = $pasien->create_loginpemakai_id;
+        $pendaftaran->no_pendaftaran = 'RJ' . $no_pendaftaran;
+        $pendaftaran->create_time = date('Y-m-d H:i:s');
+
+        $pendaftaran->save();
+    }
+
+    private function pasienadmisi($pasien)
+    {
+    }
+
+    private function no_pendaftaran () {
+        try{
+            $pendaftaran = \App\Pendaftaran::select('no_pendaftaran')->where(DB::raw("left('no_pendaftaran', 2)"), '=', 'RJ')->orderBy('no_pendaftaran')->dd();
+            $no_pendaftaran = str_replace('RJ', $pendaftaran->no_pendaftaran); 
+        } catch (\Exception $e)  {
+            return $e->getMessage();
+        }
+        return $no_pendataran;
+    }
 
 }

@@ -12,6 +12,7 @@ const Public = () => import('./components/public/PublicComponent.vue')
 const RegisterPasienBaru = () => import('./components/pasien/RegisterPasienBaru.vue')
 const RegisterPoli = () => import('./components/poli/RegisterPoli.vue');
 const AdminRs = () => import('./components/admin/AdminRs.vue');
+const AdminRsLogin = () => import('./components/admin/AdminRsLogin.vue');
 
 export default {
 	routes :[
@@ -50,6 +51,12 @@ export default {
 				default: AdminRs,
 				// menu: Menu
 			}
-		}
+		},
+        {
+            path: '/rsud',
+            components: {
+                default: AdminRsLogin,
+            }
+        }
 	]
 }

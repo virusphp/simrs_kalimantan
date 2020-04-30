@@ -9,6 +9,7 @@ class Pendaftaran extends Model
     //
     protected $table = 'pendaftaran_t';
     protected $primaryKey = 'pendaftaran_id';
+    public $timestamps = false;
 
     public function pasien() 
     {

@@ -56,6 +56,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
+    if (this.$store.state.isAdminLogin == false) {
+      this.$router.push('/');
+    }
+
     console.log('admin mounted');
     this.loadDataDaftarPoli();
   },
