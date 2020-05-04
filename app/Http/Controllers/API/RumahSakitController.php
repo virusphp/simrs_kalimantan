@@ -162,6 +162,7 @@ class RumahSakitController extends Controller
 			$daftarpoli->jadwaldokter_id = $request->jadwaldokter_id;
             $daftarpoli->ruangan_id = $request->ruangan_id;
             $daftarpoli->tanggal_pesan = $request->pesan_tanggal;
+
 			$num = rand(0, 1000);
 			if ($request->file('file') != null) {
 				$genfile = $num . date('YmdHis') . $request->file('file');
@@ -294,10 +295,17 @@ class RumahSakitController extends Controller
 
             // add to pendaftaran
             //$this->pasienadmisi($pasien);
-            $this->pendaftaran($pasien, $daftarpoli);
+            $pendaftaran = $this->pendaftaran($pasien, $daftarpoli);
+            $daftarpoli->is_confirmed = '1';
+            $daftarpoli->save();
             return response()->json([
                 'status' => 'Success',
                 'no_rekam_medik' => $no_rekam_medik,
+                'pendaftaran' => [
+                    'id' => $pendaftaran->pendaftaran_id,
+                    'no' => $pendaftaran->no_pendaftaran,
+                    'no_urutantri' => $pendaftaran->no_urutantri
+                ]
             ])->setStatusCode(200, "Success");
 	    }catch (Exceptions $ex) {
             return response()->json(['message' => $ex->getMessage()]);
@@ -312,10 +320,9 @@ class RumahSakitController extends Controller
         $to = new \DateTime('today');
         $year = $from->diff($to)->y;
         $month = $from->diff($to)->m;
-        $day = $from->diff($to)->m;
+        $day = $from->diff($to)->d;
 
-        // $no_pendaftaran = $this->no_pendaftaran();
-        $no_pendaftaran = '000000000000000';
+        $no_pendaftaran = $this->no_pendaftaran();
 
         $pendaftaran->pasien_id = $pasien->id;
         $pendaftaran->kelompokumur_id = $pasien->kelompokumur_id;
@@ -324,9 +331,17 @@ class RumahSakitController extends Controller
         $pendaftaran->create_loginpemakai_id = $pasien->create_loginpemakai_id;
         $pendaftaran->no_pendaftaran = 'RJ' . $no_pendaftaran;
         $pendaftaran->create_time = date('Y-m-d H:i:s');
-        $pendaftaran->no_urutantri = $no_urutantri;
-
+        $pendaftaran->no_urutantri = $this->no_urutantri();
+        $pendaftaran->statuspasien = 'PENGUNJUNG BARU';
+        $pendaftaran->kunjungan = 'KUNJUNGAN BARU';
+        $pendaftaran->alihstatus = false;
+        $pendaftaran->byphone = false;
+        $pendaftaran->kunjunganrumah = false;
+        $pendaftaran->statusmasuk = ($daftar_poli->file != '') ? 'RUJUKAN' : 'NON RUJUKAN';
+        $pendaftaran->umur = $year . 'Thn '. $month . ' Bln ' . $day . ' Hr';
         $pendaftaran->save();
+
+        return $pendaftaran;
     }
 
     private function pasienadmisi($pasien)
@@ -335,16 +350,22 @@ class RumahSakitController extends Controller
 
     private function no_pendaftaran () {
         try{
-            $pendaftaran = \App\Pendaftaran::select('no_pendaftaran')->where(DB::raw("left(no_pendaftaran, 2)"), '=', 'RJ')->orderBy('no_pendaftaran')->dd();
-            $no_pendaftaran = str_replace('RJ', $pendaftaran->no_pendaftaran); 
+            $pendaftaran = \App\Pendaftaran::select('no_pendaftaran')->where(DB::raw("left(no_pendaftaran, 2)"), '=', 'RJ')->orderBy('no_pendaftaran','desc')->first();
+            $no_pendaftaran = str_replace('RJ', '', $pendaftaran->no_pendaftaran);
+            return $no_pendaftaran = (Integer) $no_pendaftaran + 1; 
         } catch (\Exception $e)  {
             return $e->getMessage();
         }
-        return $no_pendataran;
     }
 
     private function no_urutantri() {
-        return '';
+        try {
+            $pendaftaran = \App\Pendaftaran::select('no_urutantri')->where(DB::raw("left(no_pendaftaran, 2)"), '=', 'RJ')->orderBy('no_urutantri','desc')->first();
+            $no_urutantri = str_replace('RJ', '', $pendaftaran->no_urutantri);
+            return $no_urutantri = (Integer) $no_urutantri + 1; 
+        } catch (\Exception $e)  {
+            return $e->getMessage();
+        }
     }
 
 }

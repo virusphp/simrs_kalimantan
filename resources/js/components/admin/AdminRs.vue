@@ -3,6 +3,9 @@
         <b-modal id="modal-1" title="Konfirmasi" @ok="submitKonfirmasiAction" >
             Anda ingin meneruskan Registrasi Calon Pasien {{ nama_pasien }}?	
         </b-modal>
+        <b-modal id="modal-s" title="Info" @ok="" >
+            Berhasil di konfirmasi	
+        </b-modal>
         <div class="container pt-0 white-box">
 			<div class="card">
 				<div class="card-body">
@@ -91,7 +94,14 @@ export default {
 			this.$store.dispatch('submit_action', {
 				endpoint: 'addAsPasien',
 				form:data
-			})
+			}).then(resp => {
+                this.loadingText = 'Loading...'
+                this.listDaftarPoli = {}
+                this.loadDataDaftarPoli()
+                if (resp.status == 'Success') {
+                    this.$bvModal.show('modal-s')
+                }
+            })
 		}
 	}
 }

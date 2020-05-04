@@ -54,6 +54,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     if (this.$store.state.isAdminLogin == false) {
@@ -99,11 +102,22 @@ __webpack_require__.r(__webpack_exports__);
       this.row.splice(index, 1);
     },
     submitKonfirmasiAction: function submitKonfirmasiAction() {
+      var _this2 = this;
+
       var data = new FormData();
       data.append('id_daftar_poli', this.currentIdDaftarPoli);
       this.$store.dispatch('submit_action', {
         endpoint: 'addAsPasien',
         form: data
+      }).then(function (resp) {
+        _this2.loadingText = 'Loading...';
+        _this2.listDaftarPoli = {};
+
+        _this2.loadDataDaftarPoli();
+
+        if (resp.status == 'Success') {
+          _this2.$bvModal.show('modal-s');
+        }
       });
     }
   }
@@ -191,6 +205,15 @@ var render = function() {
               "?\t\n        "
           )
         ]
+      ),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          attrs: { id: "modal-s", title: "Info" },
+          on: { ok: function($event) {} }
+        },
+        [_vm._v("\n            Berhasil di konfirmasi\t\n        ")]
       ),
       _vm._v(" "),
       _c("div", { staticClass: "container pt-0 white-box" }, [
