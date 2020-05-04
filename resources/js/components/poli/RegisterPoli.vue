@@ -504,6 +504,7 @@ export default {
 			formData.append('pekerjaan_id', this.pekerjaan.pekerjaan_id)
 			formData.append('warga_negara', this.warganegara)
 			formData.append('agama', this.agama)
+            formData.append('pesan_tanggal', this.tanggal_pesan)
 
 			this.$store.dispatch("submit_action", {
 				form:formData,

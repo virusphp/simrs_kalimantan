@@ -160,7 +160,8 @@ class RumahSakitController extends Controller
 
 			$daftarpoli->pegawai_id = $request->pegawai_id;
 			$daftarpoli->jadwaldokter_id = $request->jadwaldokter_id;
-			$daftarpoli->ruangan_id = $request->ruangan_id;
+            $daftarpoli->ruangan_id = $request->ruangan_id;
+            $daftarpoli->tanggal_pesan = $request->pesan_tanggal;
 			$num = rand(0, 1000);
 			if ($request->file('file') != null) {
 				$genfile = $num . date('YmdHis') . $request->file('file');
@@ -323,6 +324,7 @@ class RumahSakitController extends Controller
         $pendaftaran->create_loginpemakai_id = $pasien->create_loginpemakai_id;
         $pendaftaran->no_pendaftaran = 'RJ' . $no_pendaftaran;
         $pendaftaran->create_time = date('Y-m-d H:i:s');
+        $pendaftaran->no_urutantri = $no_urutantri;
 
         $pendaftaran->save();
     }
@@ -333,12 +335,16 @@ class RumahSakitController extends Controller
 
     private function no_pendaftaran () {
         try{
-            $pendaftaran = \App\Pendaftaran::select('no_pendaftaran')->where(DB::raw("left('no_pendaftaran', 2)"), '=', 'RJ')->orderBy('no_pendaftaran')->dd();
+            $pendaftaran = \App\Pendaftaran::select('no_pendaftaran')->where(DB::raw("left(no_pendaftaran, 2)"), '=', 'RJ')->orderBy('no_pendaftaran')->dd();
             $no_pendaftaran = str_replace('RJ', $pendaftaran->no_pendaftaran); 
         } catch (\Exception $e)  {
             return $e->getMessage();
         }
         return $no_pendataran;
+    }
+
+    private function no_urutantri() {
+        return '';
     }
 
 }

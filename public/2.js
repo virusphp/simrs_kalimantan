@@ -70,7 +70,8 @@ __webpack_require__.r(__webpack_exports__);
       notLoaded: true,
       loadingText: 'Loading...',
       nama_pasien: '',
-      currentIdDaftarPoli: -1
+      currentIdDaftarPoli: -1,
+      row: {}
     };
   },
   methods: {
@@ -90,11 +91,12 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    konfirmasi: function konfirmasi(item) {
+    konfirmasi: function konfirmasi(item, index) {
       console.log(item);
       this.nama_pasien = item.nama_depan + ' ' + item.nama_pasien;
       this.$bvModal.show('modal-1');
       this.currentIdDaftarPoli = item.id;
+      this.row.splice(index, 1);
     },
     submitKonfirmasiAction: function submitKonfirmasiAction() {
       var data = new FormData();
@@ -218,8 +220,8 @@ var render = function() {
                       ])
                     : _vm._e(),
                   _vm._v(" "),
-                  _vm._l(_vm.listDaftarPoli, function(item) {
-                    return _c("tr", { key: item.id }, [
+                  _vm._l(_vm.listDaftarPoli, function(item, index) {
+                    return _c("tr", { key: item.id, attrs: { row: _vm.row } }, [
                       _c("td", [
                         _vm._v(
                           _vm._s(item.nama_depan) +
@@ -255,7 +257,7 @@ var render = function() {
                               on: {
                                 click: function($event) {
                                   $event.preventDefault()
-                                  return _vm.konfirmasi(item)
+                                  return _vm.konfirmasi(item, index)
                                 }
                               }
                             },

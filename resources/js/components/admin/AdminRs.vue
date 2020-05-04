@@ -26,14 +26,14 @@
 							<tr v-if="notLoaded">
 								<td colspan="7" style="text-align:left !important;"><center>{{ loadingText }}</center></td>
 							</tr>
-							<tr v-for="item in listDaftarPoli" :key="item.id">
+							<tr v-for="(item, index) in listDaftarPoli" :key="item.id" :row="row">
 								<td>{{ item.nama_depan }} {{ item.nama_pasien }}</td>
 								<td>{{ item.alamat_pasien }}</td>
 								<td>{{ item.ruangan.ruangan_nama }}</td>
 								<td>{{ item.pegawai.nama_pegawai }}</td>
 								<td>{{ item.jadwaldokter.jadwaldokter_hari }} {{ item.jadwaldokter.jadwaldokter_buka }}</td>
 								<td>{{ item.tanggal_pesan }}</td>
-								<td><base-button type="primary" class="my-4" @click.prevent="konfirmasi(item)">Konfirmasi</base-button></td>
+								<td><base-button type="primary" class="my-4" @click.prevent="konfirmasi(item, index)">Konfirmasi</base-button></td>
 							</tr>
 						</tbody>
 					</table>
@@ -59,7 +59,8 @@ export default {
 			notLoaded: true,
 			loadingText:'Loading...',
 			nama_pasien:'',
-			currentIdDaftarPoli:-1
+			currentIdDaftarPoli:-1,
+            row:{},
 		}
 	},
 	methods: {
@@ -76,11 +77,13 @@ export default {
 				}
 			})
 		},
-		konfirmasi(item) {
+		konfirmasi(item, index) {
 			console.log(item)
 			this.nama_pasien = item.nama_depan + ' ' + item.nama_pasien
             this.$bvModal.show('modal-1')
 			this.currentIdDaftarPoli = item.id
+            this.row.splice(index, 1)
+
 		},
 		submitKonfirmasiAction() {
 			let data = new FormData()
