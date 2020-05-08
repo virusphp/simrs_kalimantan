@@ -18,6 +18,7 @@ export default {
 	methods: {
 		filtered(){
 			let data = this.rdata.dataPasienDetail
+            this.$store.commit('datapasien', data)
 			return { 
 				Nama: data.nama_pasien,
 				Jenis_kelamin: data.jeniskelamin,

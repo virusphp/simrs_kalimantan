@@ -51,6 +51,7 @@ Route::group(['middleware' => ['apiauth']], function (){
     Route::get('kelurahan', 'API\PasienController@kelurahan');
     Route::get('pekerjaan', 'API\PasienController@pekerjaan');
     Route::post('registerpoli', 'API\RumahSakitController@buatjanjipoli');
+    Route::post('registerpolipasienlama', 'API\RumahSakitController@buatjanjipolipasienlama');
     Route::get('listdaftarpoli', 'API\RumahSakitController@getDaftarPoli');
     Route::post('addAsPasien', 'API\RumahSakitController@confirmDaftarPoli');
 });

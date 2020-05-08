@@ -11,6 +11,7 @@ const PesanKamar = () => import('./components/pasien/PesanKamar.vue')
 const Public = () => import('./components/public/PublicComponent.vue')
 const RegisterPasienBaru = () => import('./components/pasien/RegisterPasienBaru.vue')
 const RegisterPoli = () => import('./components/poli/RegisterPoli.vue');
+const RegisterPoliLama = () => import('./components/poli/RegisterPoliLama.vue');
 const AdminRs = () => import('./components/admin/AdminRs.vue');
 const AdminRsLogin = () => import('./components/admin/AdminRsLogin.vue');
 
@@ -56,6 +57,12 @@ export default {
             path: '/rsud',
             components: {
                 default: AdminRsLogin,
+            }
+        },
+        {
+            path: '/registerpolilama',
+            components: {
+                default: RegisterPoliLama
             }
         }
 	]

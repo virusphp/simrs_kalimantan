@@ -150,6 +150,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     filtered: function filtered() {
       var data = this.rdata.dataPasienDetail;
+      this.$store.commit('datapasien', data);
       return {
         Nama: data.nama_pasien,
         Jenis_kelamin: data.jeniskelamin,
@@ -579,6 +580,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -633,7 +640,7 @@ __webpack_require__.r(__webpack_exports__);
           _this.dataPasienDetail = resp.data.res;
           _this.pasienId = resp.data.res.pasien_id;
         } else {
-          _this.$bvModal.msgBoxOk('No Rekam Medis: ' + no_rekam_medik + ' tidak ditemukan');
+          _this.$bvModal.msgBoxOk('No Rekams Medis: ' + no_rekam_medik + ' tidak ditemukan');
         }
       })["catch"](function (err) {
         console.log(err);
@@ -665,6 +672,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     daftarBookingKamar: function daftarBookingKamar() {
       this.daftarBookingKamarGet();
+    },
+    daftarPoliPasienLama: function daftarPoliPasienLama() {
+      this.$store.dispatch('setcurrentnorm', this.no_rekam_medik);
+      this.$router.push('/registerpolilama');
     }
   }
 });
@@ -1360,20 +1371,37 @@ var render = function() {
                               attrs: { for: "no_rekam_medik" }
                             },
                             [_vm._v("Apakah benar data pasien berikut?")]
-                          ),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "col-md-6 float-right" }, [
+                          )
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.showPasien
+                      ? _c("div", { staticClass: "row" }, [
+                          _c("div", { staticClass: "col-6" }, [
                             _c(
                               "button",
                               {
-                                staticClass: "btn btn-primary",
+                                staticClass: "btn btn-primary btn-block",
                                 on: { click: _vm.continueRegister }
                               },
-                              [_vm._v("Lanjut")]
+                              [_vm._v("Pesan Kamar")]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-6 align-left" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-danger btn-block",
+                                on: { click: _vm.daftarPoliPasienLama }
+                              },
+                              [_vm._v("Daftar Poli")]
                             )
                           ])
                         ])
                       : _vm._e(),
+                    _vm._v(" "),
+                    _c("hr"),
                     _vm._v(" "),
                     _vm.showPasien
                       ? _c("div", { staticClass: "form-group row" }, [

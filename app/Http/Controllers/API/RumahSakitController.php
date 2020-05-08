@@ -264,9 +264,39 @@ class RumahSakitController extends Controller
 
 	public function confirmDaftarPoli(Request $request) {
 		$daftarpoli = \App\DaftarPoli::find($request->id_daftar_poli);
-		$no_rekam_medik = $this->noRekamMedik();
+        
+        if ($daftarpoli->no_rm == '') {
+            $this->addpasienbaru();
+        } else {
+            try {
+                // add to pendaftaran
+                //$this->pasienadmisi($pasien);
+                $no_rekam_medik = $daftarpoli->no_rekam_medik;
+                $pasien = \App\Pasien::where('no_rekam_medik', $daftarpoli->no_rekam_medik);
+                $pendaftaran = $this->pendaftaran($pasien, $daftarpoli);
+                $daftarpoli->is_confirmed = '1';
+                $daftarpoli->save();
+                return response()->json([
+                    'status' => 'Success',
+                    'no_rekam_medik' => $no_rekam_medik,
+                    'pendaftaran' => [
+                        'id' => $pendaftaran->pendaftaran_id,
+                        'no' => $pendaftaran->no_pendaftaran,
+                        'no_urutantri' => $pendaftaran->no_urutantri
+                    ]
+                ])->setStatusCode(200, "Success");
+            }catch (Exceptions $ex) {
+                return response()->json(['message' => $ex->getMessage()]);
+            }
+        }
+
+    }
+
+    private function addpasienbaru()
+    {
+        $no_rekam_medik = $this->noRekamMedik();
 		$tgl_rekam_medik = date('Y-m-d');
-		
+
 		$pasien = new \App\Pasien;
 
 		$pasien->namadepan = $daftarpoli->nama_depan;
@@ -292,7 +322,6 @@ class RumahSakitController extends Controller
 
 	    try {
             $pasien->save();
-
             // add to pendaftaran
             //$this->pasienadmisi($pasien);
             $pendaftaran = $this->pendaftaran($pasien, $daftarpoli);
@@ -307,10 +336,10 @@ class RumahSakitController extends Controller
                     'no_urutantri' => $pendaftaran->no_urutantri
                 ]
             ])->setStatusCode(200, "Success");
+
 	    }catch (Exceptions $ex) {
             return response()->json(['message' => $ex->getMessage()]);
-	    }
-
+        }
     }
 
     private function pendaftaran($pasien, $daftar_poli) 
@@ -368,4 +397,80 @@ class RumahSakitController extends Controller
         }
     }
 
+
+
+    public function buatjanjipolipasienlama(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'pegawai_id' => 'required',
+            'ruangan_id' => 'required',
+            'jadwaldokter_id' => 'required', 
+            'pesan_tanggal' => 'required',
+            'no_rekam_medik' => 'required'
+		], [
+			'pegawai_id.required' => "Pilih Dokter",
+            'ruangan_id.required' => 'Pilih Poli',
+            'jadwaldokter_id.required' => 'Pilih Jadwal Poli',
+            'tanggal_pesan.required' => 'Masukkan Tanggal Pesan',
+            'no_rekam_medik.required' => 'No Rekam Medik tidak boleh kosong'
+        ]);
+
+        if ($validator->fails()) {
+            return \Response::json($validator->errors());
+         } else {
+
+            $daftarpoli = new \App\DaftarPoli;
+            $pasien = \App\Pasien::where('no_rekam_medik', $request->no_rekam_medik)->first();
+
+			$daftarpoli->nama_depan = '';
+			$daftarpoli->nama_pasien = $pasien->nama_pasien;
+			$daftarpoli->jeniskelamin = $pasien->jeniskelamin; 
+			$daftarpoli->alamat_pasien = $pasien->alamat_pasien; 
+			$daftarpoli->propinsi_id = $pasien->propinsi_id;
+			$daftarpoli->kabupaten_id = $pasien->kabupaten_id;
+			$daftarpoli->kecamatan_id = $pasien->kecamatan_id;
+			$daftarpoli->kelurahan_id = $pasien->kelurahan_id;
+			$daftarpoli->pekerjaan_id = $pasien->pekerjaan_id;
+			$daftarpoli->warga_negara = $pasien->warga_negara;
+			$daftarpoli->agama = $pasien->agama; 
+            $daftarpoli->tanggal_lahir = $pasien->tanggal_lahir;
+            $daftarpoli->kelompokumur_id = $pasien->kelompokumur_id;
+            $daftarpoli->profilrs_id = $pasien->profilrs_id;
+
+			$daftarpoli->pegawai_id = $request->pegawai_id;
+			$daftarpoli->jadwaldokter_id = $request->jadwaldokter_id;
+            $daftarpoli->ruangan_id = $request->ruangan_id;
+            $daftarpoli->tanggal_pesan = $request->pesan_tanggal;
+
+			$num = rand(0, 1000);
+			if ($request->file('file') != null) {
+				$genfile = $num . date('YmdHis') . $request->file('file');
+				$path = $request->file('file')->store($genfile);
+			}
+
+			$daftarpoli->file = $request->file('file') != null ? $path : '';
+
+
+			try {
+				$daftarpoli->save();
+				// TODO
+				// buat janji poli
+				//$buatjanjipoli = new \App\BuatJanjiPoli();
+				//$buatjanjipoli->pegawai_id = $request->pegawai_id;
+				//$buatjanjipoli->ruangan_id = $request->ruangan_id;
+
+
+				return response()->json([
+					'status' => 'Success',
+					'no_rekam_medik' => '',
+				])->setStatusCode(200, "Success");
+				
+			}catch (Exceptions $ex) {
+                return \Response::json($ex->getMessage());
+			}
+
+        // print_r((Array)$request);
+		// die();
+		 }
+	}
 }

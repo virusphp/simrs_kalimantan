@@ -56,10 +56,16 @@
 
 						<div class="form-group row max-auto" v-if="showPasien">
 							<label for="no_rekam_medik" class="col-md-6 col-form-label text-md-right">Apakah benar data pasien berikut?</label>
-							<div class="col-md-6 float-right">	
-								<button class="btn btn-primary" @click="continueRegister">Lanjut</button>
-							</div>
 						</div>
+                        <div class="row" v-if="showPasien">
+                            <div class="col-6">	
+                                <button class="btn btn-primary btn-block" @click="continueRegister">Pesan Kamar</button>
+                            </div>
+                            <div class="col-6 align-left">	
+                                <button class="btn btn-danger btn-block" @click="daftarPoliPasienLama">Daftar Poli</button>
+                            </div>
+                        </div>
+                        <hr>
 
 						<div class="form-group row" v-if="showPasien">
 							<div class="col-md-12 col-lg-6 mx-auto">	
@@ -131,7 +137,7 @@ export default {
 						this.dataPasienDetail = resp.data.res
 						this.pasienId = resp.data.res.pasien_id
 					} else {
-						this.$bvModal.msgBoxOk('No Rekam Medis: ' + no_rekam_medik  + ' tidak ditemukan')
+						this.$bvModal.msgBoxOk('No Rekams Medis: ' + no_rekam_medik  + ' tidak ditemukan')
 					}
 				})
 				.catch(err => { console.log(err) })
@@ -162,7 +168,12 @@ export default {
 		},
 		daftarBookingKamar: function(){
 			this.daftarBookingKamarGet()
-		}
+		},
+
+        daftarPoliPasienLama: function() {
+            this.$store.dispatch('setcurrentnorm', this.no_rekam_medik)
+            this.$router.push('/registerpolilama')
+        }
 	}
 }
 </script>

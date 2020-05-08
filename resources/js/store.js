@@ -16,6 +16,8 @@ export default new Vuex.Store({
 		nama:'',
 		dataReload: [],
 		refresh_token: -1,
+        noRekamMedis: 0,
+        data_pasien_curr: [],
 	},
 	mutations: {
 		auth_request(state) {
@@ -61,6 +63,12 @@ export default new Vuex.Store({
 			state.adminuser = user
 			state.isAdminLogin = true
 		},
+        set_curr_norm(state, norekammedis) {
+            state.noRekamMedis = norekammedis
+        },
+        datapasien(state, data_pasien_curr) {
+            state.data_pasien_curr = data_pasien_curr
+        }
 	},
 	actions: {
 		login({commit}, user){
@@ -198,7 +206,7 @@ export default new Vuex.Store({
 							axios.post('/api/reloadToken', response.data)
 								.then(resp => {
 									const token = response.data.token
-									axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
+        }						axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
 									commit("add_data_reload", resp)
 									commit("add_refresh_token", resp.data.refresh_token)
 								})
@@ -213,6 +221,10 @@ export default new Vuex.Store({
 					})
 				})		
 		},
+        setcurrentnorm({commit}, data) {
+            console.log('Set Current NO rekam medik: ', data)
+            commit("set_curr_norm", data)
+        }
 	},
 	getters: {
 		getStatus: state => {

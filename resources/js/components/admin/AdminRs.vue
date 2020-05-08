@@ -13,6 +13,7 @@
 					<table class="table table-responsive">
 						<thead>
 							<tr>
+								<th rowspan="2">No. Rekam Medik</th>
 								<th rowspan="2">Nama Pasien</th>
 								<th rowspan="2">Alamat</th>
 								<th rowspan="2">Tanggal</th>
@@ -30,6 +31,7 @@
 								<td colspan="7" style="text-align:left !important;"><center>{{ loadingText }}</center></td>
 							</tr>
 							<tr v-for="(item, index) in listDaftarPoli" :key="item.id" :row="row">
+								<td>{{ item.no_rm ? item.no_rm : ' - '}}</td>
 								<td>{{ item.nama_depan }} {{ item.nama_pasien }}</td>
 								<td>{{ item.alamat_pasien }}</td>
 								<td>{{ item.ruangan.ruangan_nama }}</td>

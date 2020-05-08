@@ -57,6 +57,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     if (this.$store.state.isAdminLogin == false) {
@@ -246,6 +248,10 @@ var render = function() {
                   _vm._l(_vm.listDaftarPoli, function(item, index) {
                     return _c("tr", { key: item.id, attrs: { row: _vm.row } }, [
                       _c("td", [
+                        _vm._v(_vm._s(item.no_rm ? item.no_rm : " - "))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
                         _vm._v(
                           _vm._s(item.nama_depan) +
                             " " +
@@ -309,6 +315,8 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
+        _c("th", { attrs: { rowspan: "2" } }, [_vm._v("No. Rekam Medik")]),
+        _vm._v(" "),
         _c("th", { attrs: { rowspan: "2" } }, [_vm._v("Nama Pasien")]),
         _vm._v(" "),
         _c("th", { attrs: { rowspan: "2" } }, [_vm._v("Alamat")]),
