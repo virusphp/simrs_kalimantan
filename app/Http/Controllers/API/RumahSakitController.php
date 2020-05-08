@@ -436,6 +436,7 @@ class RumahSakitController extends Controller
             $daftarpoli->tanggal_lahir = $pasien->tanggal_lahir;
             $daftarpoli->kelompokumur_id = $pasien->kelompokumur_id;
             $daftarpoli->profilrs_id = $pasien->profilrs_id;
+            $daftarpoli->no_rm = $request->no_rekam_medik;
 
 			$daftarpoli->pegawai_id = $request->pegawai_id;
 			$daftarpoli->jadwaldokter_id = $request->jadwaldokter_id;
