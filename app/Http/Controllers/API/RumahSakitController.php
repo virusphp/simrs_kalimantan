@@ -105,7 +105,9 @@ class RumahSakitController extends Controller
             'kecamatan.required' => 'Pilih Kekamatan',
             'kelurahan.required' => 'Pilih Kekurahan',
             'pekerjaan.required' => 'Pilih Peperjaan',
-            'warga_negara.required' => 'Pilih Warga negara',
+	    'warga_negara.required' => 'Pilih Warga negara',
+	    'no_telp.required' => 'Masukkan Nomor Telepon',
+	    'no_mobile.required' => 'Masukkan Nomor Hp'
         ]);
 
         if ($validator->fails()) {
@@ -160,8 +162,10 @@ class RumahSakitController extends Controller
 
 			$daftarpoli->pegawai_id = $request->pegawai_id;
 			$daftarpoli->jadwaldokter_id = $request->jadwaldokter_id;
-            $daftarpoli->ruangan_id = $request->ruangan_id;
-            $daftarpoli->tanggal_pesan = $request->pesan_tanggal;
+            		$daftarpoli->ruangan_id = $request->ruangan_id;
+			$daftarpoli->tanggal_pesan = $request->pesan_tanggal;
+			$daftarpoli->no_telp = $request->no_telp;
+			$daftarpoli->no_mobile = $request->no_mobile;
 
 			$num = rand(0, 1000);
 			if ($request->file('file') != null) {
@@ -263,16 +267,16 @@ class RumahSakitController extends Controller
 	}
 
 	public function confirmDaftarPoli(Request $request) {
-		$daftarpoli = \App\DaftarPoli::find($request->id_daftar_poli);
+		$daftarpoli = \App\DaftarPoli::find($request->input('id_daftar_poli'));
         
         if ($daftarpoli->no_rm == '') {
-            $this->addpasienbaru();
+            $this->addpasienbaru($daftarpoli);
         } else {
             try {
                 // add to pendaftaran
                 //$this->pasienadmisi($pasien);
-                $no_rekam_medik = $daftarpoli->no_rekam_medik;
-                $pasien = \App\Pasien::where('no_rekam_medik', $daftarpoli->no_rekam_medik);
+		$no_rekam_medik = $daftarpoli->no_rm;
+		$pasien = \App\Pasien::where('no_rekam_medik', $no_rekam_medik)->first();
                 $pendaftaran = $this->pendaftaran($pasien, $daftarpoli);
                 $daftarpoli->is_confirmed = '1';
                 $daftarpoli->save();
@@ -292,7 +296,7 @@ class RumahSakitController extends Controller
 
     }
 
-    private function addpasienbaru()
+    private function addpasienbaru($daftarpoli)
     {
         $no_rekam_medik = $this->noRekamMedik();
 		$tgl_rekam_medik = date('Y-m-d');
@@ -317,6 +321,8 @@ class RumahSakitController extends Controller
 		$pasien->tgl_rekam_medik = $tgl_rekam_medik;
 		$pasien->statusrekammedis = 'AKTIF';		
 		$pasien->create_loginpemakai_id = 21;
+		$pasien->no_telepon_pasien = $daftarpoli->no_telp;
+		$pasien->no_mobile_pasien = $daftarpoli->no_mobile;
 	
 		$pasien->create_time = date('Y-m-d');
 
@@ -345,6 +351,9 @@ class RumahSakitController extends Controller
     private function pendaftaran($pasien, $daftar_poli) 
     {
         $pendaftaran = new \App\Pendaftaran();
+        //print_r($pasien);
+	//print($pasien->tanggal_lahir);die();
+	
         $from = new \DateTime($pasien->tanggal_lahir);
         $to = new \DateTime('today');
         $year = $from->diff($to)->y;
@@ -367,7 +376,7 @@ class RumahSakitController extends Controller
         $pendaftaran->byphone = false;
         $pendaftaran->kunjunganrumah = false;
         $pendaftaran->statusmasuk = ($daftar_poli->file != '') ? 'RUJUKAN' : 'NON RUJUKAN';
-        $pendaftaran->umur = $year . 'Thn '. $month . ' Bln ' . $day . ' Hr';
+	$pendaftaran->umur = $year . 'Thn '. $month . ' Bln ' . $day . ' Hr';
         $pendaftaran->save();
 
         return $pendaftaran;

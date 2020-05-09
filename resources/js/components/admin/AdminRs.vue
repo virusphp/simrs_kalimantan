@@ -16,8 +16,9 @@
 								<th rowspan="2">No. Rekam Medik</th>
 								<th rowspan="2">Nama Pasien</th>
 								<th rowspan="2">Alamat</th>
-								<th rowspan="2">Tanggal</th>
 								<th colspan="3">Info Poli</th>
+								<th rowspan="2">Tanggal</th>
+								<th rowspan="2">No Telp/No Hp</th>
 								<th rowspan="2">Aksi</th>
 							</tr>
 							<tr>
@@ -38,6 +39,7 @@
 								<td>{{ item.pegawai.nama_pegawai }}</td>
 								<td>{{ item.jadwaldokter.jadwaldokter_hari }} {{ item.jadwaldokter.jadwaldokter_buka }}</td>
 								<td>{{ item.tanggal_pesan }}</td>
+								<td>{{ item.no_hp }}<br>{{ item.no_mobile }}</td>
 								<td><base-button type="primary" class="my-4" @click.prevent="konfirmasi(item, index)">Konfirmasi</base-button></td>
 							</tr>
 						</tbody>

@@ -255,6 +255,32 @@
 										:options="warganegara_lists" v-model="warganegara"></v-select>
 									</div>
 								</div>
+								<div class="form-group row">
+									<label for="WargaNegara" class="col-md-12 col-form-label">Nomor Telepon</label>
+									
+									<div class="col-md-12">
+										
+										<input v-model="notelp" id="no_telp" type="text" 
+										v-bind:class="[ formControl, { 'is-invalid' : noTelpIsInvalid }]" 
+										name="notelp" required autocomplete="name" autofocus>
+										<span v-if="noTelpIsInvalid" style="color: red;">
+											<small>Nomor telepon tidak boleh kosong</small>
+										</span>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label for="WargaNegara" class="col-md-12 col-form-label">Nomor HP</label>
+									
+									<div class="col-md-12">
+										<input v-model="nohp" id="no_hp" type="text" 
+										v-bind:class="[ formControl, { 'is-invalid' : noHpIsInvalid }]" 
+										name="notelp" required autocomplete="name" autofocus>
+										<span v-if="noHpIsInvalid" style="color: red;">
+											<small>Nomor hp tidak boleh kosong</small>
+										</span>
+										
+									</div>
+								</div>
 								
 								<div class="row">
 									<div class="col-6">
@@ -405,9 +431,13 @@ export default {
             no_rekam_medis:'',
             agamaData: false,
             infoFormulir:false,
+	    noTelpIsInvalid: false,
+	    noHpIsInvalid: false,
+	    nohp:'',
+	    notelp:'',
 			pilihPoli:true,
 			file:'',
-			debugOny: true,
+			// debugOny: true,
 		}
 	},
 	methods: {
@@ -503,6 +533,8 @@ export default {
 			formData.append('kelurahan_id', this.kelurahan.kelurahan_id)
 			formData.append('pekerjaan_id', this.pekerjaan.pekerjaan_id)
 			formData.append('warga_negara', this.warganegara)
+			formData.append('no_telp', this.notelp)
+			formData.append('no_mobile', this.nohp)
 			formData.append('agama', this.agama)
             formData.append('pesan_tanggal', this.tanggal_pesan)
 
@@ -695,9 +727,11 @@ export default {
 
         checkValidationPageThree() {
 			if (this.debugOny) return true
-            if (this.pekerjaan == '' || this.warganegara == '') {
+            if (this.pekerjaan == '' || this.warganegara == '' || this.nohp == '' ||  this.notelp == '') {
                 this.pekerjaanIsInvalid = (this.pekerjaan == '')  ? true : false
                 this.warganegaraIsInvalid = this.warganegara == '' ? true : false
+                this.noHpIsInvalid = this.nohp == '' ? true : false
+                this.noTelpIsInvalid = this.notelp == '' ? true : false
                 this.$bvModal.show('modal-error')
 
                 return false

@@ -59,6 +59,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     if (this.$store.state.isAdminLogin == false) {
@@ -275,6 +277,12 @@ var render = function() {
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(item.tanggal_pesan))]),
                       _vm._v(" "),
+                      _c("td", [
+                        _vm._v(_vm._s(item.no_hp)),
+                        _c("br"),
+                        _vm._v(_vm._s(item.no_mobile))
+                      ]),
+                      _vm._v(" "),
                       _c(
                         "td",
                         [
@@ -321,9 +329,11 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { rowspan: "2" } }, [_vm._v("Alamat")]),
         _vm._v(" "),
+        _c("th", { attrs: { colspan: "3" } }, [_vm._v("Info Poli")]),
+        _vm._v(" "),
         _c("th", { attrs: { rowspan: "2" } }, [_vm._v("Tanggal")]),
         _vm._v(" "),
-        _c("th", { attrs: { colspan: "3" } }, [_vm._v("Info Poli")]),
+        _c("th", { attrs: { rowspan: "2" } }, [_vm._v("No Telp/No Hp")]),
         _vm._v(" "),
         _c("th", { attrs: { rowspan: "2" } }, [_vm._v("Aksi")])
       ]),
