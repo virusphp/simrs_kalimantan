@@ -1,3 +1,4 @@
+								<th rowspan="2">Nama Pasien</th>
 <template>
 	<section>
         <b-modal id="modal-1" title="Konfirmasi" @ok="submitKonfirmasiAction" >
@@ -15,6 +16,7 @@
 							<tr>
 								<th rowspan="2">No. Rekam Medik</th>
 								<th rowspan="2">Nama Pasien</th>
+								<th rowspan="2">Keluhan Pasien</th>
 								<th rowspan="2">Alamat</th>
 								<th colspan="3">Info Poli</th>
 								<th rowspan="2">Tanggal</th>
@@ -34,13 +36,18 @@
 							<tr v-for="(item, index) in listDaftarPoli" :key="item.id" :row="row">
 								<td>{{ item.no_rm ? item.no_rm : ' - '}}</td>
 								<td>{{ item.nama_depan }} {{ item.nama_pasien }}</td>
+								<td>{{ item.keluhan_pasien }}</td>
 								<td>{{ item.alamat_pasien }}</td>
 								<td>{{ item.ruangan.ruangan_nama }}</td>
 								<td>{{ item.pegawai.nama_pegawai }}</td>
 								<td>{{ item.jadwaldokter.jadwaldokter_hari }} {{ item.jadwaldokter.jadwaldokter_buka }}</td>
 								<td>{{ item.tanggal_pesan }}</td>
 								<td>{{ item.no_hp }}<br>{{ item.no_mobile }}</td>
-								<td><base-button type="primary" class="my-4" @click.prevent="konfirmasi(item, index)">Konfirmasi</base-button></td>
+								<td>
+                                    <base-button type="primary" class="my-4" @click.prevent="konfirmasi(item, index)">Konfirmasi</base-button>
+                                    <base-button type="success" class="my-4" @click.prevent="riwayatPasien(item, index)">Riwayat Pasien</base-button>
+                                    <base-button type="danger" class="my-4" @click.prevent="gantiPoli(item, index)">Ganti Poli</base-button>
+                                </td>
 							</tr>
 						</tbody>
 					</table>

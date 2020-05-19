@@ -351,6 +351,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
@@ -401,7 +411,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       genderIsInvalid: false,
       gender: '',
       alamat: '',
+      keluhan: '',
       alamatIsInvalid: false,
+      keluhanIsInvalid: false,
       disableSubmit: false,
       formControl: 'form-control',
       pageOneOpen: false,
@@ -465,7 +477,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }]), _defineProperty(_ref, "propinsi", ''), _defineProperty(_ref, "kabupaten", ''), _defineProperty(_ref, "kecamatan", ''), _defineProperty(_ref, "kelurahan", ''), _defineProperty(_ref, "propinsiIsInvalid", false), _defineProperty(_ref, "kabupatenIsInvalid", false), _defineProperty(_ref, "kecamatanIsInvalid", false), _defineProperty(_ref, "kelurahanIsInvalid", false), _defineProperty(_ref, "pekerjaanIsInvalid", false), _defineProperty(_ref, "warganegaraIsInvalid", false), _defineProperty(_ref, "pekerjaan_lists", [{
       pekerjaan_id: -1,
       pekerjaan_nama: 'Loading...'
-    }]), _defineProperty(_ref, "warganegara_lists", ['INDONESIA', 'ASING']), _defineProperty(_ref, "agama_lists", ['ISLAM', 'BUDHA', 'HINDU', 'KATOLIK', 'PROTESTAN', 'KONGHUCU']), _defineProperty(_ref, "pekerjaan", ''), _defineProperty(_ref, "warganegara", ''), _defineProperty(_ref, "agama", ''), _defineProperty(_ref, "dismissCountDown", 0), _defineProperty(_ref, "showDimissibleAlert", false), _defineProperty(_ref, "dismissSecs", 100), _defineProperty(_ref, "submitted", false), _defineProperty(_ref, "allValid", false), _defineProperty(_ref, "no_rekam_medis", ''), _defineProperty(_ref, "agamaData", false), _defineProperty(_ref, "infoFormulir", false), _defineProperty(_ref, "noTelpIsInvalid", false), _defineProperty(_ref, "noHpIsInvalid", false), _defineProperty(_ref, "nohp", ''), _defineProperty(_ref, "notelp", ''), _defineProperty(_ref, "pilihPoli", true), _defineProperty(_ref, "file", ''), _ref;
+    }]), _defineProperty(_ref, "warganegara_lists", ['INDONESIA', 'ASING']), _defineProperty(_ref, "agama_lists", ['ISLAM', 'BUDHA', 'HINDU', 'KATOLIK', 'PROTESTAN', 'KONGHUCU']), _defineProperty(_ref, "pekerjaan", ''), _defineProperty(_ref, "warganegara", ''), _defineProperty(_ref, "agama", ''), _defineProperty(_ref, "dismissCountDown", 0), _defineProperty(_ref, "showDimissibleAlert", false), _defineProperty(_ref, "dismissSecs", 100), _defineProperty(_ref, "submitted", false), _defineProperty(_ref, "allValid", false), _defineProperty(_ref, "no_rekam_medis", ''), _defineProperty(_ref, "agamaData", false), _defineProperty(_ref, "infoFormulir", false), _defineProperty(_ref, "noTelpIsInvalid", false), _defineProperty(_ref, "noHpIsInvalid", false), _defineProperty(_ref, "nohp", ''), _defineProperty(_ref, "notelp", ''), _defineProperty(_ref, "pilihPoli", true), _defineProperty(_ref, "file", ''), _defineProperty(_ref, "debugOny", false), _ref;
   },
   methods: {
     handleFileUpload: function handleFileUpload() {
@@ -591,6 +603,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('no_telp', this.notelp);
       formData.append('no_mobile', this.nohp);
       formData.append('agama', this.agama);
+      formData.append('keluhan_pasien', this.keluhan);
       formData.append('pesan_tanggal', this.tanggal_pesan);
       this.$store.dispatch("submit_action", {
         form: formData,
@@ -744,9 +757,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     checkValidationPageZero: function checkValidationPageZero() {
       if (this.debugOny) return true;
 
-      if (this.hari_jam == '' || this.tanggal_pesan == '') {
+      if (this.hari_jam == '' || this.tanggal_pesan == '' || this.keluhan == '') {
         this.$bvModal.show('modal-error');
         this.tanggalPesanIsInvalid = this.tanggal_pesan == '' ? true : false;
+        this.keluhanIsInvalid = this.keluhan == '' ? true : false;
         return false;
       }
 
@@ -1195,6 +1209,63 @@ var render = function() {
                                     }
                                   }
                                 })
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "form-group row" }, [
+                              _c(
+                                "label",
+                                {
+                                  staticClass: "col-md-12 col-form-label",
+                                  attrs: { for: "alamat" }
+                                },
+                                [_vm._v("Keluhan")]
+                              ),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-md-12" }, [
+                                _c("textarea", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.keluhan,
+                                      expression: "keluhan"
+                                    }
+                                  ],
+                                  class: [
+                                    _vm.formControl,
+                                    { "is-invalid": _vm.keluhanIsInvalid }
+                                  ],
+                                  staticStyle: { width: "100%" },
+                                  attrs: {
+                                    id: "keluhan",
+                                    cols: "100",
+                                    rows: "2",
+                                    name: "keluhan",
+                                    required: ""
+                                  },
+                                  domProps: { value: _vm.keluhan },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.keluhan = $event.target.value
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _vm.keluhanIsInvalid
+                                  ? _c(
+                                      "span",
+                                      { staticStyle: { color: "red" } },
+                                      [
+                                        _c("small", [
+                                          _vm._v("Keluhan tidak boleh kosong")
+                                        ])
+                                      ]
+                                    )
+                                  : _vm._e()
                               ])
                             ]),
                             _vm._v(" "),

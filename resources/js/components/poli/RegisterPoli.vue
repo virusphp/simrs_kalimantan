@@ -66,6 +66,16 @@
 										<input type="file" v-on:change="handleFileUpload()" id="file" ref="file">
 									</div>
 								</div>	
+								<div class="form-group row">
+									<label for="alamat" class="col-md-12 col-form-label">Keluhan</label>
+
+									<div class="col-md-12">
+										<textarea id="keluhan" style="width:100%" cols="100" rows="2" v-bind:class="[formControl, { 'is-invalid': keluhanIsInvalid }]" v-model="keluhan" name="keluhan" required></textarea>
+										<span v-if="keluhanIsInvalid" style="color: red;">
+											<small>Keluhan tidak boleh kosong</small>
+										</span>
+									</div>
+								</div>
 								<div class="text-right">
 									<base-button type="primary" class="my-4" @click.prevent="nextPage(1)">Lanjut &gt;</base-button>
 								</div>
@@ -373,7 +383,9 @@ export default {
             genderIsInvalid:false,
             gender:'',
             alamat:'',
+            keluhan:'',
             alamatIsInvalid: false,
+            keluhanIsInvalid: false,
             disableSubmit: false,
             formControl: 'form-control',
             pageOneOpen: false,
@@ -431,13 +443,13 @@ export default {
             no_rekam_medis:'',
             agamaData: false,
             infoFormulir:false,
-	    noTelpIsInvalid: false,
-	    noHpIsInvalid: false,
-	    nohp:'',
-	    notelp:'',
+            noTelpIsInvalid: false,
+            noHpIsInvalid: false,
+            nohp:'',
+            notelp:'',
 			pilihPoli:true,
 			file:'',
-			// debugOny: true,
+			debugOny: false,
 		}
 	},
 	methods: {
@@ -536,6 +548,7 @@ export default {
 			formData.append('no_telp', this.notelp)
 			formData.append('no_mobile', this.nohp)
 			formData.append('agama', this.agama)
+            formData.append('keluhan_pasien', this.keluhan)
             formData.append('pesan_tanggal', this.tanggal_pesan)
 
 			this.$store.dispatch("submit_action", {
@@ -683,10 +696,11 @@ export default {
 		checkValidationPageZero() {
 			if (this.debugOny) return true
 
-			if (this.hari_jam == '' || this.tanggal_pesan == '') {
+			if (this.hari_jam == '' || this.tanggal_pesan == '' || this.keluhan == '') {
                 this.$bvModal.show('modal-error')
                 this.tanggalPesanIsInvalid = this.tanggal_pesan == '' ? true : false
-				return false
+				this.keluhanIsInvalid = this.keluhan == '' ? true : false
+                return false
 			}
 			return true
 		},

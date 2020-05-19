@@ -98,6 +98,7 @@ class RumahSakitController extends Controller
             'warga_negara' => 'required',
             'agama' => 'required', 
             'tanggal_lahir' => 'required',
+            'keluhan_pasien' => 'required'
 		], [
 			'jeniskelamin.required' => "Pilih Jenis Kelamin",
             'propinsi.required' => 'Pilih Propinsi',
@@ -105,9 +106,10 @@ class RumahSakitController extends Controller
             'kecamatan.required' => 'Pilih Kekamatan',
             'kelurahan.required' => 'Pilih Kekurahan',
             'pekerjaan.required' => 'Pilih Peperjaan',
-	    'warga_negara.required' => 'Pilih Warga negara',
-	    'no_telp.required' => 'Masukkan Nomor Telepon',
-	    'no_mobile.required' => 'Masukkan Nomor Hp'
+            'warga_negara.required' => 'Pilih Warga negara',
+            'no_telp.required' => 'Masukkan Nomor Telepon',
+            'no_mobile.required' => 'Masukkan Nomor Hp',
+            'keluhan_pasien.required' => 'Keluhan tidak boleh kosong',
         ]);
 
         if ($validator->fails()) {
@@ -151,6 +153,7 @@ class RumahSakitController extends Controller
 			$daftarpoli->nama_pasien = $request->nama_pasien;
 			$daftarpoli->jeniskelamin = $request->jeniskelamin; 
 			$daftarpoli->alamat_pasien = $request->alamat_pasien; 
+			$daftarpoli->keluhan_pasien = $request->keluhan_pasien; 
 			$daftarpoli->propinsi_id = $request->propinsi_id;
 			$daftarpoli->kabupaten_id = $request->kabupaten_id;
 			$daftarpoli->kecamatan_id = $request->kecamatan_id;
@@ -162,7 +165,7 @@ class RumahSakitController extends Controller
 
 			$daftarpoli->pegawai_id = $request->pegawai_id;
 			$daftarpoli->jadwaldokter_id = $request->jadwaldokter_id;
-            		$daftarpoli->ruangan_id = $request->ruangan_id;
+            $daftarpoli->ruangan_id = $request->ruangan_id;
 			$daftarpoli->tanggal_pesan = $request->pesan_tanggal;
 			$daftarpoli->no_telp = $request->no_telp;
 			$daftarpoli->no_mobile = $request->no_mobile;
@@ -415,13 +418,15 @@ class RumahSakitController extends Controller
             'ruangan_id' => 'required',
             'jadwaldokter_id' => 'required', 
             'pesan_tanggal' => 'required',
-            'no_rekam_medik' => 'required'
+            'no_rekam_medik' => 'required',
+            'keluhan_pasien' => 'required'
 		], [
 			'pegawai_id.required' => "Pilih Dokter",
             'ruangan_id.required' => 'Pilih Poli',
             'jadwaldokter_id.required' => 'Pilih Jadwal Poli',
             'tanggal_pesan.required' => 'Masukkan Tanggal Pesan',
-            'no_rekam_medik.required' => 'No Rekam Medik tidak boleh kosong'
+            'no_rekam_medik.required' => 'No Rekam Medik tidak boleh kosong',
+            'keluhan_pasien.required' => 'Keluhan tidak boleh kosong',
         ]);
 
         if ($validator->fails()) {
@@ -451,6 +456,7 @@ class RumahSakitController extends Controller
 			$daftarpoli->jadwaldokter_id = $request->jadwaldokter_id;
             $daftarpoli->ruangan_id = $request->ruangan_id;
             $daftarpoli->tanggal_pesan = $request->pesan_tanggal;
+			$daftarpoli->keluhan_pasien = $request->keluhan_pasien; 
 
 			$num = rand(0, 1000);
 			if ($request->file('file') != null) {

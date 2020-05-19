@@ -31,6 +31,7 @@ class PasienController extends Controller
             'warga_negara' => 'required',
             'agama' => 'required', 
             'tanggal_lahir' => 'required',
+            'keluhan_pasien' => 'required',
 		], [
 			'jeniskelamin.required' => "Pilih Jenis Kelamin",
             'propinsi.required' => 'Pilih Propinsi',
@@ -39,6 +40,7 @@ class PasienController extends Controller
             'kelurahan.required' => 'Pilih Kekurahan',
             'pekerjaan.required' => 'Pilih Peperjaan',
             'warga_negara.required' => 'Pilih Warga negara',
+            'keluhan_pasien.required' => 'Keluhan tidak boleh kosong',
         ]);
 
         if ($validator->fails()) {
@@ -82,18 +84,18 @@ class PasienController extends Controller
                 $pasien->{$key} = $val;
 	    }
 
-            $pasien->namadepan = $request->namadepan;
-            $pasien->nama_pasien = $request->nama_pasien;
-            $pasien->jeniskelamin = $request->jeniskelamin; 
-            $pasien->alamat_pasien = $request->alamat_pasien; 
+        $pasien->namadepan = $request->namadepan;
+        $pasien->nama_pasien = $request->nama_pasien;
+        $pasien->jeniskelamin = $request->jeniskelamin; 
+        $pasien->alamat_pasien = $request->alamat_pasien; 
 	    $pasien->propinsi_id = $request->propinsi_id;
 	    $pasien->kabupaten_id = $request->kabupaten_id;
 	    $pasien->kecamatan_id = $request->kecamatan_id;
 	    $pasien->kelurahan_id = $request->kelurahan_id;
 	    $pasien->pekerjaan_id = $request->pekerjaan_id;
 	    $pasien->warga_negara = $request->warga_negara;
-            $pasien->agama = $request->agama; 
-            $pasien->tanggal_lahir = $request->tanggal_lahir;
+        $pasien->agama = $request->agama; 
+        $pasien->tanggal_lahir = $request->tanggal_lahir;
 	    
 	    $pasien->create_time = date('Y-m-d');
 

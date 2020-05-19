@@ -61,6 +61,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     if (this.$store.state.isAdminLogin == false) {
@@ -261,6 +268,8 @@ var render = function() {
                         )
                       ]),
                       _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(item.keluhan_pasien))]),
+                      _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(item.alamat_pasien))]),
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(item.ruangan.ruangan_nama))]),
@@ -299,6 +308,36 @@ var render = function() {
                               }
                             },
                             [_vm._v("Konfirmasi")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "base-button",
+                            {
+                              staticClass: "my-4",
+                              attrs: { type: "success" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.riwayatPasien(item, index)
+                                }
+                              }
+                            },
+                            [_vm._v("Riwayat Pasien")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "base-button",
+                            {
+                              staticClass: "my-4",
+                              attrs: { type: "danger" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.gantiPoli(item, index)
+                                }
+                              }
+                            },
+                            [_vm._v("Ganti Poli")]
                           )
                         ],
                         1
@@ -326,6 +365,8 @@ var staticRenderFns = [
         _c("th", { attrs: { rowspan: "2" } }, [_vm._v("No. Rekam Medik")]),
         _vm._v(" "),
         _c("th", { attrs: { rowspan: "2" } }, [_vm._v("Nama Pasien")]),
+        _vm._v(" "),
+        _c("th", { attrs: { rowspan: "2" } }, [_vm._v("Keluhan Pasien")]),
         _vm._v(" "),
         _c("th", { attrs: { rowspan: "2" } }, [_vm._v("Alamat")]),
         _vm._v(" "),
@@ -367,6 +408,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AdminRs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminRs.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/AdminRs.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _AdminRs_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AdminRs.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/admin/AdminRs.vue?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _AdminRs_vue_vue_type_custom_index_0_blockType_th_rowspan_2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./AdminRs.vue?vue&type=custom&index=0&blockType=th&rowspan=2 */ "./resources/js/components/admin/AdminRs.vue?vue&type=custom&index=0&blockType=th&rowspan=2");
+/* harmony import */ var _AdminRs_vue_vue_type_custom_index_0_blockType_th_rowspan_2__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_AdminRs_vue_vue_type_custom_index_0_blockType_th_rowspan_2__WEBPACK_IMPORTED_MODULE_4__);
 
 
 
@@ -386,10 +429,25 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   
 )
 
+/* custom blocks */
+
+if (typeof _AdminRs_vue_vue_type_custom_index_0_blockType_th_rowspan_2__WEBPACK_IMPORTED_MODULE_4___default.a === 'function') _AdminRs_vue_vue_type_custom_index_0_blockType_th_rowspan_2__WEBPACK_IMPORTED_MODULE_4___default()(component)
+
 /* hot reload */
 if (false) { var api; }
 component.options.__file = "resources/js/components/admin/AdminRs.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/AdminRs.vue?vue&type=custom&index=0&blockType=th&rowspan=2":
+/*!**************************************************************************************************!*\
+  !*** ./resources/js/components/admin/AdminRs.vue?vue&type=custom&index=0&blockType=th&rowspan=2 ***!
+  \**************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
 
 /***/ }),
 

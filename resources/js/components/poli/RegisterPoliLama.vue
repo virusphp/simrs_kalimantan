@@ -66,6 +66,16 @@
 										<input type="file" v-on:change="handleFileUpload()" id="file" ref="file">
 									</div>
 								</div>	
+								<div class="form-group row">
+									<label for="alamat" class="col-md-12 col-form-label">Keluhan</label>
+
+									<div class="col-md-12">
+										<textarea id="keluhan" style="width:100%" cols="100" rows="2" v-bind:class="[formControl, { 'is-invalid': keluhanIsInvalid }]" v-model="keluhan" name="keluhan" required></textarea>
+										<span v-if="keluhanIsInvalid" style="color: red;">
+											<small>Keluhan tidak boleh kosong</small>
+										</span>
+									</div>
+								</div>
 								<div class="text-right">
 									<base-button type="primary" class="my-4" @click.prevent="nextPage(4)">Lanjut &gt;</base-button>
 								</div>
@@ -272,7 +282,7 @@
 										<p>Tolong Periksa Kembali data yang diisikan di dalam formulir, apabila telah yakin dapat melanjutkan
 											dengan menekan tombol "Submit" di bawah ini
 										</p>
-									</div>r
+									</div>
 								</div>
 								<div class="row">    
 									<div class="col-5">Poli</div><div class="col-7">{{ nama_poli.ruangan_nama }}</div>
@@ -350,7 +360,9 @@ export default {
             genderIsInvalid:false,
             gender:'',
             alamat:'',
+            keluhan:'',
             alamatIsInvalid: false,
+            keluhanIsInvalid: false,
             disableSubmit: false,
             formControl: 'form-control',
             pageOneOpen: false,
@@ -410,7 +422,7 @@ export default {
             infoFormulir:false,
 			pilihPoli:true,
 			file:'',
-			debugOny: true,
+			debugOnly: false,
 		}
 	},
 	methods: {
@@ -500,6 +512,7 @@ export default {
 			formData.append('jadwaldokter_id', this.hari_jam.jadwaldokter_id)
 			formData.append('file', this.file)
 			formData.append('no_rekam_medik', this.no_rekam_medik)
+			formData.append('keluhan_pasien', this.keluhan)
             formData.append('pesan_tanggal', this.tanggal_pesan)
 
 			this.$store.dispatch("submit_action", {
@@ -630,18 +643,19 @@ export default {
         },
 
 		checkValidationPageZero() {
-			if (this.debugOny) return true
+			if (this.debugOnly) return true
 
-			if (this.hari_jam == '' || this.tanggal_pesan == '') {
+			if (this.hari_jam == '' || this.tanggal_pesan == '' || this.keluhan == '') {
                 this.$bvModal.show('modal-error')
                 this.tanggalPesanIsInvalid = this.tanggal_pesan == '' ? true : false
-				return false
+				this.keluhanIsInvalid = this.keluhan == '' ? true : false
+                return false
 			}
 			return true
 		},
 
         checkValidationPageOne() {
-			if(this.debugOny)  return true
+			if(this.debugOnly)  return true
 			console.log('check val');
             if (this.nama_depan == '' || this.nama == '' || this.day == '' || this.month == '' || this.year == '' || this.gender == '' || this.agama == '') {
                 this.namaDepanIsInvalid = (this.nama_depan == '')  ? true : false
@@ -659,7 +673,7 @@ export default {
         },
 
         checkValidationPageTwo() {
-			if(this.debugOny) return true
+			if(this.debugOnly) return true
             if (this.alamat == '' || this.propinsi == '' || this.kabupaten == '' || this.kecamatan == '' || this.kelurahan == '') {
                 this.alamatIsInvalid = (this.alamat == '')  ? true : false
                 this.propinsiIsInvalid = this.propinsi == '' ? true : false
@@ -675,7 +689,7 @@ export default {
         },
 
         checkValidationPageThree() {
-			if (this.debugOny) return true
+			if (this.debugOnly) return true
             if (this.pekerjaan == '' || this.warganegara == '') {
                 this.pekerjaanIsInvalid = (this.pekerjaan == '')  ? true : false
                 this.warganegaraIsInvalid = this.warganegara == '' ? true : false
