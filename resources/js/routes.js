@@ -14,6 +14,8 @@ const RegisterPoli = () => import('./components/poli/RegisterPoli.vue');
 const RegisterPoliLama = () => import('./components/poli/RegisterPoliLama.vue');
 const AdminRs = () => import('./components/admin/AdminRs.vue');
 const AdminRsLogin = () => import('./components/admin/AdminRsLogin.vue');
+const AdminRsRiwayatPasien = () => import('./components/admin/AdminRsRiwayatPasien.vue');
+const AdminRsGantiPoli = () => import('./components/admin/AdminRsGantiPoli.vue');
 
 export default {
 	routes :[
@@ -63,6 +65,18 @@ export default {
             path: '/registerpolilama',
             components: {
                 default: RegisterPoliLama
+            }
+        },
+        {
+            path: '/riwayatpasien',
+            components: {
+                default: AdminRsRiwayatPasien
+            }
+        },
+        {
+            path: '/gantipoli',
+            components: {
+                default: AdminRsGantiPoli
             }
         }
 	]

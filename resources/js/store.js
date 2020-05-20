@@ -18,6 +18,8 @@ export default new Vuex.Store({
 		refresh_token: -1,
         noRekamMedis: 0,
         data_pasien_curr: [],
+        no_rm_curr : 0,
+        curr_id : 0,
 	},
 	mutations: {
 		auth_request(state) {
@@ -68,6 +70,12 @@ export default new Vuex.Store({
         },
         datapasien(state, data_pasien_curr) {
             state.data_pasien_curr = data_pasien_curr
+        },
+        set_curr_rekam_medis(state, norekammedis) {
+            state.no_rm_curr = norekammedis
+        },
+        set_curr_id(state, id) {
+            state.curr_id = id
         }
 	},
 	actions: {

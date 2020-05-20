@@ -1,6 +1,6 @@
-								<th rowspan="2">Nama Pasien</th>
 <template>
 	<section>
+    
         <b-modal id="modal-1" title="Konfirmasi" @ok="submitKonfirmasiAction" >
             Anda ingin meneruskan Registrasi Calon Pasien {{ nama_pasien }}?	
         </b-modal>
@@ -11,7 +11,7 @@
 			<div class="card">
 				<div class="card-body">
 					<div class="card-title">Halaman Konfirmasi Daftar Poli</div>
-					<table class="table table-responsive">
+					<table class="table table-responsive table-striped">
 						<thead>
 							<tr>
 								<th rowspan="2">No. Rekam Medik</th>
@@ -44,9 +44,11 @@
 								<td>{{ item.tanggal_pesan }}</td>
 								<td>{{ item.no_hp }}<br>{{ item.no_mobile }}</td>
 								<td>
-                                    <base-button type="primary" class="my-4" @click.prevent="konfirmasi(item, index)">Konfirmasi</base-button>
-                                    <base-button type="success" class="my-4" @click.prevent="riwayatPasien(item, index)">Riwayat Pasien</base-button>
-                                    <base-button type="danger" class="my-4" @click.prevent="gantiPoli(item, index)">Ganti Poli</base-button>
+                                    <div class="btn-group">
+                                        <base-button type="primary" class="my-4" @click.prevent="konfirmasi(item, index)">Konfirmasi</base-button>
+                                        <base-button v-if="item.no_rm" type="success" class="my-4" @click.prevent="riwayatPasien(item, index)">Riwayat Pasien</base-button>
+                                        <base-button type="danger" class="my-4" @click.prevent="gantiPoli(item, index)">Ganti Poli</base-button>
+                                    </div>
                                 </td>
 							</tr>
 						</tbody>
@@ -113,7 +115,17 @@ export default {
                     this.$bvModal.show('modal-s')
                 }
             })
-		}
+		},
+        riwayatPasien(item, index) {
+            this.$store.commit('set_curr_rekam_medis', item.no_rm)
+            console.log(this.$store.state.no_rm_curr)
+            this.$route.push('/riwayatpasien')
+        },
+        gantiPoli(item, index) {
+            this.$store.commit('set_curr_id', item.id)
+            console.log(this.$store.state.curr_id)
+            this.$router.push('/gantipoli')
+        }
 	}
 }
 </script>

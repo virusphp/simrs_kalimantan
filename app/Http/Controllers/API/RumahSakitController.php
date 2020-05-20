@@ -267,6 +267,13 @@ class RumahSakitController extends Controller
 	public function getDaftarPoli() {
 		return \Response::json(\App\DaftarPoli::where('is_confirmed', '=', '0')->
 			with('ruangan', 'pegawai', 'jadwaldokter')->get());
+    }
+
+	public function getDaftarPoliById(Request $request) {
+		return \Response::json(\App\DaftarPoli::where('is_confirmed', '=', '0')->
+            with('ruangan', 'pegawai', 'jadwaldokter')
+                ->where('id', $request->id)
+                ->first());
 	}
 
 	public function confirmDaftarPoli(Request $request) {

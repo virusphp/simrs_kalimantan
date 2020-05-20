@@ -68,6 +68,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     if (this.$store.state.isAdminLogin == false) {
@@ -130,6 +132,16 @@ __webpack_require__.r(__webpack_exports__);
           _this2.$bvModal.show('modal-s');
         }
       });
+    },
+    riwayatPasien: function riwayatPasien(item, index) {
+      this.$store.commit('set_curr_rekam_medis', item.no_rm);
+      console.log(this.$store.state.no_rm_curr);
+      this.$route.push('/riwayatpasien');
+    },
+    gantiPoli: function gantiPoli(item, index) {
+      this.$store.commit('set_curr_id', item.id);
+      console.log(this.$store.state.curr_id);
+      this.$router.push('/gantipoli');
     }
   }
 });
@@ -234,120 +246,136 @@ var render = function() {
               _vm._v("Halaman Konfirmasi Daftar Poli")
             ]),
             _vm._v(" "),
-            _c("table", { staticClass: "table table-responsive" }, [
-              _vm._m(0),
-              _vm._v(" "),
-              _c(
-                "tbody",
-                [
-                  _vm.notLoaded
-                    ? _c("tr", [
-                        _c(
-                          "td",
-                          {
-                            staticStyle: { "text-align": "left !important" },
-                            attrs: { colspan: "7" }
-                          },
-                          [_c("center", [_vm._v(_vm._s(_vm.loadingText))])],
-                          1
-                        )
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm._l(_vm.listDaftarPoli, function(item, index) {
-                    return _c("tr", { key: item.id, attrs: { row: _vm.row } }, [
-                      _c("td", [
-                        _vm._v(_vm._s(item.no_rm ? item.no_rm : " - "))
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(
-                          _vm._s(item.nama_depan) +
-                            " " +
-                            _vm._s(item.nama_pasien)
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(item.keluhan_pasien))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(item.alamat_pasien))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(item.ruangan.ruangan_nama))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(item.pegawai.nama_pegawai))]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(
-                          _vm._s(item.jadwaldokter.jadwaldokter_hari) +
-                            " " +
-                            _vm._s(item.jadwaldokter.jadwaldokter_buka)
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(item.tanggal_pesan))]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(_vm._s(item.no_hp)),
-                        _c("br"),
-                        _vm._v(_vm._s(item.no_mobile))
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        [
+            _c(
+              "table",
+              { staticClass: "table table-responsive table-striped" },
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  [
+                    _vm.notLoaded
+                      ? _c("tr", [
                           _c(
-                            "base-button",
+                            "td",
                             {
-                              staticClass: "my-4",
-                              attrs: { type: "primary" },
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  return _vm.konfirmasi(item, index)
-                                }
-                              }
+                              staticStyle: { "text-align": "left !important" },
+                              attrs: { colspan: "7" }
                             },
-                            [_vm._v("Konfirmasi")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "base-button",
-                            {
-                              staticClass: "my-4",
-                              attrs: { type: "success" },
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  return _vm.riwayatPasien(item, index)
-                                }
-                              }
-                            },
-                            [_vm._v("Riwayat Pasien")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "base-button",
-                            {
-                              staticClass: "my-4",
-                              attrs: { type: "danger" },
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  return _vm.gantiPoli(item, index)
-                                }
-                              }
-                            },
-                            [_vm._v("Ganti Poli")]
+                            [_c("center", [_vm._v(_vm._s(_vm.loadingText))])],
+                            1
                           )
-                        ],
-                        1
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm._l(_vm.listDaftarPoli, function(item, index) {
+                      return _c(
+                        "tr",
+                        { key: item.id, attrs: { row: _vm.row } },
+                        [
+                          _c("td", [
+                            _vm._v(_vm._s(item.no_rm ? item.no_rm : " - "))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(
+                              _vm._s(item.nama_depan) +
+                                " " +
+                                _vm._s(item.nama_pasien)
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(item.keluhan_pasien))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(item.alamat_pasien))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(item.ruangan.ruangan_nama))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(item.pegawai.nama_pegawai))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(
+                              _vm._s(item.jadwaldokter.jadwaldokter_hari) +
+                                " " +
+                                _vm._s(item.jadwaldokter.jadwaldokter_buka)
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(item.tanggal_pesan))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(_vm._s(item.no_hp)),
+                            _c("br"),
+                            _vm._v(_vm._s(item.no_mobile))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c(
+                              "div",
+                              { staticClass: "btn-group" },
+                              [
+                                _c(
+                                  "base-button",
+                                  {
+                                    staticClass: "my-4",
+                                    attrs: { type: "primary" },
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        return _vm.konfirmasi(item, index)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Konfirmasi")]
+                                ),
+                                _vm._v(" "),
+                                item.no_rm
+                                  ? _c(
+                                      "base-button",
+                                      {
+                                        staticClass: "my-4",
+                                        attrs: { type: "success" },
+                                        on: {
+                                          click: function($event) {
+                                            $event.preventDefault()
+                                            return _vm.riwayatPasien(
+                                              item,
+                                              index
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("Riwayat Pasien")]
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _c(
+                                  "base-button",
+                                  {
+                                    staticClass: "my-4",
+                                    attrs: { type: "danger" },
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        return _vm.gantiPoli(item, index)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Ganti Poli")]
+                                )
+                              ],
+                              1
+                            )
+                          ])
+                        ]
                       )
-                    ])
-                  })
-                ],
-                2
-              )
-            ])
+                    })
+                  ],
+                  2
+                )
+              ]
+            )
           ])
         ])
       ])
@@ -408,8 +436,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AdminRs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminRs.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/AdminRs.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _AdminRs_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AdminRs.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/admin/AdminRs.vue?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-/* harmony import */ var _AdminRs_vue_vue_type_custom_index_0_blockType_th_rowspan_2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./AdminRs.vue?vue&type=custom&index=0&blockType=th&rowspan=2 */ "./resources/js/components/admin/AdminRs.vue?vue&type=custom&index=0&blockType=th&rowspan=2");
-/* harmony import */ var _AdminRs_vue_vue_type_custom_index_0_blockType_th_rowspan_2__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_AdminRs_vue_vue_type_custom_index_0_blockType_th_rowspan_2__WEBPACK_IMPORTED_MODULE_4__);
 
 
 
@@ -429,25 +455,10 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   
 )
 
-/* custom blocks */
-
-if (typeof _AdminRs_vue_vue_type_custom_index_0_blockType_th_rowspan_2__WEBPACK_IMPORTED_MODULE_4___default.a === 'function') _AdminRs_vue_vue_type_custom_index_0_blockType_th_rowspan_2__WEBPACK_IMPORTED_MODULE_4___default()(component)
-
 /* hot reload */
 if (false) { var api; }
 component.options.__file = "resources/js/components/admin/AdminRs.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/components/admin/AdminRs.vue?vue&type=custom&index=0&blockType=th&rowspan=2":
-/*!**************************************************************************************************!*\
-  !*** ./resources/js/components/admin/AdminRs.vue?vue&type=custom&index=0&blockType=th&rowspan=2 ***!
-  \**************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-
 
 /***/ }),
 
