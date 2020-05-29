@@ -55,7 +55,9 @@ Route::group(['middleware' => ['apiauth']], function (){
     Route::get('listdaftarpoli', 'API\RumahSakitController@getDaftarPoli');
     Route::get('listdaftarpolibyid', 'API\RumahSakitController@getDaftarPoliById');
     Route::post('addAsPasien', 'API\RumahSakitController@confirmDaftarPoli');
+    Route::post('gantiPoli', 'API\RumahSakitController@gantipoli');
 });
 
+    Route::get('riwayatpasien', 'API\RumahSakitController@riwayatpasien');
 
 Route::get('show', 'API\PasienController@show');

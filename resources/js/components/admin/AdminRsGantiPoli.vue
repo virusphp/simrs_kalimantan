@@ -1,8 +1,14 @@
 <template>
 	<div class="container">
 		<div class="mt-4">
+            <b-modal id="modal-loading" title="Sedang Proses">
+                    Tunggu, sedang proses penyimpanan	
+            </b-modal>
             <b-modal id="modal-1" title="Konfirmasi" @ok="submitKonfirmasiAction" >
                 Anda ingin meneruskan Mengganti Poli dari Calon Pasien {{ nama_pasien }}?	
+            </b-modal>
+            <b-modal id="modal-error" title="Perhatian">
+                Isi semua data di dalam formulir	
             </b-modal>
             <b-modal id="modal-s" title="Info" @ok="goToList" >
                 Berhasil di konfirmasi, Lakukan Konfirmasi Lagi untuk Memasukkan Calon Pasien Menjadi Pasien
@@ -14,29 +20,31 @@
                             body-classes="px-lg-5 py-lg-5"
                             class="border-0">
                             <template>
-                                <table class="table table-striped text-center`">
-                                    <tbody>
-                                        <tr v-if="loaded"><td colspan="2">Loading...</td></tr>
-                                        <tr v-for="(value, name) in dataCalonPasien">
-                                        <td>{{ name.replace('_', ' ') }}</td>
-                                            <td>{{ value }}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>	
-								<div class="row">
-									<div class="col-6">
-										<base-button type="danger" class="my-4" @click.prevent="goToList">&lt; Kembali</base-button>
-									</div>
-									<div class="col-6 text-right">
-										<base-button type="primary" class="my-4 text-right" @click.prevent="gantiPoli"> Ganti Poli</base-button>
-									</div>
-								</div>
+                                <section v-if="dataPasien">
+                                    <table class="table table-striped text-center">
+                                        <tbody>
+                                            <tr v-if="loaded"><td colspan="2">Loading...</td></tr>
+                                            <tr v-for="(value, name) in dataCalonPasien">
+                                            <td>{{ name.replace('_', ' ') }}</td>
+                                                <td>{{ value }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>	
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <base-button type="danger" class="my-4" @click.prevent="goToList">&lt; Kembali</base-button>
+                                        </div>
+                                        <div class="col-6 text-right">
+                                            <base-button type="primary" class="my-4 text-right" @click.prevent="gantiPoli"> Ganti Poli</base-button>
+                                        </div>
+                                    </div>
+                                </section>
                                 <section v-if="pilihPoli">
                                     <div class="form-group row">
                                         <label for="Poli" class="col-md-12 col-form-label">Poli</label>
                                             
                                         <div class="col-md-12">
-                                        <v-select v-bind:class="[ 'white-box mb-3' ]" :options="nama_poli_lists" 
+                                        <v-select v-bind:class="[ 'white-box mb-3', { 'is-invalid' : ruanganIsInvalid  }]" :options="nama_poli_lists" 
                                         v-model="nama_poli" label="ruangan_nama" autofocus @input="getDokter"></v-select>
                                         </div>
                                     </div>
@@ -44,7 +52,7 @@
                                         <label for="Poli" class="col-md-12 col-form-label">Dokter</label>
                                             
                                         <div class="col-md-12">
-                                        <v-select v-bind:class="[ 'white-box mb-3' ]" :options="nama_dokter_lists" 
+                                        <v-select v-bind:class="[ 'white-box mb-3', {'is-invalid' : pegawaiIsInvalid} ]" :options="nama_dokter_lists" 
                                         v-model="nama_dokter" label="nama_pegawai" autofocus @input="getJadwalPoli"></v-select>
                                         </div>
                                     </div>
@@ -52,7 +60,7 @@
                                         <label for="hari_jam" class="col-md-12 col-form-label">Pilih Hari dan Jam</label>
                                             
                                         <div class="col-md-12">
-                                            <v-select v-bind:class="[ 'white-box mb-3' ]" :options="polibuka_lists" 
+                                            <v-select v-bind:class="[ 'white-box mb-3', { 'is-invalid' : hariJamIsInvlid } ]" :options="polibuka_lists" 
                                                 v-model="hari_jam" label="buka" autofocus></v-select>
                                         </div>
                                     </div>	
@@ -63,25 +71,13 @@
                                             <input type="date" v-model="tanggal_pesan" v-bind:class="[formControl, { 'is-invalid': tanggalPesanIsInvalid }]" >
                                         </div>
                                     </div>	
-                                    <div class="form-group row">
-                                        <label for="hari_jam" class="col-md-12 col-form-label">Upload Foto/Scan Rujukan BPJS</label>
-                                            
-                                        <div class="col-md-12">
-                                            <input type="file" v-on:change="handleFileUpload()" id="file" ref="file">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <base-button type="danger" class="my-4" @click.prevent="goBack">&lt; Kembali</base-button>
                                         </div>
-                                    </div>	
-                                    <div class="form-group row">
-                                        <label for="alamat" class="col-md-12 col-form-label">Keluhan</label>
-
-                                        <div class="col-md-12">
-                                            <textarea id="keluhan" style="width:100%" cols="100" rows="2" v-bind:class="[formControl, { 'is-invalid': keluhanIsInvalid }]" v-model="keluhan" name="keluhan" required></textarea>
-                                            <span v-if="keluhanIsInvalid" style="color: red;">
-                                                <small>Keluhan tidak boleh kosong</small>
-                                            </span>
+                                        <div class="col-6 text-right">
+                                            <base-button type="primary" class="my-4 text-right" @click.prevent="gantiPoliConfirm"> Ganti Poli</base-button>
                                         </div>
-                                    </div>
-                                    <div class="text-right">
-                                        <base-button type="primary" class="my-4" @click.prevent="nextPage(1)">Lanjut &gt;</base-button>
                                     </div>
                                 </section>
 
@@ -95,6 +91,8 @@
 </template>
 
 <script>
+import vSelect from 'vue-select';
+
 export default {
     mounted() {
 		if (this.$store.state.isAdminLogin == false) {
@@ -112,25 +110,34 @@ export default {
             console.log(this.dataFetch)
             this.loaded = false
         })
+		this.getPoliLists()
+    },
+    components: {
+        vSelect,        
     },
     data() {
         return {
+            dataPasien: true,
             nama_pasien: '',
             id_daftar_poli: 0,
             dataFetch: {},
             dataCalonPasien: {},
             loaded: true,
-			pilihPoli: true,
-			nama_poli: '',
+			pilihPoli: false,
+			nama_poli: [{ ruangan_id : '', ruangan_nama: ''}],
 			nama_poli_lists: [{ ruangan_id:-1, ruangan_nama: 'Loading ....'}],
 			nama_dokter_lists: [{ pegawai_id:-1, nama_pegawai: 'Pilih Dokter'}],
 			polibuka_lists: [{ jadwalbukapoli_id:-1, buka: 'Pilih Jadwal'}],
             propinsi_lists : [{ propinsi_id: -1, propinsi_nama: 'Loading...'}],
-			namaPoliIsInvalid: false,
-			nama_dokter:'',
-			hari_jam:'',
+			ruanganIsInvalid: false,
+            pegawaiIsInvalid: false,
+            hariJamIsInvlid: false,
+			nama_dokter:[{ pegawai_id: '', nama_pegawai: '' }],
+			hari_jam:[{ jadwaldokter_id: '', buka: '' }],
 			tanggal_pesan:'',
 			debugOny: false,
+            formControl: 'form-control',
+            tanggalPesanIsInvalid:false,
         }
     },
     methods: {
@@ -150,19 +157,55 @@ export default {
                 No_HP: data.no_mobile,
             }
         },
-        gantiPoliConfirm() {
-            this.$bvModal.show('modal-1')
+        gantiPoli() {
+            this.pilihPoli = true
+            this.dataPasien = false
         },
+        goBack() {
+            this.pilihPoli = false
+            this.dataPasien = true
+        },
+        gantiPoliConfirm() {
+            if ( this.validAll() ) {
+                this.$bvModal.show('modal-1')
+            }
+        },
+
+        validAll() {
+			if (this.hari_jam == '' || this.nama_dokter.pegawai_id == '' || this.hari_jam.jadwaldokter_id == ''  || this.tanggal_pesan == '' || this.nama_poli.ruangan_id == '') {
+                this.$bvModal.show('modal-error')
+                this.tanggalPesanIsInvalid = this.tanggal_pesan == '' ? true : false
+                this.ruanganIsInvalid = this.nama_poli.ruangan_id == '' ? true : false
+                this.pegawaiIsInvalid = this.nama_dokter.pegawai_id == '' ? true : false
+                this.hariJamIsInvlid = this.hari_jam.jadwaldokter_id == '' ? true : false
+
+                return false
+			}
+            
+            return true
+        },
+
         submitKonfirmasiAction() {
+            this.$bvModal.show('modal-loading')
+
 			let data = new FormData()
-			data.append('id_daftar_poli', this.currentIdDaftarPoli)
+			data.append('id_daftar_poli', this.id_daftar_poli)
+            data.append('ruangan_id', this.nama_poli.ruangan_id)
+            data.append('pegawai_id', this.nama_dokter.pegawai_id)
+            data.append('jadwaldokter_id', this.hari_jam.jadwaldokter_id)
+            data.append('tanggal_pesan', this.tanggal_pesan)
 			this.$store.dispatch('submit_action', {
 				endpoint: 'gantiPoli',
 				form:data
 			}).then(resp => {
-                if (resp.status == 'Success') {
-                    this.$bvModal.show('modal-s')
+                console.log(resp.data.status)
+                if (resp.data.status == 'Success') {
+					this.$bvModal.msgBoxOk("Anda berhasil merubah Poli")
+							.then(value => {
+								this.goToList()
+							})
                 }
+                this.$bvModal.hide('modal-loading')
             })
         },
         goToList() {

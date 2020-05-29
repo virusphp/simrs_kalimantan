@@ -495,5 +495,32 @@ class RumahSakitController extends Controller
         // print_r((Array)$request);
 		// die();
 		 }
-	}
+    }
+
+    public function gantipoli(Request $request)
+    {
+        $daftarpoli = \App\DaftarPoli::find($request->id_daftar_poli);
+        
+        $arr = $daftarpoli->toArray();
+        $toJson = json_encode($arr);
+        $toArray = json_decode($toJson, true);
+        
+        $daftarpoli->pegawai_id = $request->pegawai_id;
+        $daftarpoli->ruangan_id = $request->ruangan_id;
+        $daftarpoli->jadwaldokter_id = $request->jadwaldokter_id;
+        $daftarpoli->tanggal_pesan = $request->tanggal_pesan;
+        
+        try {
+            $saved = $daftarpoli->save();
+            if ($saved) {
+                return \Response::json([
+                    'prev' => $toArray,
+                    'status' => 'Success'
+                ]);
+            }
+            // return $toArray;
+        } catch (\Exception $ex) {
+            return $ex->getMessage();
+        } 
+    }
 }

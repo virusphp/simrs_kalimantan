@@ -119,7 +119,7 @@ export default {
         riwayatPasien(item, index) {
             this.$store.commit('set_curr_rekam_medis', item.no_rm)
             console.log(this.$store.state.no_rm_curr)
-            this.$route.push('/riwayatpasien')
+            this.$router.push('/riwayatpasien')
         },
         gantiPoli(item, index) {
             this.$store.commit('set_curr_id', item.id)

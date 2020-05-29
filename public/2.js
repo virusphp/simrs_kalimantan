@@ -136,7 +136,7 @@ __webpack_require__.r(__webpack_exports__);
     riwayatPasien: function riwayatPasien(item, index) {
       this.$store.commit('set_curr_rekam_medis', item.no_rm);
       console.log(this.$store.state.no_rm_curr);
-      this.$route.push('/riwayatpasien');
+      this.$router.push('/riwayatpasien');
     },
     gantiPoli: function gantiPoli(item, index) {
       this.$store.commit('set_curr_id', item.id);

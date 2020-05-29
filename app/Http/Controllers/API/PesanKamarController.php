@@ -289,6 +289,6 @@ class PesanKamarController extends Controller
 				->get();
 		
 		return response()->json($pesankamar)->setStatusCode(200, "Good");
-	}
+    }
 
 }
