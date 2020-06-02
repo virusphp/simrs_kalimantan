@@ -523,4 +523,41 @@ class RumahSakitController extends Controller
             return $ex->getMessage();
         } 
     }
+
+    public function riwayatpasien(Request $request)
+    {
+
+        try {
+            $idpasien = \App\Pasien::select('pasien_id')->where('no_rekam_medik', $request->no_rekam_medik)->first();
+
+            if ( $idpasien !== null) {
+
+                $pasien_id = $idpasien->pasien_id;
+                $riwayatpasien = \App\Pendaftaran::where('pasien_id', $pasien_id)
+                    ->where('pasienbatalperiksa_id', null)
+                    ->with('pasien', 'instalasi', 'ruangan' , 'jeniskasuspenyakit')
+                    ->get();
+                
+                return \Response::json($riwayatpasien);
+
+            } 
+        } catch (\Exception $ex) {
+            return $ex->getMessage();
+        } 
+    }
+
+    public function pasien(Request $request)
+    {
+        try {
+            $pasien = \App\Pasien::where('no_rekam_medik', $request->no_rekam_medik)
+                ->with('kecamatan', 'kabupaten', 'kelurahan', 'provinsi')
+                ->first();
+            if ( $pasien !== null) {
+                return \Response::json($pasien);
+            }
+        } catch (\Exception $ex) {
+            return $ex->getMessage();
+        } 
+
+    }
 }

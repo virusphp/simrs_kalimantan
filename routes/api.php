@@ -59,5 +59,6 @@ Route::group(['middleware' => ['apiauth']], function (){
 });
 
     Route::get('riwayatpasien', 'API\RumahSakitController@riwayatpasien');
+    Route::get('pasien', 'API\RumahSakitController@pasien');
 
 Route::get('show', 'API\PasienController@show');
